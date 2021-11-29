@@ -1,9 +1,8 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/screen/home/home_screen.dart';
+import 'package:kolearn/home_page.dart';
 
 class LoginBtn extends StatelessWidget {
   const LoginBtn({
@@ -27,9 +26,7 @@ class LoginBtn extends StatelessWidget {
             );
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                builder: (context) => HomeScreen(),
-              ),
+              MaterialPageRoute(builder: (context) => HomePage()),
             );
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(

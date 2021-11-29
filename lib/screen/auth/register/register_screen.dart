@@ -142,12 +142,12 @@ class RegisterScreen extends StatelessWidget {
 }
 
 class _InputField extends StatelessWidget {
-  _InputField({
+  const _InputField({
     required this.hint,
     Key? key,
   }) : super(key: key);
 
-  String hint;
+  final String hint;
 
   @override
   Widget build(BuildContext context) {

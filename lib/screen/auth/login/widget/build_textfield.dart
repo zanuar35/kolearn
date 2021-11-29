@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BuildTextField extends StatelessWidget {
-  BuildTextField({
+  const BuildTextField({
     required this.isEmail,
     required this.icons,
     required this.controller,
@@ -13,11 +13,11 @@ class BuildTextField extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  String hint;
-  bool obstext;
-  bool isEmail;
-  IconData icons;
-  TextEditingController controller;
+  final String hint;
+  final bool obstext;
+  final bool isEmail;
+  final IconData icons;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
