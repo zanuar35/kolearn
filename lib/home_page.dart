@@ -24,8 +24,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [
     const HomeScreen(),
     const MyCourse(),
-    const AccountPage(),
     const NotifScreen(),
+    const AccountPage(),
   ];
 
   @override
