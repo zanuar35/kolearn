@@ -27,8 +27,7 @@ class AccountPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Flexible(
-              fit: FlexFit.loose,
+            Expanded(
               child: Container(
                 padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
                 width: double.infinity,
@@ -111,8 +110,7 @@ class AccountPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Flexible(
-              fit: FlexFit.loose,
+            Expanded(
               child: Container(
                   padding:
                       EdgeInsets.symmetric(horizontal: 30.w, vertical: 17.h),
@@ -151,8 +149,7 @@ class AccountPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Flexible(
-              fit: FlexFit.loose,
+            Expanded(
               child: Container(
                   padding:
                       EdgeInsets.symmetric(horizontal: 30.h, vertical: 17.w),

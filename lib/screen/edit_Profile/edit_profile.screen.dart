@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/edit_Profile/widget/dropdown_btn.dart';
+import 'package:kolearn/screen/edit_Profile/widget/input_textfield.dart';
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
 
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,28 +77,63 @@ class EditProfile extends StatelessWidget {
           Flexible(
               child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
-            color: Colors.green.shade100,
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text("Nama"),
-                TextFormField(),
+                const Text(
+                  "Nama",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                const InputTextField(),
                 SizedBox(
                   height: 25.h,
                 ),
-                const Text("Nama"),
-                TextFormField(),
+                const Text(
+                  "Email",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                const InputTextField(),
                 SizedBox(
                   height: 25.h,
                 ),
-                const Text("Nama"),
-                TextFormField(),
+                const Text(
+                  "No Ponsel",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                const InputTextField(),
                 SizedBox(
                   height: 25.h,
                 ),
-                const Text("Nama"),
-                TextFormField(),
+                const Text(
+                  "Gender",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                const GenderDropdownBtn(),
                 SizedBox(
                   height: 35.h,
                 ),
