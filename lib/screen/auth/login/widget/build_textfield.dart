@@ -25,6 +25,7 @@ class BuildTextField extends StatelessWidget {
       height: 65.h,
       width: 354.w,
       child: TextFormField(
+        style: TextStyle(fontSize: 16.sp),
         controller: controller,
         obscureText: obstext,
         decoration: InputDecoration(
