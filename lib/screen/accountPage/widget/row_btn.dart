@@ -15,13 +15,15 @@ class RowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Row(children: <Widget>[
-        Icon(iconData),
+        const Icon(
+          Icons.account_circle_rounded,
+        ),
         SizedBox(
           width: 15.w,
         ),
         Expanded(
           child: Text(
-            text,
+            "text",
             style: TextStyle(
               fontSize: 14.sp,
               color: const Color(0xff656565),

@@ -39,7 +39,7 @@ class RegisterScreen extends StatelessWidget {
                   )),
               Center(
                 child: Container(
-                  height: 280.h,
+                  height: 250.h,
                   margin: EdgeInsets.only(
                     top: 29.h,
                   ),
@@ -134,7 +134,10 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                     )
-                  ])
+                  ]),
+              SizedBox(
+                height: 15.h,
+              ),
             ],
           )),
     );

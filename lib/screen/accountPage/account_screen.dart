@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
 
 import 'widget/logout_btn.dart';
-import 'widget/row_btn.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -22,16 +22,18 @@ class AccountPage extends StatelessWidget {
         width: double.infinity,
         color: Colors.red[100],
         // color: const Color(0xffE6F6FF),
-        child: ListView(
+        child: Column(
           children: <Widget>[
             SizedBox(
               height: 10.h,
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
+                padding: EdgeInsets.only(
+                  top: 15.h,
+                ),
                 width: double.infinity,
-                height: 200.h,
+                height: double.infinity,
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,100 +112,97 @@ class AccountPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Expanded(
+            Flexible(
+              fit: FlexFit.loose,
               child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 17.h),
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Akun",
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
+                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 17.h),
+                width: double.infinity,
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Akun",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      const RowButton(
-                        iconData: Icons.account_circle_rounded,
-                        text: "Ubah Profile",
-                      ),
-                      SizedBox(height: 5.h),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      SizedBox(height: 5.h),
-                      const RowButton(
-                        iconData: Icons.account_circle_rounded,
-                        text: "Ubah kata sandi",
-                      )
-                    ],
-                  )),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    const RowBtn(),
+                    SizedBox(height: 5.h),
+                    const Divider(
+                      thickness: 2,
+                    ),
+                    SizedBox(height: 5.h),
+                    const RowBtn()
+                  ],
+                ),
+              ),
             ),
             SizedBox(
               height: 10.h,
             ),
-            Expanded(
+            Flexible(
+              fit: FlexFit.loose,
               child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.h, vertical: 17.w),
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Tentang",
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      const RowButton(
-                        iconData: Icons.account_circle_rounded,
-                        text: "Syarat dan Ketentuan",
-                      ),
-                      SizedBox(height: 5.h),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      SizedBox(height: 5.h),
-                      const RowButton(
-                        iconData: Icons.account_circle_rounded,
-                        text: "Kebijakan Privasi",
-                      ),
-                      SizedBox(height: 5.h),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      SizedBox(height: 5.h),
-                      const RowButton(
-                        iconData: Icons.account_circle_rounded,
-                        text: "Pusat bantuan",
-                      ),
-                    ],
-                  )),
+                width: double.infinity,
+                color: Colors.white,
+              ),
             ),
             SizedBox(
               height: 27.h,
             ),
             const LogoutBtn(),
             SizedBox(
-              height: 50.h,
+              height: 40.h,
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class RowBtn extends StatelessWidget {
+  const RowBtn({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Row(children: <Widget>[
+        const Icon(
+          Icons.account_circle_rounded,
+        ),
+        SizedBox(
+          width: 15.w,
+        ),
+        Expanded(
+          child: Text(
+            "Ubah Profile",
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: const Color(0xff656565),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        const Icon(Icons.chevron_right),
+      ]),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const EditProfile(),
+          ),
+        );
+      },
     );
   }
 }

@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
                       obstext: false,
                       isEmail: true,
                       icons: Icons.email_rounded,
-                      hint: "coba",
+                      hint: "Email",
                     ),
                     SizedBox(
                       height: 20.h,
