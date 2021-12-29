@@ -39,15 +39,17 @@ class RegisterScreen extends StatelessWidget {
                   )),
               Center(
                 child: Container(
-                  height: 250.h,
-                  margin: EdgeInsets.only(
-                    top: 29.h,
-                  ),
-                  child: Image(
-                    image: NetworkImage(
-                        "https://i.ibb.co/ypnVV2m/undraw-Access-account-re-8spm-1.png"),
-                  ),
-                ),
+                    height: 250.h,
+                    margin: EdgeInsets.only(
+                      top: 29.h,
+                    ),
+                    child: Hero(
+                      tag: 'gambar',
+                      child: Image(
+                        image: NetworkImage(
+                            "https://i.ibb.co/ypnVV2m/undraw-Access-account-re-8spm-1.png"),
+                      ),
+                    )),
               ),
               SizedBox(
                 height: 30.h,

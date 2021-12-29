@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/home_page.dart';
 
@@ -18,16 +19,16 @@ class LoginBtn extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (_formKey.currentState!.validate()) {
+          EasyLoading.show(status: 'loading...');
           try {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Validasi"),
-              ),
-            );
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
+            Future.delayed(Duration(milliseconds: 1900), () {
+              // Do something
+              EasyLoading.dismiss();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            });
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

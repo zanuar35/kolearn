@@ -60,7 +60,7 @@ class EditProfile extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 60.h,
+                    height: 45.h,
                   )
                 ],
               ),
@@ -161,7 +161,7 @@ class EditProfile extends StatelessWidget {
                           primary: const Color(0xffEC3528),
                         ),
                         child: Text(
-                          "Log out",
+                          "Simpan",
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w600,

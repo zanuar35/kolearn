@@ -25,12 +25,14 @@ class LoginPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 90.h),
-              width: 354.w,
-              height: 227.h,
-              child: Image.network(
-                  "https://i.ibb.co/Xzh8GdT/undraw-Login-re-4vu2-1.png"),
-            ),
+                margin: EdgeInsets.only(top: 90.h),
+                width: 354.w,
+                height: 227.h,
+                child: Hero(
+                  tag: 'gambar',
+                  child: Image.network(
+                      "https://i.ibb.co/Xzh8GdT/undraw-Login-re-4vu2-1.png"),
+                )),
             SizedBox(
               height: 50.h,
             ),
@@ -173,12 +175,7 @@ class LoginPage extends StatelessWidget {
                                             sizeFactor: animation,
                                             child: child,
                                           ),
-                                        )
-                                    //     FadeTransition(
-                                    //   opacity: animation,
-                                    //   child: child,
-                                    // ),
-                                    ),
+                                        )),
                               );
                             },
                             child: Text(
