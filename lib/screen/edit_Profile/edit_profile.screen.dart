@@ -30,9 +30,12 @@ class EditProfile extends StatelessWidget {
                   Padding(padding: EdgeInsets.only(top: 33.h)),
                   Stack(
                     children: <Widget>[
-                      CircleAvatar(
-                        radius: 55.r,
-                        backgroundColor: Colors.blue,
+                      Hero(
+                        tag: "fotoProfil",
+                        child: CircleAvatar(
+                          radius: 55.r,
+                          backgroundColor: Colors.blue,
+                        ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -72,13 +75,7 @@ class EditProfile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text(
-                      "Nama",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    labelText("Nama"),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -86,13 +83,7 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    const Text(
-                      "Nama",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    labelText("Email"),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -100,13 +91,7 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    const Text(
-                      "No telp",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    labelText("No telp"),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -114,13 +99,7 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    const Text(
-                      "Gender",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    labelText("Gender"),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -130,7 +109,7 @@ class EditProfile extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
-                        color: Colors.green[50],
+                        color: const Color(0xffEFEFEF),
                       ),
                       child: DropdownButton<String>(
                         isExpanded: true,
@@ -158,7 +137,7 @@ class EditProfile extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          primary: const Color(0xffEC3528),
+                          primary: const Color(0xff7383BF),
                         ),
                         child: Text(
                           "Simpan",
@@ -173,6 +152,16 @@ class EditProfile extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Widget labelText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+      ),
+    );
   }
 }
 

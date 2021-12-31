@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/auth/login/widget/password_textfield.dart';
 import 'package:kolearn/screen/auth/register/register_screen.dart';
 
 import 'widget/build_textfield.dart';
@@ -71,19 +72,24 @@ class LoginPage extends StatelessWidget {
                       controller: _emailController,
                       obstext: false,
                       isEmail: true,
-                      icons: Icons.email_rounded,
                       hint: "Email",
                     ),
                     SizedBox(
                       height: 20.h,
                     ),
-                    BuildTextField(
-                      controller: _passwordController,
-                      obstext: true,
-                      icons: Icons.remove_red_eye_rounded,
-                      isEmail: false,
-                      hint: "Password",
-                    ),
+                    PasswordTextField(
+                        icons: Icons.remove_red_eye_rounded,
+                        controller: _passwordController,
+                        obstext: true,
+                        hint: "Password"),
+
+                    // BuildTextField(
+                    //   controller: _passwordController,
+                    //   obstext: true,
+                    //   icons: Icons.remove_red_eye_rounded,
+                    //   isEmail: false,
+                    //   hint: "Password",
+                    // ),
                     SizedBox(
                       height: 29.h,
                     ),

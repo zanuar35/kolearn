@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
-
-import 'widget/logout_btn.dart';
+import 'package:kolearn/screen/ubahPassword/ubah_password.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class AccountPage extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.red[100],
+        color: const Color(0xffE6F6FF),
         // color: const Color(0xffE6F6FF),
         child: Column(
           children: <Widget>[
@@ -39,8 +38,11 @@ class AccountPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 40.r,
+                    Hero(
+                      tag: "fotoProfil",
+                      child: CircleAvatar(
+                        radius: 40.r,
+                      ),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -115,7 +117,7 @@ class AccountPage extends StatelessWidget {
             Flexible(
               fit: FlexFit.loose,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 17.h),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
                 width: double.infinity,
                 color: Colors.white,
                 child: Column(
@@ -133,13 +135,39 @@ class AccountPage extends StatelessWidget {
                     SizedBox(
                       height: 15.h,
                     ),
-                    const RowBtn(),
-                    SizedBox(height: 5.h),
+                    RowBtn(
+                      icons: Icons.account_circle,
+                      textBtn: "Ubah Profile",
+                      isNext: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EditProfile(),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 3.h),
                     const Divider(
                       thickness: 2,
                     ),
-                    SizedBox(height: 5.h),
-                    const RowBtn()
+                    SizedBox(height: 3.h),
+                    Hero(
+                        tag: "ubahpw",
+                        child: RowBtn(
+                          icons: Icons.lock_open,
+                          textBtn: "Ubah Password",
+                          isNext: true,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const UbahPassword(),
+                              ),
+                            );
+                          },
+                        ))
                   ],
                 ),
               ),
@@ -150,17 +178,76 @@ class AccountPage extends StatelessWidget {
             Flexible(
               fit: FlexFit.loose,
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
                 width: double.infinity,
                 color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Tentang",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    SizedBox(height: 3.h),
+                    RowBtn(
+                      icons: Icons.verified,
+                      textBtn: "Pusat Bantuan",
+                      isNext: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UbahPassword(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Divider(
+                      thickness: 2,
+                    ),
+                    SizedBox(height: 3.h),
+                    RowBtn(
+                      icons: Icons.face,
+                      textBtn: "About Me",
+                      isNext: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UbahPassword(),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 3.h),
+                    const Divider(
+                      thickness: 2,
+                    ),
+                    RowBtn(
+                      icons: Icons.logout,
+                      textBtn: "Logout",
+                      isNext: false,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UbahPassword(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(
-              height: 27.h,
-            ),
-            const LogoutBtn(),
-            SizedBox(
-              height: 40.h,
-            )
           ],
         ),
       ),
@@ -169,40 +256,39 @@ class AccountPage extends StatelessWidget {
 }
 
 class RowBtn extends StatelessWidget {
-  const RowBtn({
-    Key? key,
-  }) : super(key: key);
+  RowBtn(
+      {Key? key,
+      required this.textBtn,
+      required this.icons,
+      required this.onTap,
+      required this.isNext})
+      : super(key: key);
+
+  String textBtn;
+  IconData icons;
+  bool isNext;
+  VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Row(children: <Widget>[
-        const Icon(
-          Icons.account_circle_rounded,
-        ),
-        SizedBox(
-          width: 15.w,
-        ),
-        Expanded(
-          child: Text(
-            "Ubah Profile",
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: const Color(0xff656565),
-              fontWeight: FontWeight.w600,
+        child: Row(children: <Widget>[
+          Icon(icons),
+          SizedBox(
+            width: 15.w,
+          ),
+          Expanded(
+            child: Text(
+              textBtn,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: const Color(0xff656565),
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
-        ),
-        const Icon(Icons.chevron_right),
-      ]),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const EditProfile(),
-          ),
-        );
-      },
-    );
+          (isNext == true) ? const Icon(Icons.chevron_right) : Container()
+        ]),
+        onTap: onTap);
   }
 }

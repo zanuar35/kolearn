@@ -19,11 +19,14 @@ class LoginBtn extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (_formKey.currentState!.validate()) {
-          EasyLoading.show(status: 'loading...');
+          EasyLoading.show(status: 'Loading...');
           try {
             Future.delayed(Duration(milliseconds: 1900), () {
               // Do something
-              EasyLoading.dismiss();
+              EasyLoading.showSuccess('Login Success!');
+            });
+
+            Future.delayed(Duration(milliseconds: 900), () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),
