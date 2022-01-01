@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
@@ -255,7 +257,9 @@ class AccountPage extends StatelessWidget {
   }
 }
 
+
 class RowBtn extends StatelessWidget {
+  
   RowBtn(
       {Key? key,
       required this.textBtn,
@@ -263,6 +267,8 @@ class RowBtn extends StatelessWidget {
       required this.onTap,
       required this.isNext})
       : super(key: key);
+
+  
 
   String textBtn;
   IconData icons;
