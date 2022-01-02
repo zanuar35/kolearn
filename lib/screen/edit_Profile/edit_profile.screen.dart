@@ -63,7 +63,7 @@ class EditProfile extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 45.h,
+                    height: 35.h,
                   )
                 ],
               ),
@@ -79,7 +79,9 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    const InputTextField(),
+                    InputTextField(
+                      hints: "Enter your name",
+                    ),
                     SizedBox(
                       height: 25.h,
                     ),
@@ -87,7 +89,9 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    const InputTextField(),
+                    InputTextField(
+                      hints: "Enter your email",
+                    ),
                     SizedBox(
                       height: 25.h,
                     ),
@@ -95,7 +99,9 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    const InputTextField(),
+                    InputTextField(
+                      hints: "Enter your telp",
+                    ),
                     SizedBox(
                       height: 25.h,
                     ),
@@ -166,15 +172,17 @@ class EditProfile extends StatelessWidget {
 }
 
 class InputTextField extends StatelessWidget {
-  const InputTextField({
+  InputTextField({
+    required this.hints,
     Key? key,
   }) : super(key: key);
+
+  String hints;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 25.w),
-        height: 60.h,
+        height: 70.h,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.r),
@@ -182,7 +190,28 @@ class InputTextField extends StatelessWidget {
         ),
         child: Center(
           child: TextFormField(
-            decoration: const InputDecoration(border: InputBorder.none),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              hintText: hints,
+              hintStyle: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: Colors.grey),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(
+                  color: Color(0xffDDE5E9),
+                  width: 2,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(
+                  color: Color(0xffDDE5E9),
+                  width: 2.0,
+                ),
+              ),
+            ),
           ),
         ));
   }
