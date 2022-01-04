@@ -1,7 +1,8 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/coba.dart';
 import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
 import 'package:kolearn/screen/ubahPassword/ubah_password.dart';
 
@@ -165,7 +166,7 @@ class AccountPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const UbahPassword(),
+                                builder: (context) => UbahPassword(),
                               ),
                             );
                           },
@@ -207,7 +208,7 @@ class AccountPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const UbahPassword(),
+                            builder: (context) => UbahPassword(),
                           ),
                         );
                       },
@@ -224,7 +225,7 @@ class AccountPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const UbahPassword(),
+                            builder: (context) => CobaPage(),
                           ),
                         );
                       },
@@ -241,7 +242,7 @@ class AccountPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const UbahPassword(),
+                            builder: (context) => UbahPassword(),
                           ),
                         );
                       },
@@ -257,9 +258,7 @@ class AccountPage extends StatelessWidget {
   }
 }
 
-
 class RowBtn extends StatelessWidget {
-  
   RowBtn(
       {Key? key,
       required this.textBtn,
@@ -267,8 +266,6 @@ class RowBtn extends StatelessWidget {
       required this.onTap,
       required this.isNext})
       : super(key: key);
-
-  
 
   String textBtn;
   IconData icons;

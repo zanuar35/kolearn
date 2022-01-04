@@ -1,8 +1,19 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class UbahPassword extends StatelessWidget {
+class UbahPassword extends StatefulWidget {
   const UbahPassword({Key? key}) : super(key: key);
+
+  @override
+  State<UbahPassword> createState() => _UbahPasswordState();
+}
+
+class _UbahPasswordState extends State<UbahPassword> {
+  final _passwordBaru = TextEditingController();
+  bool _isObscure = true;
+  final _konfirmPassBaru = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +54,9 @@ class UbahPassword extends StatelessWidget {
                   width: double.infinity,
                   height: 60,
                   color: Colors.white,
-                  child: passField(),
+                  child: PassTextField(
+                    controller: _passwordBaru,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 labelText("kata sandi baru"),
@@ -52,7 +65,7 @@ class UbahPassword extends StatelessWidget {
                   width: double.infinity,
                   height: 60,
                   color: Colors.white,
-                  child: passField(),
+                  child: passField(_passwordBaru),
                 ),
                 const SizedBox(height: 10),
                 labelText("konfirmasi kata sandi baru"),
@@ -61,7 +74,7 @@ class UbahPassword extends StatelessWidget {
                   width: double.infinity,
                   height: 60,
                   color: Colors.white,
-                  child: passField(),
+                  child: passField(_konfirmPassBaru),
                 ),
                 const SizedBox(height: 30),
                 loginBtn()
@@ -102,9 +115,59 @@ class UbahPassword extends StatelessWidget {
     );
   }
 
-  Widget passField() {
+  Widget passField(TextEditingController textController) {
     return TextFormField(
+      obscureText: _isObscure,
       decoration: InputDecoration(
+        suffixIcon: IconButton(
+            icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            }),
+        hintText: "Enter your password here",
+        hintStyle: const TextStyle(
+            fontWeight: FontWeight.w400, fontSize: 14, color: Colors.grey),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
+            color: Color(0xffDDE5E9),
+            width: 2,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
+            color: Color(0xffDDE5E9),
+            width: 2.0,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PassTextField extends StatefulWidget {
+  const PassTextField({Key? key, required this.controller}) : super(key: key);
+
+  final TextEditingController controller;
+
+  @override
+  State<PassTextField> createState() => _PassTextFieldState();
+}
+
+class _PassTextFieldState extends State<PassTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.controller,
+      decoration: InputDecoration(
+        suffixIcon: widget.controller.text.isEmpty
+            ? Container(
+                width: 0,
+              )
+            : Icon(Icons.remove_red_eye),
         hintText: "Enter your password here",
         hintStyle: const TextStyle(
             fontWeight: FontWeight.w400, fontSize: 14, color: Colors.grey),
