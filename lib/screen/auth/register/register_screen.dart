@@ -62,19 +62,19 @@ class RegisterScreen extends StatelessWidget {
                       hint: "Full Name",
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 15.h,
                     ),
                     _InputField(
                       hint: "Email",
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 15.h,
                     ),
                     _InputField(
                       hint: "Password",
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 15.h,
                     ),
                     _InputField(
                       hint: "Confirm Password",
@@ -157,7 +157,7 @@ class _InputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55.h,
+      height: 60.h,
       child: TextFormField(
           decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(

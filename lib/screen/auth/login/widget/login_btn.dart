@@ -16,48 +16,49 @@ class LoginBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (_formKey.currentState!.validate()) {
-          EasyLoading.show(status: 'Loading...');
-          try {
-            Future.delayed(Duration(milliseconds: 1900), () {
-              // Do something
-              EasyLoading.showSuccess('Login Success!');
-            });
+    return Row(
+      children: [
+        Expanded(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tightFor(height: 55.h),
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  EasyLoading.show(status: 'Loading...');
+                  try {
+                    Future.delayed(Duration(milliseconds: 1900), () {
+                      // Do something
+                      EasyLoading.showSuccess('Login Success!');
+                    });
 
-            Future.delayed(Duration(milliseconds: 900), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            });
-          } catch (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("salah"),
+                    Future.delayed(Duration(milliseconds: 900), () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    });
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("salah"),
+                      ),
+                    );
+                  }
+                }
+              },
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
-            );
-          }
-        }
-      },
-      child: Container(
-        height: 55.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r), color: Color(0xff52C3FF)),
-        child: Center(
-          child: Text(
-            "Login",
-            style: TextStyle(
-              fontSize: 18.sp,
-              letterSpacing: 1,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

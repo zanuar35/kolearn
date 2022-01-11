@@ -79,7 +79,7 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    InputTextField(
+                    const InputTextField(
                       hints: "Enter your name",
                     ),
                     SizedBox(
@@ -89,7 +89,7 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    InputTextField(
+                    const InputTextField(
                       hints: "Enter your email",
                     ),
                     SizedBox(
@@ -99,7 +99,7 @@ class EditProfile extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    InputTextField(
+                    const InputTextField(
                       hints: "Enter your telp",
                     ),
                     SizedBox(
@@ -172,12 +172,12 @@ class EditProfile extends StatelessWidget {
 }
 
 class InputTextField extends StatelessWidget {
-  InputTextField({
+  const InputTextField({
     required this.hints,
     Key? key,
   }) : super(key: key);
 
-  String hints;
+ final  String hints;
 
   @override
   Widget build(BuildContext context) {

@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Container(
-                margin: EdgeInsets.only(top: 90.h),
+                margin: EdgeInsets.only(top: 85.h),
                 width: 354.w,
                 height: 227.h,
                 child: Hero(
@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
                       "https://i.ibb.co/Xzh8GdT/undraw-Login-re-4vu2-1.png"),
                 )),
             SizedBox(
-              height: 50.h,
+              height: 40.h,
             ),
             Container(
                 alignment: Alignment.center,
@@ -47,6 +47,7 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w600,
+                        letterSpacing: 0.4,
                         color: Colors.black,
                       ),
                     ),
@@ -61,7 +62,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 )),
             SizedBox(
-              height: 65.h,
+              height: 60.h,
             ),
             Form(
               key: _formKey,
@@ -82,14 +83,6 @@ class LoginPage extends StatelessWidget {
                         controller: _passwordController,
                         obstext: true,
                         hint: "Password"),
-
-                    // BuildTextField(
-                    //   controller: _passwordController,
-                    //   obstext: true,
-                    //   icons: Icons.remove_red_eye_rounded,
-                    //   isEmail: false,
-                    //   hint: "Password",
-                    // ),
                     SizedBox(
                       height: 29.h,
                     ),
