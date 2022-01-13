@@ -60,53 +60,12 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      height: 22.h,
-                    ),
-                    //  Row Search box dan setting button
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              height: 60.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: const Offset(
-                                          0, 4), // changes position of shadow
-                                    ),
-                                  ],
-                                  color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 24.w,
-                          ),
-                          Container(
-                            height: 60.h,
-                            width: 60.h,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff52C3FF),
-                              borderRadius: BorderRadius.circular(15.r),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    // end  Row Search box dan setting button
-                    SizedBox(
                       height: 24.h,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.w),
                       child: Text(
-                        "Courses",
+                        "Category",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 24.sp),
@@ -129,6 +88,18 @@ class HomeScreen extends StatelessWidget {
                                 child: CategoryWidget(),
                               );
                             }),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30.w),
+                      child: Text(
+                        "Courses",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 24.sp),
                       ),
                     ),
                     Container(
