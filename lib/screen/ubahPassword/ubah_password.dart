@@ -29,12 +29,9 @@ class _UbahPasswordState extends State<UbahPassword> {
             },
             icon: const Icon(Icons.chevron_left),
           ),
-          title: const Hero(
-            tag: "ubahpw",
-            child: Text(
-              "Ubah Password",
-              style: TextStyle(fontSize: 16),
-            ),
+          title: Text(
+            "Ubah Password",
+            style: TextStyle(fontSize: 16),
           )),
       body: ListView(
         children: [

@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
 import 'package:kolearn/home_page.dart';
 
 class LoginBtn extends StatelessWidget {
@@ -23,28 +26,7 @@ class LoginBtn extends StatelessWidget {
             constraints: BoxConstraints.tightFor(height: 55.h),
             child: ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  EasyLoading.show(status: 'Loading...');
-                  try {
-                    Future.delayed(Duration(milliseconds: 1900), () {
-                      // Do something
-                      EasyLoading.showSuccess('Login Success!');
-                    });
-
-                    Future.delayed(Duration(milliseconds: 900), () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    });
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("salah"),
-                      ),
-                    );
-                  }
-                }
+                login(_formKey, context);
               },
               child: Text(
                 "Login",
@@ -60,5 +42,36 @@ class LoginBtn extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+Future<void> login(GlobalKey<FormState> formKey, BuildContext context) async {
+  if (formKey.currentState!.validate()) {
+    EasyLoading.show(
+      status: 'loading...',
+      maskType: EasyLoadingMaskType.black,
+    );
+    var response = await http.post(
+      Uri.parse("https://reqres.in/api/login"),
+      body: ({
+        'email': 'eve.holt@reqres.in',
+        'password': 'cityslicka',
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      EasyLoading.showSuccess('Login Success');
+      Timer(Duration(seconds: 2), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      });
+      print(response.body);
+    } else {
+      print(response.statusCode);
+    }
   }
 }

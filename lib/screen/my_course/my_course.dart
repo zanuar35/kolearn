@@ -19,6 +19,7 @@ class MyCourse extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
+        automaticallyImplyLeading: false,
         title: const Text("My Course"),
         centerTitle: true,
       ),
@@ -96,7 +97,7 @@ class MateriCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 25.h, left: 30.w, right: 30.w, bottom: 5.h),
+      margin: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w, bottom: 5.h),
       width: 360.w,
       height: 170.h,
       decoration: BoxDecoration(

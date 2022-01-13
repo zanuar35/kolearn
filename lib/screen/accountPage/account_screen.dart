@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/auth/login/login_screen.dart';
 import 'package:kolearn/screen/coba.dart';
 import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
 import 'package:kolearn/screen/ubahPassword/ubah_password.dart';
@@ -16,6 +17,7 @@ class AccountPage extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text("My Account"),
       ),
@@ -156,21 +158,19 @@ class AccountPage extends StatelessWidget {
                       thickness: 2,
                     ),
                     SizedBox(height: 3.h),
-                    Hero(
-                        tag: "ubahpw",
-                        child: RowBtn(
-                          icons: Icons.lock_open,
-                          textBtn: "Ubah Password",
-                          isNext: true,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UbahPassword(),
-                              ),
-                            );
-                          },
-                        ))
+                    RowBtn(
+                      icons: Icons.lock_open,
+                      textBtn: "Ubah Password",
+                      isNext: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UbahPassword(),
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),
@@ -241,9 +241,7 @@ class AccountPage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => UbahPassword(),
-                          ),
+                          MaterialPageRoute(builder: (context) => LoginPage()),
                         );
                       },
                     ),
