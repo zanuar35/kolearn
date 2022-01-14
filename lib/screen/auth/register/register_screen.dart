@@ -39,17 +39,19 @@ class RegisterScreen extends StatelessWidget {
                   )),
               Center(
                 child: Container(
-                    height: 250.h,
-                    margin: EdgeInsets.only(
-                      top: 29.h,
+                  height: 250.h,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                    top: 29.h,
+                  ),
+                  child: Hero(
+                    tag: 'gambar',
+                    child: Image(
+                      image: NetworkImage(
+                          "https://i.ibb.co/ypnVV2m/undraw-Access-account-re-8spm-1.png"),
                     ),
-                    child: Hero(
-                      tag: 'gambar',
-                      child: Image(
-                        image: NetworkImage(
-                            "https://i.ibb.co/ypnVV2m/undraw-Access-account-re-8spm-1.png"),
-                      ),
-                    )),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 30.h,
@@ -70,9 +72,7 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(
                       height: 15.h,
                     ),
-                    _InputField(
-                      hint: "Password",
-                    ),
+                    PasswordField(),
                     SizedBox(
                       height: 15.h,
                     ),
@@ -142,6 +142,58 @@ class RegisterScreen extends StatelessWidget {
               ),
             ],
           )),
+    );
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  const PasswordField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  @override
+  Widget build(BuildContext context) {
+    bool isObscure = true;
+    return Container(
+      height: 60.h,
+      child: TextFormField(
+        obscureText: isObscure,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 18.w,
+            ),
+            hintText: 'Password lagi',
+            hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 12.sp,
+                color: Colors.grey),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(
+                color: Color(0xffDDE5E9),
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(
+                color: Color(0xffDDE5E9),
+                width: 2.0,
+              ),
+            ),
+            suffixIcon: InkWell(
+              child: Icon(Icons.remove_red_eye),
+              onTap: () {
+                setState(() {
+                  isObscure = !isObscure;
+                });
+              },
+            )),
+      ),
     );
   }
 }

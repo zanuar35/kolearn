@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PasswordTextField extends StatelessWidget {
+class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
     required this.icons,
     required this.controller,
@@ -18,19 +18,24 @@ class PasswordTextField extends StatelessWidget {
   final TextEditingController controller;
 
   @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 65.h,
       width: 354.w,
       child: TextFormField(
         style: TextStyle(fontSize: 16.sp),
-        controller: controller,
-        obscureText: obstext,
+        controller: widget.controller,
+        obscureText: widget.obstext,
         decoration: InputDecoration(
-          hintText: hint,
+          hintText: widget.hint,
           hintStyle: TextStyle(
               fontWeight: FontWeight.w400, fontSize: 14.sp, color: Colors.grey),
-          suffixIcon: Icon(icons),
+          suffixIcon: Icon(widget.icons),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(

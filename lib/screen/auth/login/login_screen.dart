@@ -2,18 +2,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/screen/auth/login/widget/password_textfield.dart';
+
 import 'package:kolearn/screen/auth/register/register_screen.dart';
 
 import 'widget/build_textfield.dart';
 import 'widget/login_btn.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +87,50 @@ class LoginPage extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    PasswordTextField(
-                        icons: Icons.remove_red_eye_rounded,
-                        controller: _passwordController,
-                        obstext: true,
-                        hint: "Password"),
+                    Container(
+                      height: 65.h,
+                      width: 354.w,
+                      child: TextFormField(
+                        style: TextStyle(fontSize: 16.sp),
+                        obscureText: _isObscure,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              icon: Icon(_isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              }),
+                          hintText: "Enter your password here",
+                          hintStyle: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Colors.grey),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffDDE5E9),
+                              width: 2,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffDDE5E9),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter password';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
                     SizedBox(
                       height: 29.h,
                     ),
@@ -122,27 +170,6 @@ class LoginPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 10.h,
-                    ),
-                    Container(
-                      height: 55.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Color(0xffDDE5E9),
-                            width: 2.0,
-                          )),
-                      child: Center(
-                        child: Text(
-                          "Google",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff404040),
-                          ),
-                        ),
-                      ),
                     ),
                     SizedBox(
                       height: 12.h,
@@ -197,4 +224,3 @@ class LoginPage extends StatelessWidget {
     )));
   }
 }
-
