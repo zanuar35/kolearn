@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/auth/login/login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key? key}) : super(key: key);
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,37 +57,44 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              Container(
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    _InputField(
-                      hint: "Full Name",
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    _InputField(
-                      hint: "Email",
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    PasswordField(),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    _InputField(
-                      hint: "Confirm Password",
-                    ),
-                  ],
+              Form(
+                key: _formKey,
+                child: Container(
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      _InputField(
+                        hint: "Full Name",
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      _InputField(
+                        hint: "Email",
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      PasswordField(),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      _InputField(
+                        hint: "Confirm Password",
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
                 height: 20.h,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pop(context);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(MediaQuery.of(context).size.width, 55.h),
                   shape: RoundedRectangleBorder(
@@ -164,35 +172,40 @@ class _PasswordFieldState extends State<PasswordField> {
       child: TextFormField(
         obscureText: isObscure,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 18.w,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 18.w,
+          ),
+          hintText: 'Password lagi',
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.w400, fontSize: 12.sp, color: Colors.grey),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: Color(0xffDDE5E9),
             ),
-            hintText: 'Password lagi',
-            hintStyle: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 12.sp,
-                color: Colors.grey),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(
-                color: Color(0xffDDE5E9),
-              ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: Color(0xffDDE5E9),
+              width: 2.0,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(
-                color: Color(0xffDDE5E9),
-                width: 2.0,
-              ),
-            ),
-            suffixIcon: InkWell(
-              child: Icon(Icons.remove_red_eye),
-              onTap: () {
-                setState(() {
-                  isObscure = !isObscure;
-                });
-              },
-            )),
+          ),
+          suffixIcon: InkWell(
+            child: Icon(Icons.remove_red_eye),
+            onTap: () {
+              setState(() {
+                isObscure = !isObscure;
+              });
+            },
+          ),
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter password';
+          }
+          return null;
+        },
       ),
     );
   }

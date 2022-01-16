@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
 
 import 'screen/auth/login/login_screen.dart';
 
@@ -17,18 +19,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(414, 896),
-      builder: () => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-              textTheme: GoogleFonts.poppinsTextTheme(
-            Theme.of(context).textTheme,
-          )),
-          home: LoginPage(),
-          builder: EasyLoading.init()),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<ObscuretextCubit>(
+            create: (context) => ObscuretextCubit()
+          ),
+        ],
+        child: ScreenUtilInit(
+          designSize: Size(414, 896),
+          builder: () => MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                  textTheme: GoogleFonts.poppinsTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              home: LoginPage(),
+              builder: EasyLoading.init()),
+        ));
   }
 }
 

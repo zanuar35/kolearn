@@ -1,51 +1,74 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
 
-class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({
-    required this.icons,
-    required this.controller,
-    required this.obstext,
-    required this.hint,
+class PassField extends StatefulWidget {
+  const PassField({
     Key? key,
   }) : super(key: key);
 
-  final String hint;
-  final bool obstext;
-  final IconData icons;
-  final TextEditingController controller;
-
   @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
+  State<PassField> createState() => _PassFieldState();
 }
 
-class _PasswordTextFieldState extends State<PasswordTextField> {
+class _PassFieldState extends State<PassField> {
+  bool isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 65.h,
       width: 354.w,
       child: TextFormField(
+        obscureText: isObscure,
         style: TextStyle(fontSize: 16.sp),
-        controller: widget.controller,
-        obscureText: widget.obstext,
         decoration: InputDecoration(
-          hintText: widget.hint,
+          suffixIcon: BlocBuilder<ObscuretextCubit, ObscuretextState>(
+            builder: (context, state) {
+              if (state is ObscureFalse) {
+                return IconButton(
+                    onPressed: () {
+                      BlocProvider.of<ObscuretextCubit>(context).showPassword();
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                    },
+                    icon: Icon(Icons.visibility_off));
+              }
+              if (state is ObscureTrue) {
+                return IconButton(
+                    onPressed: () {
+                      BlocProvider.of<ObscuretextCubit>(context).showPassword();
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                    },
+                    icon: Icon(Icons.visibility));
+              }
+              return IconButton(
+                  onPressed: () {
+                    BlocProvider.of<ObscuretextCubit>(context).showPassword();
+                    print("button click");
+                  },
+                  icon: Icon(Icons.visibility));
+            },
+          ),
+          hintText: "Password ",
           hintStyle: TextStyle(
-              fontWeight: FontWeight.w400, fontSize: 14.sp, color: Colors.grey),
-          suffixIcon: Icon(widget.icons),
+              fontWeight: FontWeight.w400, fontSize: 13.sp, color: Colors.grey),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Color(0xffDDE5E9),
               width: 2,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Color(0xffDDE5E9),
               width: 2.0,
             ),
@@ -61,3 +84,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     );
   }
 }
+
+
+/*
+
+
+
+*/

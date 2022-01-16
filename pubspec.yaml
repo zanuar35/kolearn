@@ -39,6 +39,7 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   flutter_easyloading: ^3.0.3
   http: ^0.13.3
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
