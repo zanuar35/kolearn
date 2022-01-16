@@ -1,15 +1,28 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/screen/auth/login/login_screen.dart';
+import 'package:kolearn/screen/auth/register/widget/login_btn.dart';
+import 'package:kolearn/screen/auth/register/widget/password_field.dart';
+import 'package:kolearn/screen/auth/register/widget/register_btn.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+import 'widget/input_text_field.dart';
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final _passController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffF6F9FF),
@@ -28,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: ListView(
             children: <Widget>[
-              Text("Create Kolearn  ",
+              Text("Buat akun Kolearn  ",
                   style: TextStyle(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w600,
@@ -58,28 +71,28 @@ class RegisterScreen extends StatelessWidget {
                 height: 30.h,
               ),
               Form(
-                key: _formKey,
+                key: _formKey1,
                 child: Container(
                   width: double.infinity,
                   child: Column(
                     children: <Widget>[
-                      _InputField(
+                      InputField(
                         hint: "Full Name",
                       ),
                       SizedBox(
                         height: 15.h,
                       ),
-                      _InputField(
+                      InputField(
                         hint: "Email",
                       ),
                       SizedBox(
                         height: 15.h,
                       ),
-                      PasswordField(),
+                      PassTextField(),
                       SizedBox(
                         height: 15.h,
                       ),
-                      _InputField(
+                      InputField(
                         hint: "Confirm Password",
                       ),
                     ],
@@ -89,162 +102,16 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pop(context);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width, 55.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  primary: Color(0xff52C3FF),
-                ),
-                child: Text(
-                  "Register",
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
+              RegisterButton(formKey1: _formKey1),
               SizedBox(
                 height: 15.h,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "have an account ?",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Login Now",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Color(0xff239BD8),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )
-                  ]),
+              LoginBtn(),
               SizedBox(
                 height: 15.h,
               ),
             ],
           )),
-    );
-  }
-}
-
-class PasswordField extends StatefulWidget {
-  const PasswordField({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<PasswordField> createState() => _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
-  @override
-  Widget build(BuildContext context) {
-    bool isObscure = true;
-    return Container(
-      height: 60.h,
-      child: TextFormField(
-        obscureText: isObscure,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 18.w,
-          ),
-          hintText: 'Password lagi',
-          hintStyle: TextStyle(
-              fontWeight: FontWeight.w400, fontSize: 12.sp, color: Colors.grey),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Color(0xffDDE5E9),
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Color(0xffDDE5E9),
-              width: 2.0,
-            ),
-          ),
-          suffixIcon: InkWell(
-            child: Icon(Icons.remove_red_eye),
-            onTap: () {
-              setState(() {
-                isObscure = !isObscure;
-              });
-            },
-          ),
-        ),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Please enter password';
-          }
-          return null;
-        },
-      ),
-    );
-  }
-}
-
-class _InputField extends StatelessWidget {
-  const _InputField({
-    required this.hint,
-    Key? key,
-  }) : super(key: key);
-
-  final String hint;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60.h,
-      child: TextFormField(
-          decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 18.w,
-        ),
-        hintText: hint,
-        hintStyle: TextStyle(
-            fontWeight: FontWeight.w400, fontSize: 12.sp, color: Colors.grey),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-            color: Color(0xffDDE5E9),
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-            color: Color(0xffDDE5E9),
-            width: 2.0,
-          ),
-        ),
-      )),
     );
   }
 }
