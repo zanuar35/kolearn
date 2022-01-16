@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/auth/login/widget/password_textfield.dart';
-
-import 'package:kolearn/screen/auth/register/register_screen.dart';
-
-import '../../ubahPassword/ubah_password.dart';
+import 'package:kolearn/screen/auth/login/widget/sign_up_btn.dart';
 import 'widget/build_textfield.dart';
 import 'widget/login_btn.dart';
 
@@ -88,90 +85,20 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    PassField(),
+                    PassField(
+                      controller: _passwordController,
+                    ),
                     SizedBox(
                       height: 29.h,
                     ),
                     LoginBtn(formKey: _formKey),
                     SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Divider(
-                            color: Colors.black,
-                            thickness: 0.2,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Text(
-                          "Or login with",
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Colors.black,
-                            thickness: 0.2,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
+                      height: 20.h,
                     ),
                     SizedBox(
                       height: 12.h,
                     ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Don’t have an account ?",
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        RegisterScreen(),
-                                    transitionsBuilder: (context, animation,
-                                            secondaryAnimation, child) =>
-                                        Align(
-                                          child: SizeTransition(
-                                            sizeFactor: animation,
-                                            child: child,
-                                          ),
-                                        )),
-                              );
-                            },
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                color: Color(0xff239BD8),
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          )
-                        ])
+                    SignUpButton()
                   ],
                 ),
               ),
@@ -182,20 +109,3 @@ class _LoginPageState extends State<LoginPage> {
     )));
   }
 }
-
-
-
-/*
-
- suffixIcon: IconButton(
-                              icon: Icon(_isObscure
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              }),
-
-
-*/
