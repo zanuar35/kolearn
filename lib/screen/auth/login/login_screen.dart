@@ -1,7 +1,11 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/bloc/login_bloc.dart';
+import 'package:kolearn/home_page.dart';
 import 'package:kolearn/screen/auth/login/widget/password_textfield.dart';
 import 'package:kolearn/screen/auth/login/widget/sign_up_btn.dart';
 import 'widget/build_textfield.dart';
@@ -91,12 +95,33 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 29.h,
                     ),
-                    LoginBtn(formKey: _formKey),
-                    SizedBox(
-                      height: 20.h,
+                    BlocListener<LoginBloc, LoginState>(
+                      listener: (context, state) {
+                        if (state is LoginLoading) {
+                          EasyLoading.show(
+                            status: 'loading...',
+                            maskType: EasyLoadingMaskType.black,
+                          );
+                        }
+                        if (state is LoginSuccess) {
+                          EasyLoading.showSuccess('Done!');
+                          EasyLoading.dismiss();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(),
                     ),
+                    LoginButton(
+                        formKey: _formKey,
+                        emailController: _emailController,
+                        passwordController: _passwordController),
                     SizedBox(
-                      height: 12.h,
+                      height: 32.h,
                     ),
                     SignUpButton()
                   ],

@@ -15,7 +15,7 @@ class BuildTextField extends StatelessWidget {
   final String hint;
   final bool obstext;
   final bool isEmail;
-  
+
   final TextEditingController controller;
 
   @override
@@ -29,6 +29,7 @@ class BuildTextField extends StatelessWidget {
         obscureText: obstext,
         decoration: InputDecoration(
           hintText: hint,
+          prefixIcon: Icon(Icons.email_rounded),
           hintStyle: TextStyle(
               fontWeight: FontWeight.w400, fontSize: 14.sp, color: Colors.grey),
           focusedBorder: OutlineInputBorder(

@@ -6,10 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
 
 class PassField extends StatefulWidget {
-  const PassField({
-    Key? key,
-    required this.controller
-  }) : super(key: key);
+  const PassField({Key? key, required this.controller}) : super(key: key);
 
   final TextEditingController controller;
   @override
@@ -18,7 +15,6 @@ class PassField extends StatefulWidget {
 
 class _PassFieldState extends State<PassField> {
   bool isObscure = true;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +26,7 @@ class _PassFieldState extends State<PassField> {
         obscureText: isObscure,
         style: TextStyle(fontSize: 16.sp),
         decoration: InputDecoration(
+          prefixIcon: Icon(Icons.lock_open_rounded),
           suffixIcon: BlocBuilder<ObscuretextCubit, ObscuretextState>(
             builder: (context, state) {
               if (state is ObscureFalse) {
