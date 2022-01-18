@@ -27,21 +27,28 @@ class LoginButton extends StatelessWidget {
           child: ConstrainedBox(
             constraints: BoxConstraints.tightFor(height: 55.h),
             child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    BlocProvider.of<LoginBloc>(context).add(LoginSubmit(
-                        _emailController.text, _passwordController.text));
-                  }
-                },
-                child: Text(
-                  "Submit",
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                )),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  BlocProvider.of<LoginBloc>(context).add(LoginSubmit(
+                      _emailController.text, _passwordController.text));
+                }
+              },
+              child: Text(
+                "Masuk",
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(MediaQuery.of(context).size.width, 60.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
           ),
         )
       ],
