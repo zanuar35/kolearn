@@ -5,6 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kolearn/blocs/bloc/login_bloc.dart';
+import 'package:kolearn/blocs/registrasi/bloc/registrasi_bloc.dart';
+import 'package:kolearn/repositories/user/user_regis_repo.dart';
+import 'package:kolearn/repositories/user/user_repositories.dart';
 import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
 
 import 'screen/auth/login/login_screen.dart';
@@ -22,8 +26,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<ObscuretextCubit>(
-            create: (context) => ObscuretextCubit()
+              create: (context) => ObscuretextCubit()),
+          BlocProvider<LoginBloc>(
+            create: (context) => LoginBloc(UserRepository()),
           ),
+          BlocProvider(
+            create: (context) => RegistrasiBloc(
+              UserRegisRepository(),
+            ),
+          )
         ],
         child: ScreenUtilInit(
           designSize: Size(414, 896),
