@@ -1,22 +1,30 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-class RegisterButton extends StatelessWidget {
+class RegisterButton extends StatefulWidget {
   const RegisterButton({
+    
     Key? key,
     required GlobalKey<FormState> formKey1,
   })  : _formKey1 = formKey1,
         super(key: key);
 
   final GlobalKey<FormState> _formKey1;
+  
 
+  @override
+  State<RegisterButton> createState() => _RegisterButtonState();
+}
+
+class _RegisterButtonState extends State<RegisterButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (_formKey1.currentState!.validate()) {
-          Navigator.pop(context);
+        if (widget._formKey1.currentState!.validate()) {
+         
         }
       },
       style: ElevatedButton.styleFrom(
@@ -24,7 +32,7 @@ class RegisterButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        primary: const Color(0xff52C3FF),
+        // primary: const Color(0xff52C3FF),
       ),
       child: Text(
         "Register",

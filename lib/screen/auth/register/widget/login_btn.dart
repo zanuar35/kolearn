@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/auth/login/login_screen.dart';
 
-
 class LoginBtn extends StatelessWidget {
   const LoginBtn({
     Key? key,
@@ -19,7 +18,7 @@ class LoginBtn extends StatelessWidget {
         ),
       ),
       SizedBox(
-        width: 10.w,
+        width: 6.w,
       ),
       GestureDetector(
         onTap: () {

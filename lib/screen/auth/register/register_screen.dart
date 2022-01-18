@@ -22,6 +22,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final _passController = TextEditingController();
+    final nameController = TextEditingController();
+    final _emailController = TextEditingController();
+    final _confirmPassController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -77,23 +80,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: <Widget>[
                       InputField(
+                        controller: nameController,
                         hint: "Full Name",
+                        icons: Icons.person,
                       ),
                       SizedBox(
                         height: 15.h,
                       ),
                       InputField(
+                        controller: _emailController,
                         hint: "Email",
+                        icons: Icons.mark_email_read,
                       ),
                       SizedBox(
                         height: 15.h,
                       ),
-                      PassTextField(),
+                      PassTextField(
+                        hint: "Password",
+                        controller: _passController,
+                      ),
                       SizedBox(
                         height: 15.h,
                       ),
-                      InputField(
-                        hint: "Confirm Password",
+                      PassTextField(
+                        hint: "Konfirmasi Password",
+                        controller: _confirmPassController,
                       ),
                     ],
                   ),
@@ -102,7 +113,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(
                 height: 20.h,
               ),
-              RegisterButton(formKey1: _formKey1),
+              RegisterButton(
+                formKey1: _formKey1,
+              ),
               SizedBox(
                 height: 15.h,
               ),
