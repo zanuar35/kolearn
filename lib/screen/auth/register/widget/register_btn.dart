@@ -1,19 +1,31 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/registrasi/bloc/registrasi_bloc.dart';
 
 class RegisterButton extends StatefulWidget {
   const RegisterButton({
-    
     Key? key,
+    required TextEditingController emailController,
+    required TextEditingController passController,
+    required TextEditingController confirmPassController,
+    required TextEditingController nameController,
     required GlobalKey<FormState> formKey1,
   })  : _formKey1 = formKey1,
+        _emailController = emailController,
+        _passwordController = passController,
+        _nameController = nameController,
+        _confirmPassController = confirmPassController,
         super(key: key);
 
   final GlobalKey<FormState> _formKey1;
-  
 
+  final TextEditingController _nameController;
+  final TextEditingController _emailController;
+  final TextEditingController _passwordController;
+  final TextEditingController _confirmPassController;
   @override
   State<RegisterButton> createState() => _RegisterButtonState();
 }
@@ -24,7 +36,14 @@ class _RegisterButtonState extends State<RegisterButton> {
     return ElevatedButton(
       onPressed: () {
         if (widget._formKey1.currentState!.validate()) {
-         
+          BlocProvider.of<RegistrasiBloc>(context).add(
+            RegistrasiSubmit(
+              widget._nameController.text,
+              widget._emailController.text,
+              widget._passwordController.text,
+              widget._confirmPassController.text,
+            ),
+          );
         }
       },
       style: ElevatedButton.styleFrom(
@@ -35,7 +54,7 @@ class _RegisterButtonState extends State<RegisterButton> {
         // primary: const Color(0xff52C3FF),
       ),
       child: Text(
-        "Register",
+        "Daftar",
         style: TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.w400,
