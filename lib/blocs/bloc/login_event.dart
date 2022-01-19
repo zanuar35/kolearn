@@ -13,3 +13,9 @@ class LoginSubmit implements LoginEvent {
 
   bool get stringify => false;
 }
+
+class LogOut implements LoginEvent {
+  List<Object> get props => [];
+
+  bool get stringify => false;
+}

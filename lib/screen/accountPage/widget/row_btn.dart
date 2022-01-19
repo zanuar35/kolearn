@@ -37,7 +37,7 @@ class RowButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const EditProfile(),
+            builder: (context) =>  EditProfile(),
           ),
         );
       },

@@ -20,7 +20,7 @@ class LoginLoading extends LoginState {
 }
 
 class LoginSuccess extends LoginState {
-  final List<User> user;
+  final User user;
 
   LoginSuccess(this.user);
 
@@ -37,4 +37,16 @@ class LoginFailed extends LoginState {
 
   @override
   bool get stringify => false;
+}
+
+class LogOutSuccess extends LoginState {
+  final UserLogout userLogout;
+
+  LogOutSuccess(this.userLogout);
+
+  @override
+  List<Object?> get props => [userLogout];
+
+  @override
+  bool? get stringify => true;
 }
