@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,6 +7,7 @@ import 'package:kolearn/blocs/bloc/login_bloc.dart';
 import 'package:kolearn/home_page.dart';
 import 'package:kolearn/screen/auth/login/widget/password_textfield.dart';
 import 'package:kolearn/screen/auth/login/widget/sign_up_btn.dart';
+import '../../../models/user/user_model.dart';
 import 'widget/build_textfield.dart';
 import 'widget/login_btn.dart';
 
@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    User _user;
     print("build screen");
     return Scaffold(
         body: SafeArea(
@@ -104,13 +105,20 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         }
                         if (state is LoginSuccess) {
-                          EasyLoading.showSuccess('Done!');
+                          EasyLoading.showSuccess('Login success!',
+                              duration: Duration(milliseconds: 1500));
                           EasyLoading.dismiss();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomePage(),
                             ),
+                          );
+                        }
+                        if (state is LoginFailed) {
+                          EasyLoading.showError(
+                            "Login Gagal",
+                            maskType: EasyLoadingMaskType.black,
                           );
                         }
                       },
