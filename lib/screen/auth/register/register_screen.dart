@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/register/cubit/register_cubit.dart';
 import 'package:kolearn/screen/auth/register/widget/login_btn.dart';
 import 'package:kolearn/screen/auth/register/widget/password_field.dart';
 import 'package:kolearn/screen/auth/register/widget/register_btn.dart';
@@ -106,13 +109,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hint: "Konfirmasi Password",
                         controller: _confirmPassController,
                       ),
-                      
                     ],
                   ),
                 ),
               ),
               SizedBox(
                 height: 20.h,
+              ),
+              BlocListener<RegisterCubit, RegisterState>(
+                listener: (context, state) {
+                  if (state is RegisterLoading) {
+                    EasyLoading.show(
+                      status: 'loading...',
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                  }
+                  if (state is RegisterSuccess) {
+                    EasyLoading.showSuccess('Login success!',
+                        duration: Duration(milliseconds: 1500));
+                    EasyLoading.dismiss();
+                    Navigator.pop(context);
+                  }
+                  if (state is RegisterFailed) {
+                    EasyLoading.showError(state.message,
+                        maskType: EasyLoadingMaskType.black,
+                        duration: Duration(milliseconds: 1500));
+                  }
+                },
+                child: Container(),
               ),
               RegisterButton(
                 formKey1: _formKey1,
