@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/blocs/bloc/login_bloc.dart';
+import 'package:kolearn/blocs/login/cubit/login_cubit.dart';
 import 'package:kolearn/home_page.dart';
 import 'package:kolearn/screen/auth/login/widget/password_textfield.dart';
 import 'package:kolearn/screen/auth/login/widget/sign_up_btn.dart';
-import '../../../models/user/user_model.dart';
 import 'widget/build_textfield.dart';
 import 'widget/login_btn.dart';
 
@@ -27,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    User _user;
     print("build screen");
     return Scaffold(
         body: SafeArea(
@@ -96,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 29.h,
                     ),
-                    BlocListener<LoginBloc, LoginState>(
+                    BlocListener<LoginCubit, LoginState>(
                       listener: (context, state) {
                         if (state is LoginLoading) {
                           EasyLoading.show(
@@ -115,14 +113,25 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           );
                         }
-                        if (state is LoginFailed) {
-                          EasyLoading.showError(
-                            "Login Gagal",
-                            maskType: EasyLoadingMaskType.black,
-                          );
-                        }
                       },
                       child: Container(),
+                    ),
+                    BlocConsumer<LoginCubit, LoginState>(
+                      listener: (context, state) {
+                        if (state is LoginFailed) {
+                          EasyLoading.dismiss();
+                          EasyLoading.showError(state.message,
+                              maskType: EasyLoadingMaskType.black,
+                              duration: Duration(milliseconds: 1500));
+                        }
+                        if (state is LoginSuccess) {
+                          print(state.user.token);
+                          print(state.user.user.name);
+                        }
+                      },
+                      builder: (context, state) {
+                        return Container();
+                      },
                     ),
                     LoginButton(
                         formKey: _formKey,

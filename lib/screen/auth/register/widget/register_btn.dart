@@ -1,9 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/blocs/registrasi/bloc/registrasi_bloc.dart';
 
 class RegisterButton extends StatefulWidget {
   const RegisterButton({
@@ -35,16 +33,16 @@ class _RegisterButtonState extends State<RegisterButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (widget._formKey1.currentState!.validate()) {
-          BlocProvider.of<RegistrasiBloc>(context).add(
-            RegistrasiSubmit(
-              widget._nameController.text,
-              widget._emailController.text,
-              widget._passwordController.text,
-              widget._confirmPassController.text,
-            ),
-          );
-        }
+        // if (widget._formKey1.currentState!.validate()) {
+        //   BlocProvider.of<RegistrasiBloc>(context).add(
+        //     RegistrasiSubmit(
+        //       widget._nameController.text,
+        //       widget._emailController.text,
+        //       widget._passwordController.text,
+        //       widget._confirmPassController.text,
+        //     ),
+        //   );
+        // }
       },
       style: ElevatedButton.styleFrom(
         fixedSize: Size(MediaQuery.of(context).size.width, 55.h),

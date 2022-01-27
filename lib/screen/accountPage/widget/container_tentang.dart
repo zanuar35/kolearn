@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/blocs/bloc/login_bloc.dart';
+import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/screen/accountPage/widget/row_button.dart';
-import 'package:kolearn/screen/auth/login/login_screen.dart';
 import 'package:kolearn/screen/coba.dart';
 import 'package:kolearn/screen/ubahPassword/ubah_password.dart';
 
@@ -75,7 +74,7 @@ class ContainerTentang extends StatelessWidget {
               textBtn: "Logout",
               isNext: false,
               onTap: () {
-                BlocProvider.of<LoginBloc>(context).add(LogOut());
+                BlocProvider.of<LogoutCubit>(context).logOut();
               },
             ),
           ],

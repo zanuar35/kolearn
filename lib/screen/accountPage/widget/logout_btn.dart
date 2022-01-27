@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/blocs/bloc/login_bloc.dart';
+import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 
 class LogoutBtn extends StatelessWidget {
   const LogoutBtn({
@@ -16,7 +16,7 @@ class LogoutBtn extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: ElevatedButton(
         onPressed: () {
-          BlocProvider.of<LoginBloc>(context).add(LogOut());
+          BlocProvider.of<LogoutCubit>(context).logOut();
         },
         style: ElevatedButton.styleFrom(
           fixedSize: Size(MediaQuery.of(context).size.width, 55.h),

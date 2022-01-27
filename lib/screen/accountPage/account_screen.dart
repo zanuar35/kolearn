@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kolearn/blocs/bloc/login_bloc.dart';
+import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/screen/accountPage/widget/container_tentang.dart';
 import 'package:kolearn/screen/auth/login/login_screen.dart';
 import 'widget/container_akun.dart';
@@ -30,15 +30,15 @@ class AccountPage extends StatelessWidget {
         color: const Color(0xffE6F6FF),
         child: Column(
           children: <Widget>[
-            BlocListener<LoginBloc, LoginState>(
+            BlocListener<LogoutCubit, LogoutState>(
               listener: ((context, state) {
-                if (state is LoginLoading) {
+                if (state is LogoutLoading) {
                   EasyLoading.show(
                     status: 'loading...',
                     maskType: EasyLoadingMaskType.black,
                   );
                 }
-                if (state is LogOutSuccess) {
+                if (state is LogoutSuccess) {
                   EasyLoading.showSuccess('Logout success!',
                       duration: Duration(milliseconds: 1500));
                   EasyLoading.dismiss();
@@ -47,7 +47,7 @@ class AccountPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 }
-                if (state is LoginFailed) {
+                if (state is LogoutFailed) {
                   EasyLoading.showError("Gagal Logout");
                 }
               }),

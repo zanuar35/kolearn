@@ -54,6 +54,7 @@ class _InputFieldState extends State<InputField> {
             if (value!.isEmpty) {
               return "Lengkapi data";
             }
+            return null;
           }),
     );
   }
