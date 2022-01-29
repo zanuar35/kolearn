@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -42,10 +44,12 @@ class AccountPage extends StatelessWidget {
                   EasyLoading.showSuccess('Logout success!',
                       duration: Duration(milliseconds: 1500));
                   EasyLoading.dismiss();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
+                  Timer(Duration(seconds: 2), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  });
                 }
                 if (state is LogoutFailed) {
                   EasyLoading.showError("Gagal Logout");

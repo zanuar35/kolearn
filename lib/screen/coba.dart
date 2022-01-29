@@ -10,42 +10,41 @@ class CobaPage extends StatefulWidget {
 }
 
 class _CobaPageState extends State<CobaPage> {
-  final _namaController = TextEditingController();
-  bool _isObscure = true;
+  int selected = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
-        color: Colors.red[100],
-        child: Form(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+          color: Colors.red[100],
           child: Column(
-            children: [
-              TextFormField(
-                obscureText: _isObscure,
-                controller: _namaController,
-                decoration: InputDecoration(
-                    hintText: "masuk",
-                    suffixIcon: IconButton(
-                        icon: Icon(_isObscure
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
-                        })),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    print(_namaController.text.toString());
-                  },
-                  child: const Text("Print data"))
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              customRadio('coba', 1),
+              customRadio('apa', 2),
+              customRadio('naon', 3),
+              customRadio('jika', 4),
             ],
-          ),
-        ),
+          )),
+    );
+  }
+
+  Widget customRadio(String text, int index) {
+    return GestureDetector(
+      child: Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+            color: (selected == index) ? Colors.green : Colors.red),
+        child: Text(text),
       ),
+      onTap: () {
+        setState(() {
+          selected = index;
+        });
+      },
     );
   }
 }

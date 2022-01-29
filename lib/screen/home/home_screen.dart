@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'widget/category_widget.dart';
+List<String> item = ['Pemula', 'Menengah', 'Mahir'];
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int selected = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,13 +86,12 @@ class HomeScreen extends StatelessWidget {
                         height: 60,
                         width: double.infinity,
                         child: ListView.builder(
-                            itemCount: 4,
+                            itemCount: 3,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              return const Padding(
-                                padding: EdgeInsets.only(right: 13),
-                                child: CategoryWidget(),
-                              );
+                              return Padding(
+                                  padding: const EdgeInsets.only(right: 13),
+                                  child: customRadio(item[index], index));
                             }),
                       ),
                     ),
@@ -125,6 +130,49 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         )));
+  }
+
+  Widget customRadio(String text, int index) {
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          color: (selected == index)
+              ? const Color(0xff52C3FF)
+              : const Color.fromARGB(255, 238, 122, 114),
+          borderRadius: BorderRadius.circular(40.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            SizedBox(
+              width: 10.w,
+            ),
+            Container(
+              height: 55.h,
+              width: 55.h,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromARGB(255, 255, 255, 255)),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Text(
+              text,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              width: 15.w,
+            )
+          ],
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          selected = index;
+        });
+      },
+    );
   }
 
   Widget cardWidget() {

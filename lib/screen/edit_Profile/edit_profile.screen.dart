@@ -3,13 +3,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/edit_Profile/widget/camera_icon.dart';
 import 'package:kolearn/screen/edit_Profile/widget/input_textfield.dart';
 
-class EditProfile extends StatelessWidget {
-  EditProfile({Key? key}) : super(key: key);
+class EditProfile extends StatefulWidget {
+  const EditProfile({Key? key}) : super(key: key);
+
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
+
   final _nameController = TextEditingController();
+
   final _telpController = TextEditingController();
+
+  late String dataAwal;
+  List data = [
+    {'judul': "Laki-Laki", 'data': 'Laki-Laki'},
+    {'judul': "Perempuan", 'data': 'Perempuan'},
+  ];
+
+  @override
+  void initState() {
+    dataAwal = data[0]["data"];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,17 +127,17 @@ class EditProfile extends StatelessWidget {
                           color: const Color(0xffEFEFEF),
                         ),
                         child: DropdownButton<String>(
-                          isExpanded: true,
-                          hint: const Text("Jenis Kelamin"),
-                          items: <String>['Laki-laki', 'Perempuan']
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
-                        ),
+                            value: dataAwal,
+                            items: data
+                                .map((e) => DropdownMenuItem(
+                                    child: Text("${e['judul']}"),
+                                    value: "${e['data']}"))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                dataAwal = value!;
+                              });
+                            }),
                       ),
                       SizedBox(
                         height: 35.h,

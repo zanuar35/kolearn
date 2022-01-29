@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -106,12 +108,14 @@ class _LoginPageState extends State<LoginPage> {
                           EasyLoading.showSuccess('Login success!',
                               duration: Duration(milliseconds: 1500));
                           EasyLoading.dismiss();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(),
-                            ),
-                          );
+                          Timer(Duration(seconds: 2), () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+                          });
                         }
                       },
                       child: Container(),
@@ -123,10 +127,6 @@ class _LoginPageState extends State<LoginPage> {
                           EasyLoading.showError(state.message,
                               maskType: EasyLoadingMaskType.black,
                               duration: Duration(milliseconds: 1500));
-                        }
-                        if (state is LoginSuccess) {
-                          print(state.user.token);
-                          print(state.user.user.name);
                         }
                       },
                       builder: (context, state) {
