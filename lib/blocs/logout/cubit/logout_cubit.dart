@@ -12,7 +12,7 @@ class LogoutCubit extends Cubit<LogoutState> {
 
   Future<void> logOut() async {
     emit(LogoutLoading());
-    String url = 'https://2e9b-103-178-13-98.ngrok.io';
+    String url = 'https://0531-103-178-13-98.ngrok.io';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
     print(token);

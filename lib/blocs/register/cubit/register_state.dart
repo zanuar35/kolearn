@@ -19,3 +19,5 @@ class RegisterFailed extends RegisterState {
   @override
   bool? get stringify => throw UnimplementedError();
 }
+
+class RegisterNotValid extends RegisterState{}

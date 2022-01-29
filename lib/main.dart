@@ -62,7 +62,7 @@ void configLoading() {
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow
     ..textColor = Colors.yellow
-    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..maskColor = Color.fromARGB(255, 68, 68, 68).withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false;
 }

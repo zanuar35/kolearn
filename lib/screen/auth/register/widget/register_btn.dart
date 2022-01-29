@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/register/cubit/register_cubit.dart';
 
@@ -43,6 +44,10 @@ class _RegisterButtonState extends State<RegisterButton> {
             widget._emailController.text,
             widget._passwordController.text,
           );
+        } else {
+          EasyLoading.showError('Password berbeda',
+              maskType: EasyLoadingMaskType.custom,
+              duration: const Duration(milliseconds: 1500));
         }
       },
       style: ElevatedButton.styleFrom(

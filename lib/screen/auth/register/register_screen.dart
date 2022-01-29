@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -125,10 +127,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                   }
                   if (state is RegisterSuccess) {
-                    EasyLoading.showSuccess('Login success!',
+                    EasyLoading.showSuccess('Daftar berhasil!',
+                        maskType: EasyLoadingMaskType.black,
                         duration: Duration(milliseconds: 1500));
                     EasyLoading.dismiss();
-                    Navigator.pop(context);
+                    Timer(Duration(seconds: 2), () {
+                      Navigator.pop(context);
+                    });
                   }
                   if (state is RegisterFailed) {
                     EasyLoading.showError(state.message,
