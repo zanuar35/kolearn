@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/materi_screen/materi_screen.dart';
 
 class CourseDetail extends StatefulWidget {
   const CourseDetail({Key? key}) : super(key: key);
@@ -57,7 +58,10 @@ class _CourseDetailState extends State<CourseDetail> {
                         TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                   ),
                   const Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                    style: TextStyle(
+                        color: Color(0xff9F98AD), fontWeight: FontWeight.w600),
+                  ),
                   rowButton(),
                   rowButton(),
                   button()
@@ -136,7 +140,14 @@ class _CourseDetailState extends State<CourseDetail> {
             constraints: BoxConstraints.tightFor(height: 60.h),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: const Color(0xff7383BF)),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MateriScreen(),
+                  ),
+                );
+              },
               child: const Text("Submit"),
             ),
           ),
@@ -175,7 +186,7 @@ class _CourseDetailState extends State<CourseDetail> {
             ],
             shape: BoxShape.circle,
           ),
-          child: Icon(Icons.lock_outline_rounded),
+          child: const Icon(Icons.lock_outline_rounded),
         )
       ],
     );
