@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyCourse extends StatelessWidget {
-  MyCourse({Key? key}) : super(key: key);
+class MyCourse extends StatefulWidget {
+  const MyCourse({Key? key}) : super(key: key);
 
+  @override
+  State<MyCourse> createState() => _MyCourseState();
+}
+
+class _MyCourseState extends State<MyCourse> {
   final List<Color> warnaCard = [
     Colors.white,
     const Color(0xff7383C0),
@@ -11,6 +16,9 @@ class MyCourse extends StatelessWidget {
     const Color(0xff5BDEDE)
   ];
 
+  final List<String> kategori = ['All', 'OnGoing', 'Finish'];
+
+  int selected = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +36,7 @@ class MyCourse extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 110.h,
+              height: 120.h,
               width: double.infinity,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 22.h),
@@ -36,18 +44,18 @@ class MyCourse extends StatelessWidget {
                   height: 60.h,
                   width: double.infinity,
                   child: ListView.builder(
-                      itemCount: 4,
+                      itemCount: 3,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Padding(
                             padding: const EdgeInsets.only(right: 13),
-                            child: categoryCard(warnaCard[index], index));
+                            child: customRadio(kategori[index], index));
                       }),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 24.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
               width: double.infinity,
               child: ListView.builder(
                   shrinkWrap: true,
@@ -87,6 +95,49 @@ class MyCourse extends StatelessWidget {
       ),
     );
   }
+
+  Widget customRadio(String text, int index) {
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          color: (selected == index)
+              ? const Color(0xff52C3FF)
+              : const Color.fromARGB(255, 238, 122, 114),
+          borderRadius: BorderRadius.circular(40.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            SizedBox(
+              width: 10.w,
+            ),
+            Container(
+              height: 55.h,
+              width: 55.h,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromARGB(255, 255, 255, 255)),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Text(
+              text,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              width: 15.w,
+            )
+          ],
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          selected = index;
+        });
+      },
+    );
+  }
 }
 
 class MateriCard extends StatelessWidget {
@@ -97,7 +148,7 @@ class MateriCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 25.h, left: 24.w, right: 24.w, bottom: 5.h),
+      margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
       width: 360.w,
       height: 170.h,
       decoration: BoxDecoration(

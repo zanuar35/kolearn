@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 
 List<String> item = ['Pemula', 'Menengah', 'Mahir'];
 
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selected = 1;
+  int selected = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,52 +177,62 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget cardWidget() {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              "ㅏ",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 90.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const Spacer(),
-          Container(
-            width: double.infinity,
-            height: 50.h,
-            child: Center(
+    return GestureDetector(
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
               child: Text(
-                "Basic Vowel",
+                "ㅏ",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 90.sp,
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
             ),
-            decoration: BoxDecoration(
-              color: const Color(0xffFFD07D).withOpacity(0.58),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.r),
-                topRight: Radius.circular(10.r),
-                bottomLeft: Radius.circular(20.r),
-                bottomRight: Radius.circular(20.r),
+            const Spacer(),
+            Container(
+              width: double.infinity,
+              height: 50.h,
+              child: Center(
+                child: Text(
+                  "Basic Vowel",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: const Color(0xffFFD07D).withOpacity(0.58),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.r),
+                  topRight: Radius.circular(10.r),
+                  bottomLeft: Radius.circular(20.r),
+                  bottomRight: Radius.circular(20.r),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+        decoration: BoxDecoration(
+            color: Colors.amber, borderRadius: BorderRadius.circular(15)),
       ),
-      decoration: BoxDecoration(
-          color: Colors.amber, borderRadius: BorderRadius.circular(15)),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CourseDetail(),
+          ),
+        );
+      },
     );
   }
 }
