@@ -21,13 +21,17 @@ class _MateriScreenState extends State<MateriScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: 30.w, top: 30.h),
-                  child: Icon(
-                    Icons.close_rounded,
-                    color: Color(0xff858585),
-                    size: 30,
-                  ),
-                ),
+                    padding: EdgeInsets.only(left: 20.w, top: 20.h),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.close_rounded,
+                        color: Color(0xff858585),
+                        size: 30,
+                      ),
+                    )),
                 SizedBox(
                   height: 70.h,
                 ),
@@ -78,7 +82,7 @@ class _MateriScreenState extends State<MateriScreen> {
                               Container(
                                 width: 30.w,
                                 height: 30.w,
-                                child: Icon(
+                                child: const Icon(
                                   Icons.volume_up_rounded,
                                   color: Color(0xffF8F8F8),
                                 ),
@@ -120,6 +124,58 @@ class _MateriScreenState extends State<MateriScreen> {
               blurRadius: 4)
         ],
         color: Color(0xffFDF8EE),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.leave_bags_at_home_rounded,
+                color: Colors.red[300],
+              ),
+              Text(
+                "Tas",
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              )
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "가 방",
+                style: TextStyle(
+                  fontSize: 45.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                "Ga bang",
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            width: 30.w,
+            height: 30.w,
+            child: const Icon(
+              Icons.volume_up_rounded,
+              color: Color(0xffF8F8F8),
+            ),
+            decoration: const BoxDecoration(
+                color: Color(0xff636363), shape: BoxShape.circle),
+          )
+        ],
       ),
     );
   }

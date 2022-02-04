@@ -34,6 +34,7 @@ class _MyCourseState extends State<MyCourse> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               height: 120.h,
@@ -126,7 +127,7 @@ class _MyCourseState extends State<MyCourse> {
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
             ),
             SizedBox(
-              width: 15.w,
+              width: 18.w,
             )
           ],
         ),
