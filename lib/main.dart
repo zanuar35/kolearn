@@ -9,9 +9,10 @@ import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
 import 'package:kolearn/blocs/login/cubit/login_cubit.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/blocs/register/cubit/register_cubit.dart';
+import 'package:kolearn/home_page.dart';
+import 'package:kolearn/screen/auth/login/login_screen.dart';
 import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
-
-import 'screen/auth/login/login_screen.dart';
+import 'package:kolearn/screen/auth/register/register_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: ScreenUtilInit(
+          minTextAdapt: true,
           designSize: Size(414, 896),
           builder: () => MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -50,7 +52,12 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               )),
               home: LoginPage(),
-              builder: EasyLoading.init()),
+              builder: (context, widget) {
+                ScreenUtil.setContext(context);
+                return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    child: widget!);
+              }),
         ));
   }
 }

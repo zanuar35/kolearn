@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
 
 class PassField extends StatefulWidget {
@@ -19,12 +18,12 @@ class _PassFieldState extends State<PassField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65.h,
-      width: 354.w,
+      height: 65,
+      width: 354,
       child: TextFormField(
         controller: widget.controller,
         obscureText: isObscure,
-        style: TextStyle(fontSize: 16.sp),
+        style: TextStyle(fontSize: 16),
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.lock_open_rounded),
           suffixIcon: BlocBuilder<ObscuretextCubit, ObscuretextState>(
@@ -62,7 +61,7 @@ class _PassFieldState extends State<PassField> {
           ),
           hintText: "Password ",
           hintStyle: TextStyle(
-              fontWeight: FontWeight.w400, fontSize: 13.sp, color: Colors.grey),
+              fontWeight: FontWeight.w400, fontSize: 13, color: Colors.grey),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/screen/auth/register/register_screen.dart';
 
 class SignUpButton extends StatelessWidget {
@@ -10,15 +9,15 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      Text(
+      const Text(
         "Belum punya akun?",
         style: TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
       ),
-      SizedBox(
-        width: 6.w,
+      const SizedBox(
+        width: 6,
       ),
       GestureDetector(
         onTap: () {
@@ -35,11 +34,11 @@ class SignUpButton extends StatelessWidget {
                         )),
           );
         },
-        child: Text(
+        child: const Text(
           "Buat akun",
           style: TextStyle(
-            color: const Color(0xff239BD8),
-            fontSize: 12.sp,
+            color: Color(0xff239BD8),
+            fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
         ),
