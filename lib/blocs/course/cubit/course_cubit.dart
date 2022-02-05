@@ -17,7 +17,6 @@ class CourseCubit extends Cubit<CourseState> {
     String url = 'https://b019-103-178-12-200.ngrok.io';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
-    print(token);
 
     emit(CourseLoading());
     var response = await http.get(
@@ -25,14 +24,16 @@ class CourseCubit extends Cubit<CourseState> {
       headers: {'Accept': 'application/json', "Authorization": 'Bearer $token'},
     );
     if (response.statusCode == 200) {
-      emit(CourseSuccess());
       final Map parsed = json.decode(response.body);
       Course course = Course.fromJson(parsed);
-      List kursus = course.data;
-      for (var i = 0; i < kursus.length; i++) {
-        print(kursus[i].courseName);
-        print(kursus[i].title);
-      }
+      List<Data> kursus = course.data;
+
+      emit(CourseSuccess(kursus));
     }
   }
 }
+
+// //for (var i = 0; i < kursus.length; i++) {
+//         print(kursus[i].courseName);
+//         print(kursus[i].title);
+//       }

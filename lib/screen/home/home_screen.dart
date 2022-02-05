@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:kolearn/screen/home/widget/container_profile.dart';
 import 'package:kolearn/screen/home/widget/materi_card_widget.dart';
 
 List<String> item = ['Pemula', 'Menengah', 'Mahir'];
+List course = [];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
