@@ -14,7 +14,7 @@ class CourseCubit extends Cubit<CourseState> {
   CourseCubit() : super(CourseInitial());
 
   void fetchCourse() async {
-    String url = 'https://b019-103-178-12-200.ngrok.io';
+    String url = 'https://9059-103-178-12-200.ngrok.io';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
 

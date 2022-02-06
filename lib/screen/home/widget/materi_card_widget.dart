@@ -4,11 +4,15 @@ import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 
 class MateriCard extends StatelessWidget {
   const MateriCard({
+    required this.text,
     required this.index,
     Key? key,
+    required this.courseName,
   }) : super(key: key);
 
   final int index;
+  final String text;
+  final String courseName;
 
   final warna = const [
     Color(0xffF9AE2B),
@@ -21,6 +25,8 @@ class MateriCard extends StatelessWidget {
     Color(0xff5ADFDF),
     Color(0xffF9AE2B),
     Color(0xff56B8EC),
+    Color(0xff7383C0),
+    Color(0xff5ADFDF),
   ];
 
   @override
@@ -35,7 +41,7 @@ class MateriCard extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                "ㅏ",
+                text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 90.sp,
@@ -50,11 +56,11 @@ class MateriCard extends StatelessWidget {
               height: 50.h,
               child: Center(
                 child: Text(
-                  "Basic Vowel",
+                  courseName,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: const Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),

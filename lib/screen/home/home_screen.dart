@@ -7,6 +7,7 @@ import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
 import 'package:kolearn/screen/home/widget/category_widget.dart';
 import 'package:kolearn/screen/home/widget/container_profile.dart';
 import 'package:kolearn/screen/home/widget/materi_card_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 List<String> item = ['Pemula', 'Menengah', 'Mahir'];
 List course = [];
@@ -23,7 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<CourseCubit>(context).fetchCourse();
+    if (course.isEmpty) {
+      BlocProvider.of<CourseCubit>(context).fetchCourse();
+    }
   }
 
   @override
@@ -74,25 +77,62 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.w600, fontSize: 24.sp),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 30.w, vertical: 24.h),
-                      child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 200,
-                                  childAspectRatio: 1.6 / 2,
-                                  crossAxisSpacing: 20,
-                                  mainAxisSpacing: 20),
-                          itemCount: 10,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return MateriCard(
-                              index: index,
-                            );
-                          }),
+                    BlocBuilder<CourseCubit, CourseState>(
+                      builder: (context, state) {
+                        if (state is CourseLoading) {
+                          return SizedBox(
+                            width: 200.0,
+                            height: 100.0,
+                            child: Shimmer.fromColors(
+                                baseColor: Colors.grey,
+                                highlightColor: Colors.blueGrey,
+                                child: Container(
+                                  height: 120.h,
+                                  width: 40.w,
+                                  color: Colors.black,
+                                )),
+                          );
+                        }
+                        if (state is CourseSuccess) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30.w, vertical: 24.h),
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 200,
+                                        childAspectRatio: 1.6 / 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20),
+                                itemCount: state.courses.length,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return MateriCard(
+                                    index: index,
+                                    text: state.courses[index].title,
+                                    courseName: state.courses[index].courseName,
+                                  );
+                                }),
+                          );
+                        }
+                        return Container();
+                      },
                     ),
+                    BlocConsumer<CourseCubit, CourseState>(
+                      listener: (context, state) {
+                        if (state is CourseSuccess) {
+                          if (course.isEmpty) {
+                            setState(() {
+                              course = state.courses;
+                            });
+                          }
+                        }
+                      },
+                      builder: (context, state) {
+                        return Container();
+                      },
+                    )
                   ],
                 ),
               )
