@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (course.isEmpty) {
       BlocProvider.of<CourseCubit>(context).fetchCourse();
     }
+    print(course);
   }
 
   @override
@@ -109,10 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: state.courses.length,
                                 itemBuilder: (BuildContext ctx, index) {
                                   return MateriCard(
-                                    index: index,
-                                    text: state.courses[index].title,
-                                    courseName: state.courses[index].courseName,
-                                  );
+                                      index: index,
+                                      text: state.courses[index].title,
+                                      courseName:
+                                          state.courses[index].courseName,
+                                      courses: course);
                                 }),
                           );
                         }

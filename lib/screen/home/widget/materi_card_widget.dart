@@ -6,6 +6,7 @@ class MateriCard extends StatelessWidget {
   const MateriCard({
     required this.text,
     required this.index,
+    required this.courses,
     Key? key,
     required this.courseName,
   }) : super(key: key);
@@ -13,6 +14,7 @@ class MateriCard extends StatelessWidget {
   final int index;
   final String text;
   final String courseName;
+  final List courses;
 
   final warna = const [
     Color(0xffF9AE2B),
@@ -83,7 +85,10 @@ class MateriCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const CourseDetail(),
+            builder: (context) =>  CourseDetail(
+              index: index,
+              course: courses,
+            ),
           ),
         );
       },
