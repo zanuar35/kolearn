@@ -80,7 +80,7 @@ class _CourseDetailState extends State<CourseDetail> {
                   RowBtn(
                     text: "Latihan Soal",
                   ),
-                  const SubmitBtn()
+                  SubmitBtn(id: course[widget.index].id)
                 ],
               ),
             ),
