@@ -14,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   void loginEvent(String nama, String pass) async {
-    String url = 'https://339e-103-158-253-138.ngrok.io';
+    String url = 'https://85c3-103-158-253-138.ngrok.io';
 
     if (nama == '') {
       emit(NotValidated());

@@ -19,12 +19,12 @@ class MateriLoading extends MateriState {
 }
 
 class MateriLoaded extends MateriState {
-  // final List<Materi> materi;
+  final List materi;
 
-  // MateriLoaded({@required this.materi});
+  MateriLoaded(this.materi);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [materi];
   // [materi];
 
   @override
