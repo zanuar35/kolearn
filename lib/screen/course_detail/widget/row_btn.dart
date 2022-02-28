@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RowBtn extends StatefulWidget {
-  const RowBtn({required this.text, Key? key}) : super(key: key);
+  const RowBtn({required this.text, required this.child, Key? key}) : super(key: key);
 
   final String text;
+  final Widget child;
 
   @override
   _RowBtnState createState() => _RowBtnState();
@@ -23,6 +24,7 @@ class _RowBtnState extends State<RowBtn> {
             color: Colors.green[400],
             borderRadius: BorderRadius.circular(10.r),
           ),
+          child:widget.child
         ),
         SizedBox(
           width: 20.w,

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
 import 'package:kolearn/screen/course_detail/widget/submit_btn.dart';
 import 'package:kolearn/screen/home/home_screen.dart';
@@ -76,9 +77,17 @@ class _CourseDetailState extends State<CourseDetail> {
                   ),
                   RowBtn(
                     text: "Materi",
+                    child: SvgPicture.asset(
+                      'assets/edit.svg',
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                   RowBtn(
                     text: "Latihan Soal",
+                    child: SvgPicture.asset(
+                      'assets/book-alt.svg',
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                   SubmitBtn(id: course[widget.index].id),
                 ],

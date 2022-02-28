@@ -30,15 +30,20 @@ class _MateriPageState extends State<MateriPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        controller: pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: length == 0 ? 1 : length + 1,
-        itemBuilder: (context, position) {
-          return position <= length - 1 || position == 0
-              ? _buildPage(position)
-              : _buildPage2();
-        },
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: const Color(0xffE6F6FF),
+        child: PageView.builder(
+          controller: pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: length == 0 ? 1 : length + 1,
+          itemBuilder: (context, position) {
+            return position <= length - 1 || position == 0
+                ? _buildPage(position)
+                : _buildPage2();
+          },
+        ),
       ),
     );
   }
@@ -46,8 +51,8 @@ class _MateriPageState extends State<MateriPage> {
   Widget _buildPage(int position) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text((position + 1).toString()),
         BlocBuilder<MateriCubit, MateriState>(
           builder: (context, state) {
             if (state is MateriLoading) {
@@ -55,128 +60,153 @@ class _MateriPageState extends State<MateriPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is MateriLoaded) {
-              return Column(
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(left: 20.w, top: 20.h),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.close_rounded,
-                          color: Color(0xff858585),
-                          size: 30,
-                        ),
-                      )),
-                  SizedBox(
-                    height: 70.h,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 352.h,
-                      height: 350.h,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.30),
-                              offset: Offset(0, 4),
-                              blurRadius: 4)
-                        ],
-                        color: Color.fromRGBO(255, 255, 255, 1),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15.w, vertical: 15.h),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text(
-                              state.materi[position].hangeul,
-                              style: TextStyle(
-                                  fontSize: 120.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            Text(
-                              state.materi[position].bunyiHuruf,
-                              style: TextStyle(
-                                  fontSize: 30.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Container(),
-                                ),
-                                Container(
-                                  width: 30.w,
-                                  height: 30.w,
-                                  child: const Icon(
-                                    Icons.volume_up_rounded,
-                                    color: Color(0xffF8F8F8),
-                                  ),
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xff636363),
-                                      shape: BoxShape.circle),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+              return Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(left: 20.w, top: 20.h),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.close_rounded,
+                            color: Color(0xff858585),
+                            size: 30,
+                          ),
+                        )),
+                    SizedBox(
+                      height: 70.h,
                     ),
-                  ),
-                  detailMateri(),
-                  position != length - 1
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      pageController.nextPage(
-                                          duration: Duration(
-                                            milliseconds: 350,
-                                          ),
-                                          curve: Curves.fastLinearToSlowEaseIn);
-                                    },
-                                    child: const Text("Next"),
-                                  ),
-                                )
-                              ]),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(width: 7),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    pageController.nextPage(
-                                        duration: Duration(
-                                          milliseconds: 350,
-                                        ),
-                                        curve: Curves.easeInExpo);
-                                  },
-                                  child: const Text("Finish"),
-                                ),
+                    Center(
+                      child: Container(
+                        width: 352.h,
+                        height: 350.h,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.30),
+                                offset: Offset(0, 4),
+                                blurRadius: 4)
+                          ],
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 15.h),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(
+                                state.materi[position].hangeul,
+                                style: TextStyle(
+                                    fontSize: 120.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w900),
                               ),
+                              Text(
+                                state.materi[position].bunyiHuruf,
+                                style: TextStyle(
+                                    fontSize: 30.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w900),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(),
+                                  ),
+                                  Container(
+                                    width: 30.w,
+                                    height: 30.w,
+                                    child: const Icon(
+                                      Icons.volume_up_rounded,
+                                      color: Color(0xffF8F8F8),
+                                    ),
+                                    decoration: const BoxDecoration(
+                                        color: Color(0xff636363),
+                                        shape: BoxShape.circle),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ),
-                ],
+                      ),
+                    ),
+                    Expanded(child: Container()),
+                    detailMateri(),
+                    position != length - 1
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                  child: GestureDetector(
+                                onTap: () {
+                                  pageController.nextPage(
+                                      duration: Duration(
+                                        milliseconds: 350,
+                                      ),
+                                      curve: Curves.easeInOutCubicEmphasized);
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 72.h,
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromRGBO(115, 131, 191, 1),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    "Lanjut",
+                                    style: TextStyle(
+                                        fontSize: 22.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                                ),
+                              )),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                  child: GestureDetector(
+                                onTap: () {
+                                  pageController.nextPage(
+                                      duration: Duration(
+                                        milliseconds: 350,
+                                      ),
+                                      curve: Curves.easeInCirc);
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 72.h,
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromRGBO(115, 131, 191, 1),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    "Selesai",
+                                    style: TextStyle(
+                                        fontSize: 22.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                                ),
+                              )),
+                            ],
+                          ),
+                  ],
+                ),
               );
             }
             return Container();
