@@ -12,7 +12,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
   void registerEvent(String name, String email, String pass) async {
-    String url = 'https://85c3-103-158-253-138.ngrok.io';
+    String url = 'https://da92-103-158-253-138.ngrok.io';
 
     emit(RegisterLoading());
     var response = await http.post(

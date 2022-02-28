@@ -12,7 +12,7 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final User user;
+  final UserModel user;
   const LoginSuccess({required this.user});
 
   @override

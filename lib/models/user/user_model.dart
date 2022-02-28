@@ -3,12 +3,12 @@
 //     final user = userFromJson(jsonString);
 import 'dart:convert';
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
+UserModel userFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String userToJson(User data) => json.encode(data.toJson());
+String userToJson(UserModel data) => json.encode(data.toJson());
 
-class User {
-  User({
+class UserModel {
+  UserModel({
     required this.success,
     required this.user,
     required this.token,
@@ -18,7 +18,7 @@ class User {
   UserClass user;
   String token;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         success: json["success"],
         user: UserClass.fromJson(json["user"]),
         token: json["token"],

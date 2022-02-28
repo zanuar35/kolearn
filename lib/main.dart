@@ -5,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kolearn/blocs/auth/cubit/auth_cubit.dart';
 import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
 import 'package:kolearn/blocs/login/cubit/login_cubit.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/blocs/materi/cubit/materi_cubit.dart';
 import 'package:kolearn/blocs/register/cubit/register_cubit.dart';
-import 'package:kolearn/screen/auth/login/login_screen.dart';
 import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
+import 'package:kolearn/screen/splash_screen/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => MateriCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AuthCubit(),
           )
         ],
         child: ScreenUtilInit(
@@ -53,7 +57,7 @@ class MyApp extends StatelessWidget {
                 textTheme: GoogleFonts.poppinsTextTheme(
               Theme.of(context).textTheme,
             )),
-            home: LoginPage(),
+            home: SplashPage(),
             builder: EasyLoading.init(builder: (context, widget) {
               ScreenUtil.setContext(context);
               return MediaQuery(

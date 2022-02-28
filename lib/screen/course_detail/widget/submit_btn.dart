@@ -24,7 +24,9 @@ class _SubmitBtnState extends State<SubmitBtn> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MateriPage(),
+                    builder: (context) =>  MateriPage(
+                      id: widget.id,
+                    ),
                   ),
                 );
               },

@@ -12,7 +12,7 @@ class MateriCubit extends Cubit<MateriState> {
   MateriCubit() : super(MateriInitial());
 
   void getMateri(int id) async {
-    String url = 'https://85c3-103-158-253-138.ngrok.io';
+    String url = 'https://da92-103-158-253-138.ngrok.io';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
 

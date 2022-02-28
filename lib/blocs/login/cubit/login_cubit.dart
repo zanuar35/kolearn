@@ -14,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   void loginEvent(String nama, String pass) async {
-    String url = 'https://85c3-103-158-253-138.ngrok.io';
+    String url = 'https://da92-103-158-253-138.ngrok.io';
 
     if (nama == '') {
       emit(NotValidated());
@@ -29,7 +29,8 @@ class LoginCubit extends Cubit<LoginState> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       Map<String, dynamic> data = jsonDecode(response.body);
       prefs.setString('token', data['token']);
-      User user = User.fromJson(jsonDecode(response.body));
+      prefs.setBool("isLogin", true);
+      UserModel user = UserModel.fromJson(jsonDecode(response.body));
       emit(LoginSuccess(user: user));
     } else {
       Map<String, dynamic> data = jsonDecode(response.body);

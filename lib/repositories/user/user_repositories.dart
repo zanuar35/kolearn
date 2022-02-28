@@ -9,12 +9,12 @@ class UserRepository {
   String url = 'https://2e9b-103-178-13-98.ngrok.io';
   String token = '';
 
-  Future<User> fetchUsers(String email, String pass) async {
+  Future<UserModel> fetchUsers(String email, String pass) async {
     var response = await http.post(
       Uri.parse("$url/api/login"),
       body: ({'email': email, 'password': pass}),
     );
-    User user = User.fromJson(jsonDecode(response.body));
+    UserModel user = UserModel.fromJson(jsonDecode(response.body));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print(response.body);
     print(user.success);
