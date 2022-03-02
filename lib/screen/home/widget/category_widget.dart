@@ -1,78 +1,70 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class CustomRadio extends StatefulWidget {
-  const CustomRadio({Key? key}) : super(key: key);
+import '../../../core/app_colors.dart';
 
-  @override
-  _CustomRadioState createState() => _CustomRadioState();
-}
+class LevelButtonWidget extends StatelessWidget {
+  final String label;
 
-List<String> item = ['Pemula', 'Menengah', 'Mahir'];
+  LevelButtonWidget({
+    Key? key,
+    required this.label,
+  })  : assert(["Easy", "Medium", "Hard", "Expert"].contains(label)),
+        super(key: key);
 
-class _CustomRadioState extends State<CustomRadio> {
-  int selected = 0;
+  final config = {
+    "Easy": {
+      "color": AppColors.levelButtonEasy,
+      "fontColor": AppColors.levelButtonTextEasy,
+      "borderColor": AppColors.levelButtonBorderEasy,
+    },
+    "Medium": {
+      "color": AppColors.levelButtonMedium,
+      "fontColor": AppColors.levelButtonTextMedium,
+      "borderColor": AppColors.levelButtonBorderMedium,
+    },
+    "Hard": {
+      "color": AppColors.levelButtonHard,
+      "fontColor": AppColors.levelButtonTextHard,
+      "borderColor": AppColors.levelButtonBorderHard,
+    },
+    "Expert": {
+      "color": AppColors.levelButtonExpert,
+      "fontColor": AppColors.levelButtonTextExpert,
+      "borderColor": AppColors.levelButtonBorderExpert,
+    }
+  };
+
+  Color get color => config[label]!['color']!;
+  Color get fontColor => config[label]!['fontColor']!;
+  Color get borderColor => config[label]!['borderColor']!;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: SizedBox(
-        height: 60,
-        width: double.infinity,
-        child: ListView.builder(
-            itemCount: 3,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Padding(
-                  padding: const EdgeInsets.only(right: 13),
-                  child: customRadio(index, item[index]));
-            }),
-      ),
-    );
-  }
-
-  Widget customRadio(int index, String text) {
-    return GestureDetector(
-      child: Container(
-        decoration: BoxDecoration(
-          color: (selected == index)
-              ? const Color(0xff52C3FF)
-              : const Color.fromARGB(255, 238, 122, 114),
-          borderRadius: BorderRadius.circular(40.r),
+    return Container(
+      margin: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        color: color,
+        border: Border.fromBorderSide(
+          BorderSide(
+            color: borderColor,
+          ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            SizedBox(
-              width: 10.w,
-            ),
-            Container(
-              height: 55.h,
-              width: 55.h,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 255, 255, 255)),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Text(
-              text,
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 15.w,
-            )
-          ],
+        borderRadius: BorderRadius.circular(28),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 36.0,
+          vertical: 10,
+        ),
+        child: Text(
+          label,
+          style: GoogleFonts.notoSans(
+            color: fontColor,
+            fontSize: 13,
+          ),
         ),
       ),
-      onTap: () {
-        setState(() {
-          selected = index;
-        });
-      },
     );
   }
 }

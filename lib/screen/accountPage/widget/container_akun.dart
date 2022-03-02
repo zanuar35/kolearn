@@ -40,7 +40,7 @@ class ContainerAkun extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  const EditProfile(),
+                    builder: (context) => const EditProfile(),
                   ),
                 );
               },

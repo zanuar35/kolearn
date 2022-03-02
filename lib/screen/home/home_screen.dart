@@ -65,7 +65,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    const CustomRadio(),
+                    Container(
+                      color: Colors.white,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          LevelButtonWidget(
+                            label: "Easy",
+                          ),
+                          LevelButtonWidget(
+                            label: "Medium",
+                          ),
+                          LevelButtonWidget(
+                            label: "Hard",
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 24.h,
                     ),

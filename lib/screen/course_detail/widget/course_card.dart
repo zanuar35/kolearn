@@ -1,17 +1,40 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CourseCard extends StatelessWidget {
+import '../../../blocs/materi/cubit/materi_cubit.dart';
+
+class CourseCard extends StatefulWidget {
   CourseCard({
     required this.title,
     required this.hangul,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
   final String title;
   final String hangul;
+  final int index;
+
+  @override
+  State<CourseCard> createState() => _CourseCardState();
+}
+
+class _CourseCardState extends State<CourseCard> {
+  int length = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<MateriCubit>(context).getMateri(widget.index);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +66,7 @@ class CourseCard extends StatelessWidget {
                     color: Colors.yellow[700]),
                 child: Center(
                   child: Text(
-                    hangul,
+                    widget.hangul,
                     style: TextStyle(
                       fontSize: 48.sp,
                       color: Colors.white,
@@ -60,7 +83,7 @@ class CourseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    title.toUpperCase(),
+                    widget.title.toUpperCase(),
                     style:
                         TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
                   ),
@@ -70,10 +93,24 @@ class CourseCard extends StatelessWidget {
                       SizedBox(
                         width: 10.w,
                       ),
-                      Text("12 materi"),
+                      length == 0
+                          ? Text('Loading')
+                          : Text(length.toString() + ' materi'),
                     ],
                   )
                 ],
+              ),
+              BlocConsumer<MateriCubit, MateriState>(
+                listener: (context, state) {
+                  if (state is MateriLoaded) {
+                    setState(() {
+                      length = state.materi.length;
+                    });
+                  }
+                },
+                builder: (context, state) {
+                  return Container();
+                },
               )
             ],
           ),

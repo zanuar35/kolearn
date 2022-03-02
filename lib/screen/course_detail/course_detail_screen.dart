@@ -7,6 +7,7 @@ import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
 import 'package:kolearn/screen/course_detail/widget/submit_btn.dart';
 import 'package:kolearn/screen/home/home_screen.dart';
 
+
 import 'widget/course_card.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -43,6 +44,7 @@ class _CourseDetailState extends State<CourseDetail> {
           CourseCard(
             title: course[widget.index].courseName,
             hangul: course[widget.index].title,
+            index: widget.index,
           ),
           Expanded(
             child: Container(

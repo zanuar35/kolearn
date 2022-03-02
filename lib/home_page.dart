@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kolearn/screen/accountPage/account_screen.dart';
 import 'package:kolearn/screen/home/home_screen.dart';
 import 'package:kolearn/screen/my_course/my_course.dart';
@@ -39,21 +41,29 @@ class _HomePageState extends State<HomePage> {
             _currentIndex, // this will be set when a new tab is tapped
         // ignore: prefer_const_literals_to_create_immutables
         items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/home.svg', height: 30.h),
             label: 'Home',
+            activeIcon:
+                SvgPicture.asset('assets/home_active.svg', height: 30.h),
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/file-check.svg', height: 30.h),
             label: 'My Course',
+            activeIcon:
+                SvgPicture.asset('assets/file-check_active.svg', height: 30.h),
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/bell.svg', height: 30.h),
             label: 'Notification',
+            activeIcon:
+                SvgPicture.asset('assets/bell_active.svg', height: 30.h),
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/user.svg', height: 30.h),
             label: 'Akun',
+            activeIcon:
+                SvgPicture.asset('assets/user_active.svg', height: 30.h),
           ),
         ],
       ),
