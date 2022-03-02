@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
+import 'package:kolearn/core/app_url.dart';
 import 'package:kolearn/models/materi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +13,7 @@ class MateriCubit extends Cubit<MateriState> {
   MateriCubit() : super(MateriInitial());
 
   void getMateri(int id) async {
-    String url = 'https://da92-103-158-253-138.ngrok.io';
+    String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
 

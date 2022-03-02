@@ -10,9 +10,7 @@ class AuthCubit extends Cubit<AuthState> {
   void authApps() async {
     emit(AuthLoading());
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token').toString();
     bool? isLogin = prefs.getBool('isLogin');
-    print('token :' + token);
     if (isLogin == true) {
       emit(AuthLoggedIn());
     } else {

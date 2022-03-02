@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
+import 'package:kolearn/core/app_url.dart';
 
 part 'register_state.dart';
 
@@ -12,7 +13,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
   void registerEvent(String name, String email, String pass) async {
-    String url = 'https://da92-103-158-253-138.ngrok.io';
+    String url = AppUrl.baseUrl;
 
     emit(RegisterLoading());
     var response = await http.post(

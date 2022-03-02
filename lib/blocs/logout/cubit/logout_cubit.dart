@@ -2,6 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kolearn/core/app_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,14 +13,24 @@ class LogoutCubit extends Cubit<LogoutState> {
 
   Future<void> logOut() async {
     emit(LogoutLoading());
-    String url = 'https://da92-103-158-253-138.ngrok.io';
 
+    // Url end-point
+    String url = AppUrl.baseUrl;
+
+    // mendapatkan prefs token dari local storage
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
+
+    // Mengubah isLogin menjadi false
+    prefs.setBool("isLogin", false);
+
+    // Konek ke end-point rest api
     var response = await http.post(
       Uri.parse("$url/api/logout"),
       headers: {'Accept': 'application/json', "Authorization": 'Bearer $token'},
     );
+
+    // Jika response berhasil
     if (response.statusCode == 200) {
       emit(LogoutSuccess());
     } else {

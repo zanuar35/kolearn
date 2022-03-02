@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
+import 'package:kolearn/core/app_url.dart';
 import 'package:kolearn/models/user/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   void loginEvent(String nama, String pass) async {
-    String url = 'https://da92-103-158-253-138.ngrok.io';
+    String url = AppUrl.baseUrl;
 
     if (nama == '') {
       emit(NotValidated());
