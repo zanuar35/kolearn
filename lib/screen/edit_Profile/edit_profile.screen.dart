@@ -1,5 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/user_profile/cubit/user_profile_cubit.dart';
+import 'package:kolearn/models/user/user_model.dart';
 import 'package:kolearn/screen/edit_Profile/widget/camera_icon.dart';
 import 'package:kolearn/screen/edit_Profile/widget/input_textfield.dart';
 
@@ -28,8 +34,16 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     dataAwal = data[0]["data"];
+    BlocProvider.of<UserProfileCubit>(context).getUserProfile();
     super.initState();
   }
+
+  UserModel? userModel;
+
+  String hint = 'Loading';
+  String hintNama = '';
+  String hintEmail = '';
+  String hintTelp = '';
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +99,28 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      InputTextField(
-                        hints: "Enter your name",
-                        controller: _nameController,
+                      BlocBuilder<UserProfileCubit, UserProfileState>(
+                        builder: (context, state) {
+                          if (state is UserProfileLoading) {
+                            return InputTextField(
+                              hints: "Loading..",
+                              controller: _nameController,
+                            );
+                          }
+                          if (state is UserProfileLoaded) {
+                            return InputTextField(
+                              hints: state.user.data!.name.toString(),
+                              controller: _nameController,
+                            );
+                          }
+                          if (state is UserProfileUpdated) {
+                            return InputTextField(
+                              hints: state.user.data!.name.toString(),
+                              controller: _nameController,
+                            );
+                          }
+                          return Container();
+                        },
                       ),
                       SizedBox(
                         height: 25.h,
@@ -96,9 +129,28 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      InputTextField(
-                        hints: "Enter your email",
-                        controller: _emailController,
+                      BlocBuilder<UserProfileCubit, UserProfileState>(
+                        builder: (context, state) {
+                          if (state is UserProfileLoading) {
+                            return InputTextField(
+                              hints: "Loading..",
+                              controller: _emailController,
+                            );
+                          }
+                          if (state is UserProfileLoaded) {
+                            return InputTextField(
+                              hints: state.user.data!.email.toString(),
+                              controller: _emailController,
+                            );
+                          }
+                          if (state is UserProfileUpdated) {
+                            return InputTextField(
+                              hints: state.user.data!.email.toString(),
+                              controller: _emailController,
+                            );
+                          }
+                          return Container();
+                        },
                       ),
                       SizedBox(
                         height: 25.h,
@@ -108,7 +160,7 @@ class _EditProfileState extends State<EditProfile> {
                         height: 10.h,
                       ),
                       InputTextField(
-                        hints: "Enter your telp",
+                        hints: "hints",
                         controller: _telpController,
                       ),
                       SizedBox(
@@ -127,6 +179,7 @@ class _EditProfileState extends State<EditProfile> {
                           color: const Color(0xffEFEFEF),
                         ),
                         child: DropdownButton<String>(
+                            isExpanded: true,
                             value: dataAwal,
                             items: data
                                 .map((e) => DropdownMenuItem(
@@ -145,7 +198,14 @@ class _EditProfileState extends State<EditProfile> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            BlocProvider.of<UserProfileCubit>(context)
+                                .updateUserProfile(
+                                    _nameController.text,
+                                    _emailController.text,
+                                    _telpController.text,
+                                    dataAwal);
+                          },
                           style: ElevatedButton.styleFrom(
                             fixedSize:
                                 Size(MediaQuery.of(context).size.width, 55.h),
@@ -163,6 +223,26 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                       ),
+                      BlocConsumer<UserProfileCubit, UserProfileState>(
+                        listener: (context, state) {
+                          if (state is UserProfileLoading) {
+                            EasyLoading.show(
+                              status: 'loading...',
+                              maskType: EasyLoadingMaskType.black,
+                            );
+                          }
+                          if (state is UserProfileUpdated) {
+                            EasyLoading.dismiss();
+                            EasyLoading.showSuccess('Berhasil');
+                          }
+                          if (state is UserProfileLoaded) {
+                            EasyLoading.dismiss();
+                          }
+                        },
+                        builder: (context, state) {
+                          return Container();
+                        },
+                      )
                     ]),
               ),
             ),

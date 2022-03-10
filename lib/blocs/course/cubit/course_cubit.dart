@@ -14,20 +14,31 @@ class CourseCubit extends Cubit<CourseState> {
   CourseCubit() : super(CourseInitial());
 
   void fetchCourse() async {
+    // get url end-point API
     String url = AppUrl.baseUrl;
+
+    // get token from shared preference
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
 
+    // Loading state
     emit(CourseLoading());
+
+    // get data course from API
     var response = await http.get(
       Uri.parse("$url/api/course"),
       headers: {'Accept': 'application/json', "Authorization": 'Bearer $token'},
     );
+
+    // check response status
     if (response.statusCode == 200) {
+      // get data from response
       final Map parsed = json.decode(response.body);
       Course course = Course.fromJson(parsed);
       List<Data> kursus = course.data;
 
+      // set data course to state
+      // Success state
       emit(CourseSuccess(kursus));
     }
   }

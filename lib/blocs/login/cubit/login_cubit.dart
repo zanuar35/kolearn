@@ -15,26 +15,39 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   void loginEvent(String nama, String pass) async {
+    // Get url endpoint API
     String url = AppUrl.baseUrl;
 
+    // if nama is empty
+    // NotValidate state
     if (nama == '') {
       emit(NotValidated());
     }
 
+    // Loading state
     emit(LoginLoading());
+
+    // post data to API
     var response = await http.post(
       Uri.parse("$url/api/login"),
       body: ({'email': nama, 'password': pass}),
     );
+
+    // if response status code is 200
     if (response.statusCode == 200) {
+      // get data from response
       SharedPreferences prefs = await SharedPreferences.getInstance();
       Map<String, dynamic> data = jsonDecode(response.body);
       prefs.setString('token', data['token']);
       prefs.setBool("isLogin", true);
       UserModel user = UserModel.fromJson(jsonDecode(response.body));
+      // Success state
       emit(LoginSuccess(user: user));
-    } else {
+    }
+    // if response status code is not 200
+    else {
       Map<String, dynamic> data = jsonDecode(response.body);
+      // Error state
       emit(LoginFailed(message: data['message']));
     }
   }

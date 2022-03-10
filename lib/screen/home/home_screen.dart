@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 24.h,
                     ),
                     Container(
-                      color: Colors.white,
+                      color: const Color(0xffE7F6FF),
                       width: double.infinity,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

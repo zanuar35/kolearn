@@ -8,12 +8,19 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
   void authApps() async {
+    // Load the shared preferences
     emit(AuthLoading());
+
+    // Get the shared preferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? isLogin = prefs.getBool('isLogin');
+
+    // Check if the user is logged in
     if (isLogin == true) {
       emit(AuthLoggedIn());
-    } else {
+    }
+    // If not logged in, then redirect to login page
+    else {
       emit(AuthNotLoggedIn());
     }
   }
