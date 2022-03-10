@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => UserProfileCubit(),
-          )
+          ),
         ],
         child: ScreenUtilInit(
           minTextAdapt: true,

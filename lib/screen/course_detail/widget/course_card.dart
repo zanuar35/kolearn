@@ -38,7 +38,6 @@ class _CourseCardState extends State<CourseCard> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.index);
     return Padding(
       padding:
           EdgeInsets.only(left: 27.w, right: 27.w, top: 40.h, bottom: 100.h),

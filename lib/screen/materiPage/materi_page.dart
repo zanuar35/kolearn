@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -124,16 +125,22 @@ class _MateriPageState extends State<MateriPage> {
                                   Expanded(
                                     child: Container(),
                                   ),
-                                  Container(
-                                    width: 30.w,
-                                    height: 30.w,
-                                    child: const Icon(
-                                      Icons.volume_up_rounded,
-                                      color: Color(0xffF8F8F8),
+                                  InkWell(
+                                    onTap: () {
+                                      audioPlay(
+                                          state.materi[position].suaraHuruf);
+                                    },
+                                    child: Container(
+                                      width: 32.w,
+                                      height: 32.w,
+                                      child: Icon(
+                                        Icons.volume_up_rounded,
+                                        color: Color(0xffF8F8F8),
+                                      ),
+                                      decoration: const BoxDecoration(
+                                          color: Color(0xff636363),
+                                          shape: BoxShape.circle),
                                     ),
-                                    decoration: const BoxDecoration(
-                                        color: Color(0xff636363),
-                                        shape: BoxShape.circle),
                                   )
                                 ],
                               )
@@ -226,6 +233,14 @@ class _MateriPageState extends State<MateriPage> {
         )
       ],
     );
+  }
+
+  void audioPlay(String url) async {
+    AudioPlayer audioPlayer = AudioPlayer();
+    // var url =
+    //     "https://90daykoreanaudiobytes.s3-us-west-1.amazonaws.com/audio-giyeok.mp3";
+    var res = await audioPlayer.play(url, isLocal: true);
+    if (res == 1) {}
   }
 
   Widget _buildPage2() {
