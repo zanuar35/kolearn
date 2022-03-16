@@ -154,22 +154,64 @@ class _CourseDetailState extends State<CourseDetail> {
                     style: TextStyle(
                         color: Color(0xff9F98AD), fontWeight: FontWeight.w600),
                   ),
-                  RowBtn(
-                      isSubmited: course[widget.index].isSubmited,
-                      text: "Materi",
-                      child: Icon(
-                        Icons.description_outlined,
-                        size: 34.w,
-                        color: Color(0xff3F3F3F),
-                      )),
-                  RowBtn(
-                      isSubmited: course[widget.index].isSubmited,
-                      text: "Latihan Soal",
-                      child: Icon(
-                        Icons.edit_note_rounded,
-                        size: 34.w,
-                        color: Color(0xff3F3F3F),
-                      )),
+                  BlocBuilder<CourseDetailCubit, CourseDetailState>(
+                    builder: (context, state) {
+                      if (state is CourseDetailLoading) {
+                        return RowBtn(
+                            isSubmited: 0,
+                            text: "Materi",
+                            icon: Icons.pending,
+                            child: Icon(
+                              Icons.description_outlined,
+                              size: 34.w,
+                              color: Color(0xff3F3F3F),
+                            ));
+                      }
+                      if (state is CourseDetailSuccess) {
+                        return RowBtn(
+                            isSubmited: state.courseDetail.data.isSubmited,
+                            text: "Materi",
+                            icon: state.courseDetail.data.isSubmited == 1
+                                ? Icons.task_alt
+                                : Icons.lock,
+                            child: Icon(
+                              Icons.description_outlined,
+                              size: 34.w,
+                              color: Color(0xff3F3F3F),
+                            ));
+                      }
+                      return Container();
+                    },
+                  ),
+                  BlocBuilder<CourseDetailCubit, CourseDetailState>(
+                    builder: (context, state) {
+                      if (state is CourseDetailLoading) {
+                        return RowBtn(
+                            isSubmited: 0,
+                            text: "Latihan Soal",
+                            icon: Icons.pending,
+                            child: Icon(
+                              Icons.edit_note_rounded,
+                              size: 34.w,
+                              color: Color(0xff3F3F3F),
+                            ));
+                      }
+                      if (state is CourseDetailSuccess) {
+                        return RowBtn(
+                            isSubmited: state.courseDetail.data.isSubmited,
+                            text: "Latihan Soal",
+                            icon: state.courseDetail.data.isSubmited == 1
+                                ? Icons.task_alt
+                                : Icons.lock,
+                            child: Icon(
+                              Icons.edit_note_rounded,
+                              size: 34.w,
+                              color: Color(0xff3F3F3F),
+                            ));
+                      }
+                      return Container();
+                    },
+                  ),
                   SubmitBtn(id: course[widget.index].id),
                 ],
               ),

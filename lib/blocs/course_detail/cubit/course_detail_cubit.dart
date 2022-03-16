@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kolearn/core/app_url.dart';
 import 'package:kolearn/models/course_detail.dart';
-import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 

@@ -5,6 +5,7 @@ class RowBtn extends StatefulWidget {
   const RowBtn({
     required this.text,
     required this.child,
+    required this.icon,
     Key? key,
     required this.isSubmited,
   }) : super(key: key);
@@ -12,6 +13,7 @@ class RowBtn extends StatefulWidget {
   final String text;
   final Widget child;
   final int isSubmited;
+  final IconData icon;
 
   @override
   _RowBtnState createState() => _RowBtnState();
@@ -37,25 +39,29 @@ class _RowBtnState extends State<RowBtn> {
         Text(widget.text),
         Expanded(child: Container()),
         Container(
-          width: 35.w,
-          height: 35.w,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.29),
-                  offset: Offset(0, 2),
-                  blurRadius: 8)
-            ],
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            widget.isSubmited == 0
-                ? Icons.lock_outline_rounded
-                : Icons.task_alt_rounded,
-            color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
-          ),
-        )
+            width: 35.w,
+            height: 35.w,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.29),
+                    offset: Offset(0, 2),
+                    blurRadius: 8)
+              ],
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              widget.icon,
+              color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
+            )
+            // Icon(
+            //   widget.isSubmited == 0
+            //       ? Icons.lock_outline_rounded
+            //       : Icons.task_alt_rounded,
+            //   color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
+            // ),
+            )
       ],
     );
   }

@@ -1,8 +1,6 @@
 // To parse this JSON data, do
 //
 //     final courseDetailModel = courseDetailModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CourseDetailModel courseDetailModelFromJson(String str) =>
