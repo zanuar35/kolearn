@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -30,6 +32,24 @@ class MateriCubit extends Cubit<MateriState> {
       Materi materi = Materi.fromJson(dataMap);
       List<Data> materiData = materi.data;
       emit(MateriLoaded(materiData));
+    }
+  }
+
+  void updateMateri(int id) async {
+    String url = AppUrl.baseUrl;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+    var response = await http.post(
+      Uri.parse("$url/api/update-course/$id?isSubmited=1"),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      print("berhasil Updated");
+    } else {
+      print(response.statusCode);
     }
   }
 }

@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Hero(
                   tag: 'gambar',
                   child: Image.network(
-                      "https://i.ibb.co/Xzh8GdT/undraw-Login-re-4vu2-1.png"),
+                      "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Login-re-4vu2-1.png?alt=media&token=7c6d5b05-1433-4b9a-be3c-8e8036808e5c"),
                 )),
             SizedBox(
               height: 40.h,

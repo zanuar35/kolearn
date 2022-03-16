@@ -31,6 +31,14 @@ class MateriLoaded extends MateriState {
   bool get stringify => true;
 }
 
+class MateriUpdated extends MateriState {
+  @override
+  List<Object> get props => [];
+
+  @override
+  bool get stringify => false;
+}
+
 class MateriEmpty extends MateriState {
   @override
   List<Object> get props => [];

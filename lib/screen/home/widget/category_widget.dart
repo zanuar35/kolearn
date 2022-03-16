@@ -61,6 +61,8 @@ class LevelButtonWidget extends StatelessWidget {
           label,
           style: GoogleFonts.notoSans(
             color: fontColor,
+            letterSpacing: 0.7,
+            fontWeight: FontWeight.w600,
             fontSize: 13,
           ),
         ),

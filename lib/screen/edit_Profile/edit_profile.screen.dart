@@ -159,9 +159,28 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      InputTextField(
-                        hints: "hints",
-                        controller: _telpController,
+                      BlocBuilder<UserProfileCubit, UserProfileState>(
+                        builder: (context, state) {
+                          if (state is UserProfileLoading) {
+                            return InputTextField(
+                              hints: "Loading..",
+                              controller: _telpController,
+                            );
+                          }
+                          if (state is UserProfileLoaded) {
+                            return InputTextField(
+                              hints: state.user.data!.telp.toString(),
+                              controller: _telpController,
+                            );
+                          }
+                          if (state is UserProfileUpdated) {
+                            return InputTextField(
+                              hints: state.user.data!.telp.toString(),
+                              controller: _telpController,
+                            );
+                          }
+                          return Container();
+                        },
                       ),
                       SizedBox(
                         height: 25.h,
@@ -205,6 +224,10 @@ class _EditProfileState extends State<EditProfile> {
                                     _emailController.text,
                                     _telpController.text,
                                     dataAwal);
+                            _formKey.currentState?.reset();
+                            _nameController.clear();
+                            _emailController.clear();
+                            _telpController.clear();
                           },
                           style: ElevatedButton.styleFrom(
                             fixedSize:

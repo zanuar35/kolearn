@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/materi/cubit/materi_cubit.dart';
 import 'package:kolearn/screen/materiPage/materi_page.dart';
 
 class SubmitBtn extends StatefulWidget {
@@ -21,10 +23,11 @@ class _SubmitBtnState extends State<SubmitBtn> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: const Color(0xff7383BF)),
               onPressed: () {
+                BlocProvider.of<MateriCubit>(context).updateMateri(widget.id);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  MateriPage(
+                    builder: (context) => MateriPage(
                       id: widget.id,
                     ),
                   ),
