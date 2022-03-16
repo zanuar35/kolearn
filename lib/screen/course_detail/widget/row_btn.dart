@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RowBtn extends StatefulWidget {
-  const RowBtn({required this.text, required this.child, Key? key}) : super(key: key);
+  const RowBtn({
+    required this.text,
+    required this.child,
+    Key? key,
+    required this.isSubmited,
+  }) : super(key: key);
 
   final String text;
   final Widget child;
+  final int isSubmited;
 
   @override
   _RowBtnState createState() => _RowBtnState();
@@ -18,14 +24,13 @@ class _RowBtnState extends State<RowBtn> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 70.h,
-          width: 70.h,
-          decoration: BoxDecoration(
-            color: Colors.green[400],
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          child:widget.child
-        ),
+            height: 70.h,
+            width: 70.h,
+            decoration: BoxDecoration(
+              color: const Color(0xffFFC560),
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: widget.child),
         SizedBox(
           width: 20.w,
         ),
@@ -44,7 +49,12 @@ class _RowBtnState extends State<RowBtn> {
             ],
             shape: BoxShape.circle,
           ),
-          child: const Icon(Icons.lock_outline_rounded),
+          child: Icon(
+            widget.isSubmited == 0
+                ? Icons.lock_outline_rounded
+                : Icons.task_alt_rounded,
+            color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
+          ),
         )
       ],
     );
