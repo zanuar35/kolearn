@@ -11,6 +11,7 @@ import 'package:kolearn/blocs/course_detail/cubit/course_detail_cubit.dart';
 import 'package:kolearn/blocs/login/cubit/login_cubit.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/blocs/materi/cubit/materi_cubit.dart';
+import 'package:kolearn/blocs/notification/cubit/notification_cubit.dart';
 import 'package:kolearn/blocs/register/cubit/register_cubit.dart';
 import 'package:kolearn/blocs/user_profile/cubit/user_profile_cubit.dart';
 import 'package:kolearn/screen/auth/login/service/cubit/obscuretext_cubit.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CourseDetailCubit(),
+          ),
+          BlocProvider(
+            create: (context) => NotificationCubit(),
           )
         ],
         child: ScreenUtilInit(
