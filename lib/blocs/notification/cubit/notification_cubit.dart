@@ -17,7 +17,6 @@ class NotificationCubit extends Cubit<NotificationState> {
     String token = prefs.getString('token').toString();
 
     emit(NotificationLoading());
-    print("Loading");
     var response = await http.get(
       Uri.parse("$url/api/getMyCourse"),
       headers: {
@@ -29,7 +28,6 @@ class NotificationCubit extends Cubit<NotificationState> {
     if (response.statusCode == 200) {
       final Map dataMap = json.decode(response.body);
       List myCourse = dataMap['data'];
-      print(myCourse[0]);
       emit(NotificationLoaded(myCourse));
     }
     // error get data

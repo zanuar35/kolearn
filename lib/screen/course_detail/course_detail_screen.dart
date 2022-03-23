@@ -10,6 +10,7 @@ import 'package:kolearn/screen/course_detail/widget/submit_btn.dart';
 import 'package:kolearn/screen/home/home_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../blocs/materi/cubit/materi_cubit.dart';
 import 'widget/course_card.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -27,7 +28,10 @@ class _CourseDetailState extends State<CourseDetail> {
   void initState() {
     super.initState();
     BlocProvider.of<CourseDetailCubit>(context).getDetail(widget.index + 1);
+    BlocProvider.of<MateriCubit>(context).getMateri(widget.index + 1);
   }
+
+  int length = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +91,18 @@ class _CourseDetailState extends State<CourseDetail> {
                   index: widget.index + 1,
                 );
               }
+              return Container();
+            },
+          ),
+          BlocConsumer<MateriCubit, MateriState>(
+            listener: (context, state) {
+              if (state is MateriLoaded) {
+                setState(() {
+                  length = state.materi.length;
+                });
+              }
+            },
+            builder: (context, state) {
               return Container();
             },
           ),
@@ -212,13 +228,39 @@ class _CourseDetailState extends State<CourseDetail> {
                       return Container();
                     },
                   ),
-                  SubmitBtn(id: course[widget.index].id),
+                  BlocBuilder<MateriCubit, MateriState>(
+                    builder: (context, state) {
+                      if (state is MateriLoading) {
+                        return loadingBtn();
+                      }
+                      if (state is MateriLoaded) {
+                        return SubmitBtn(
+                          courseName: course[widget.index].courseName,
+                          jumlahMateri: length.toString(),
+                          id: course[widget.index].id,
+                        );
+                      }
+                      return Container();
+                    },
+                  )
                 ],
               ),
             ),
           )
         ]),
       ),
+    );
+  }
+
+  Widget loadingBtn() {
+    return Row(
+      children: [
+        Expanded(
+            child: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(height: 60.h),
+          child: ElevatedButton(onPressed: null, child: Text("Loading")),
+        ))
+      ],
     );
   }
 }
