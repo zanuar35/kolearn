@@ -33,10 +33,7 @@ class MycourseCubit extends Cubit<MycourseState> {
         }));
 
     if (response.statusCode == 200) {
-      print("berhasil");
       emit(MycourseSuccess());
-    } else {
-      print(response.statusCode);
-    }
+    } else {}
   }
 }

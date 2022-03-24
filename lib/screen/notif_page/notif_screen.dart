@@ -22,6 +22,7 @@ class _NotifScreenState extends State<NotifScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffE6F6FF),
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -30,72 +31,57 @@ class _NotifScreenState extends State<NotifScreen> {
         title: const Text("Notification"),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                  color: const Color(0xffE6F6FF),
-                  child: Column(
-                    children: [
-                      BlocBuilder<NotificationCubit, NotificationState>(
-                        builder: (context, state) {
-                          if (state is NotificationLoading) {
-                            return Shimmer.fromColors(
-                                baseColor: Color.fromARGB(255, 216, 211, 211),
-                                highlightColor:
-                                    Color.fromARGB(255, 231, 231, 231),
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 2,
-                                  itemBuilder: (context, index) => Card(
-                                    elevation: 6,
-                                    margin: EdgeInsets.all(10),
-                                    child: ListTile(
-                                      leading: CircleAvatar(
-                                        child: Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                        ),
-                                        backgroundColor: Colors.green[300],
-                                      ),
-                                      title: Text(''),
-                                      subtitle: Text(""),
-                                      trailing: Text(""),
-                                    ),
-                                  ),
-                                ));
-                          }
-                          if (state is NotificationLoaded) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: state.myCourse.length,
-                              itemBuilder: (context, index) => Card(
-                                elevation: 6,
-                                margin: EdgeInsets.all(10),
-                                child: ListTile(
-                                  leading: CircleAvatar(
-                                    child: Icon(
-                                      Icons.check,
-                                      color: Colors.white,
-                                    ),
-                                    backgroundColor: Colors.green[300],
-                                  ),
-                                  title: Text('Berhasil Memulai Kursus Baru'),
-                                  subtitle:
-                                      Text(state.myCourse[0]['course_name']),
-                                  trailing:
-                                      Text(state.myCourse[index]['Changed_at']),
-                                ),
-                              ),
-                            );
-                          }
-                          return Container();
-                        },
+        child: BlocBuilder<NotificationCubit, NotificationState>(
+          builder: (context, state) {
+            if (state is NotificationLoading) {
+              return Shimmer.fromColors(
+                  baseColor: Color.fromARGB(255, 216, 211, 211),
+                  highlightColor: Color.fromARGB(255, 231, 231, 231),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: (context, index) => Card(
+                      elevation: 6,
+                      margin: EdgeInsets.all(10),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                          backgroundColor: Colors.green[300],
+                        ),
+                        title: Text(''),
+                        subtitle: Text(""),
+                        trailing: Text(""),
                       ),
-                    ],
-                  )),
-            ),
-          ],
+                    ),
+                  ));
+            }
+            if (state is NotificationLoaded) {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.myCourse.length,
+                itemBuilder: (context, index) => Card(
+                  elevation: 6,
+                  margin: EdgeInsets.all(10),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                      backgroundColor: Colors.green[300],
+                    ),
+                    title: Text('Berhasil Memulai Kursus Baru'),
+                    subtitle: Text(state.myCourse[index]['course_name']),
+                    trailing: Text(state.myCourse[index]['Changed_at']),
+                  ),
+                ),
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );
