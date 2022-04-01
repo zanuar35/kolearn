@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     if (course.isEmpty) {
       BlocProvider.of<CourseCubit>(context).fetchCourse();
     }
-    print(course);
   }
 
   @override
@@ -112,7 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }
                         if (state is CourseSuccess) {
-                          print(state.courses[1].isSubmited);
                           return Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 30.w, vertical: 24.h),

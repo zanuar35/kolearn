@@ -59,26 +59,38 @@ class _NotifScreenState extends State<NotifScreen> {
                   ));
             }
             if (state is NotificationLoaded) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.myCourse.length,
-                itemBuilder: (context, index) => Card(
-                  elevation: 6,
-                  margin: EdgeInsets.all(10),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(
-                        Icons.check,
-                        color: Colors.white,
+              return state.myCourse.isEmpty
+                  ? Center(
+                      child: Text(
+                        "Tidak ada data",
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w600),
                       ),
-                      backgroundColor: Colors.green[300],
-                    ),
-                    title: Text('Berhasil Memulai Kursus Baru'),
-                    subtitle: Text(state.myCourse[index]['course_name']),
-                    trailing: Text(state.myCourse[index]['Changed_at']),
-                  ),
-                ),
-              );
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.myCourse.length,
+                      itemBuilder: (context, index) => Card(
+                            elevation: 6,
+                            margin: EdgeInsets.all(10),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                child: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
+                                backgroundColor: Colors.green[300],
+                              ),
+                              title:
+                                  state.myCourse[index]['status'] == 'started'
+                                      ? Text('Berhasil Memulai Kelas Baru')
+                                      : Text('Berhasil Menyelesaikan Materi'),
+                              subtitle:
+                                  Text(state.myCourse[index]['course_name']),
+                              trailing:
+                                  Text(state.myCourse[index]['Changed_at']),
+                            ),
+                          ));
             }
             return Container();
           },

@@ -5,10 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/materi/cubit/materi_cubit.dart';
+import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
+import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 
 class MateriPage extends StatefulWidget {
   final int id;
-  const MateriPage({Key? key, required this.id}) : super(key: key);
+  final String courseName;
+  final String jumlahMateri;
+
+  const MateriPage(
+      {Key? key,
+      required this.courseName,
+      required this.jumlahMateri,
+      required this.id})
+      : super(key: key);
 
   @override
   _MateriPageState createState() => _MateriPageState();
@@ -21,11 +31,6 @@ class _MateriPageState extends State<MateriPage> {
   void initState() {
     super.initState();
     BlocProvider.of<MateriCubit>(context).getMateri(widget.id);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -251,7 +256,28 @@ class _MateriPageState extends State<MateriPage> {
         const Center(
           child: Text("Selesai"),
         ),
-        ElevatedButton(onPressed: () {}, child: const Text("Finish"))
+        ElevatedButton(
+            onPressed: () {
+              // Back to home
+              Navigator.pop(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CourseDetail(
+                    index: 2,
+                    course: const [],
+                  ),
+                ),
+              );
+
+              // Update status to onProgress
+              BlocProvider.of<MycourseCubit>(context).saveCourse(
+                widget.courseName,
+                widget.id.toString(),
+                widget.jumlahMateri,
+                'progress',
+              );
+            },
+            child: const Text("Finish"))
       ],
     );
   }

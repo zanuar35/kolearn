@@ -28,10 +28,8 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       });
       if (response.statusCode == 200) {
         userModel = UserModel.fromJson(json.decode(response.body));
-        print(response.body);
         emit(UserProfileLoaded(user: userModel));
       } else {
-        print(response.body);
         emit(UserProfileError());
       }
     } catch (e) {
@@ -59,13 +57,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         "telp": telp
       });
       if (response.statusCode == 200) {
-        print(response.body);
         print("berhasil update profile");
         userModel = UserModel.fromJson(json.decode(response.body));
 
         emit(UserProfileUpdated(user: userModel));
       } else {
-        print(response.body);
         emit(UserProfileError());
       }
     } catch (e) {

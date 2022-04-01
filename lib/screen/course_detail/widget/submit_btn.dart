@@ -38,18 +38,28 @@ class _SubmitBtnState extends State<SubmitBtn> {
 
                 // Simpan ke myCourse
                 BlocProvider.of<MycourseCubit>(context).saveCourse(
-                    widget.courseName, widget.id.toString(), widget.jumlahMateri
-                );
+                    widget.courseName,
+                    widget.id.toString(),
+                    widget.jumlahMateri,
+                    'started');
 
                 // Navigate to materi page
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => MateriPage(
+                      courseName: widget.courseName,
+                      jumlahMateri: widget.jumlahMateri,
                       id: widget.id,
                     ),
                   ),
-                );
+                ).then((value) {
+                  if (mounted) {
+                    setState(() {
+                      // Your state change code goes here
+                    });
+                  }
+                });
               },
               child: const Text("Submit"),
             ),

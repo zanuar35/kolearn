@@ -9,7 +9,8 @@ part 'mycourse_state.dart';
 class MycourseCubit extends Cubit<MycourseState> {
   MycourseCubit() : super(MycourseInitial());
 
-  void saveCourse(String courseName, String id, String jumlahMateri) async {
+  void saveCourse(
+      String courseName, String id, String jumlahMateri, String status) async {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
@@ -25,10 +26,11 @@ class MycourseCubit extends Cubit<MycourseState> {
           'Authorization': 'Bearer $token',
         },
         body: ({
+          'user_id': '1',
           'course_name': courseName,
           'course_id': id,
           'jumlah_materi': jumlahMateri,
-          'status': 'started',
+          'status': status,
           'is_submited': '1',
         }));
 
