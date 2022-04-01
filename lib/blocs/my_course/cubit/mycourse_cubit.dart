@@ -14,6 +14,7 @@ class MycourseCubit extends Cubit<MycourseState> {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
+    int? userId = prefs.getInt('user_id');
 
     emit(MycourseLoading());
 
@@ -26,7 +27,7 @@ class MycourseCubit extends Cubit<MycourseState> {
           'Authorization': 'Bearer $token',
         },
         body: ({
-          'user_id': '1',
+          'user_id': userId,
           'course_name': courseName,
           'course_id': id,
           'jumlah_materi': jumlahMateri,

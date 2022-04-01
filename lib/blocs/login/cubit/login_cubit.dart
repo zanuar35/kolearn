@@ -38,8 +38,10 @@ class LoginCubit extends Cubit<LoginState> {
       // get data from response
       SharedPreferences prefs = await SharedPreferences.getInstance();
       Map<String, dynamic> data = jsonDecode(response.body);
+
+      // set data to SharedPreferences
       prefs.setString('token', data['token']);
-      print(data['id']);
+      prefs.setInt('user_id', data['user_id']);
       prefs.setBool("isLogin", true);
       UserModel user = UserModel.fromJson(jsonDecode(response.body));
       // Success state
