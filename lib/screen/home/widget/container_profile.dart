@@ -27,7 +27,7 @@ class _ContainerProfileState extends State<ContainerProfile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.h,
+      height: 90.h,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
       color: Colors.white,
@@ -59,9 +59,16 @@ class _ContainerProfileState extends State<ContainerProfile> {
                           ));
                     }
                     if (state is UserProfileLoaded) {
-                      return Text(state.user.data!.name.toString(),
+                      String name =
+                          state.user.data!.name.toString()[0].toUpperCase() +
+                              state.user.data!.name
+                                  .toString()
+                                  .substring(1)
+                                  .toLowerCase();
+                      return Text(name,
                           style: TextStyle(
                             fontSize: 24.sp,
+                            letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ));
                     }
@@ -71,7 +78,7 @@ class _ContainerProfileState extends State<ContainerProfile> {
               ],
             ),
             CircleAvatar(
-              radius: 35.r,
+              radius: 30.r,
             )
           ],
         ),

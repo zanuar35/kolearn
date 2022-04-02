@@ -41,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       // set data to SharedPreferences
       prefs.setString('token', data['token']);
-      prefs.setInt('user_id', data['user_id']);
+      prefs.setInt('user_id', data['user']['id']);
       prefs.setBool("isLogin", true);
       UserModel user = UserModel.fromJson(jsonDecode(response.body));
       // Success state

@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      height: 24.h,
+                      height: 16.h,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.w),
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 24.h,
+                      height: 16.h,
                     ),
                     Container(
                       color: const Color(0xffE7F6FF),
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 24.h,
+                      height: 14.h,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.w),
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (state is CourseSuccess) {
                           return Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 30.w, vertical: 24.h),
+                                horizontal: 30.w, vertical: 20.h),
                             child: GridView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),

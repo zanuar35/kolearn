@@ -15,10 +15,11 @@ class NotificationCubit extends Cubit<NotificationState> {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
+    int? userId = prefs.getInt('user_id');
 
     emit(NotificationLoading());
     var response = await http.get(
-      Uri.parse("$url/api/getMyCourse"),
+      Uri.parse("$url/api/getCourse/$userId"),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',

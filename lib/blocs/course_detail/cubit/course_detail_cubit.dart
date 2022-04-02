@@ -28,7 +28,6 @@ class CourseDetailCubit extends Cubit<CourseDetailState> {
     );
     if (response.statusCode == 200) {
       // get data from json
-      print(response.body);
       var data = json.decode(response.body);
       CourseDetailModel courseDetail = CourseDetailModel.fromJson(data);
       emit(CourseDetailSuccess(courseDetail));

@@ -83,12 +83,12 @@ class _NotifScreenState extends State<NotifScreen> {
                               ),
                               title:
                                   state.myCourse[index]['status'] == 'started'
-                                      ? Text('Berhasil Memulai Kelas Baru')
-                                      : Text('Berhasil Menyelesaikan Materi'),
+                                      ? Text('Berhasil Memulai')
+                                      : Text('Menyelesaikan Kelas'),
                               subtitle:
                                   Text(state.myCourse[index]['course_name']),
                               trailing:
-                                  Text(state.myCourse[index]['Changed_at']),
+                                  Text(state.myCourse[index]['changed_at']),
                             ),
                           ));
             }

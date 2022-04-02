@@ -27,7 +27,7 @@ class MycourseCubit extends Cubit<MycourseState> {
           'Authorization': 'Bearer $token',
         },
         body: ({
-          'user_id': userId,
+          'user_id': '$userId',
           'course_name': courseName,
           'course_id': id,
           'jumlah_materi': jumlahMateri,
