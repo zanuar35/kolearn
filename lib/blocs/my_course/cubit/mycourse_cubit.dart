@@ -10,7 +10,7 @@ class MycourseCubit extends Cubit<MycourseState> {
   MycourseCubit() : super(MycourseInitial());
 
   void saveCourse(
-      String courseName, String id, String jumlahMateri, String status) async {
+    String courseName, String id, String jumlahMateri, String status) async {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();

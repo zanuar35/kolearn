@@ -38,6 +38,14 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _telpController.dispose();
+    super.dispose();
+  }
+
   UserModel? userModel;
 
   String hint = 'Loading';
@@ -260,6 +268,9 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileLoaded) {
                             EasyLoading.dismiss();
+                          }
+                          if (state is UserProfileError) {
+                            EasyLoading.showError('Terjadi kesalahan');
                           }
                         },
                         builder: (context, state) {

@@ -52,7 +52,6 @@ class _PassFieldState extends State<PassField> {
               return IconButton(
                   onPressed: () {
                     BlocProvider.of<ObscuretextCubit>(context).showPassword();
-                    print("button click");
                     setState(() {
                       isObscure = !isObscure;
                     });

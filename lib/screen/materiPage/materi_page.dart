@@ -27,10 +27,17 @@ class MateriPage extends StatefulWidget {
 class _MateriPageState extends State<MateriPage> {
   int length = 0;
   final pageController = PageController();
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<MateriCubit>(context).getMateri(widget.id);
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 
   @override
