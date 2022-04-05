@@ -11,7 +11,17 @@ class MycourseInitial extends MycourseState {}
 
 class MycourseLoading extends MycourseState {}
 
-class MycourseSuccess extends MycourseState {}
+class MycourseSuccess extends MycourseState {
+  final List getCourseModel;
+
+ const  MycourseSuccess(this.getCourseModel);
+
+
+  @override
+  List<Object> get props => [getCourseModel];
+}
+
+class MycourseSuccessUpdate extends MycourseState {}
 
 class MycourseError extends MycourseState {
   final String error;

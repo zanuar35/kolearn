@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 
 class MyCourse extends StatefulWidget {
   const MyCourse({Key? key}) : super(key: key);
@@ -9,6 +12,17 @@ class MyCourse extends StatefulWidget {
 }
 
 class _MyCourseState extends State<MyCourse> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<MycourseCubit>(context).getCourse();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   final List<Color> warnaCard = [
     Colors.white,
     const Color(0xff7383C0),
@@ -22,54 +36,43 @@ class _MyCourseState extends State<MyCourse> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffE7F6FF),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: const Text("My Course"),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 120.h,
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 22.h),
-                child: SizedBox(
-                  height: 60.h,
-                  width: double.infinity,
-                  child: ListView.builder(
-                      itemCount: 3,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                            padding: const EdgeInsets.only(right: 13),
-                            child: customRadio(kategori[index], index));
-                      }),
-                ),
-              ),
+        backgroundColor: const Color(0xffE7F6FF),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: const Text("My Course"),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            BlocConsumer<MycourseCubit, MycourseState>(
+              listener: (context, state) {
+                if (state is MycourseLoading) {
+                  EasyLoading.show(
+                    status: 'loading...',
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                }
+                if (state is MycourseSuccess) {
+                  EasyLoading.dismiss();
+                }
+              },
+              builder: (context, state) {
+                return Container();
+              },
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
-              width: double.infinity,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const MateriCard();
-                  }),
+            BlocBuilder<MycourseCubit, MycourseState>(
+              builder: (context, state) {
+                if (state is MycourseSuccess) {
+                  return Text(state.getCourseModel[1].courseName.toString());
+                }
+                return Container();
+              },
             )
           ],
-        ),
-      )),
-    );
+        ));
   }
 
   Widget categoryCard(Color warna, int indeks) {
@@ -217,3 +220,45 @@ class MateriCard extends StatelessWidget {
     );
   }
 }
+
+
+/*
+SafeArea(
+          child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 120.h,
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 22.h),
+                child: SizedBox(
+                  height: 60.h,
+                  width: double.infinity,
+                  child: ListView.builder(
+                      itemCount: 3,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: const EdgeInsets.only(right: 13),
+                            child: customRadio(kategori[index], index));
+                      }),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+              width: double.infinity,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return const MateriCard();
+                  }),
+            )
+          ],
+        ),
+      )),
+*/

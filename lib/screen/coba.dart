@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CobaPage extends StatefulWidget {
   const CobaPage({Key? key}) : super(key: key);
@@ -15,36 +16,53 @@ class _CobaPageState extends State<CobaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
-          color: Colors.red[100],
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              customRadio('coba', 1),
-              customRadio('apa', 2),
-              customRadio('naon', 3),
-              customRadio('jika', 4),
-            ],
-          )),
-    );
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.3,
+          automaticallyImplyLeading: false,
+          title: Text("About",
+              style: TextStyle(color: Colors.black, fontSize: 22.sp)),
+          centerTitle: true,
+          leading: IconButton(
+              onPressed: back,
+              icon:
+                  const Icon(Icons.chevron_left_rounded, color: Colors.black)),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Icon(Icons.book_online_rounded, size: 80.w),
+            ),
+            SizedBox(
+              height: 12.h,
+            ),
+            Center(
+                child: Text(
+              "Kolearn",
+              style: TextStyle(
+                  fontSize: 32.sp,
+                  letterSpacing: 2.3,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w800),
+            )),
+            const Text("V 1.0.1"),
+            SizedBox(
+              height: 20.h,
+            ),
+            Text(
+              "Deskripsi aplikasi bisa diisi nanti saja kalo sudah bisa",
+              style: TextStyle(
+                fontSize: 18.sp,
+                color: const Color(0xff666E7A),
+              ),
+            ),
+          ],
+        ));
   }
 
-  Widget customRadio(String text, int index) {
-    return GestureDetector(
-      child: Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-            color: (selected == index) ? Colors.green : Colors.red),
-        child: Text(text),
-      ),
-      onTap: () {
-        setState(() {
-          selected = index;
-        });
-      },
-    );
+  void back() {
+    Navigator.pop(context);
   }
 }
