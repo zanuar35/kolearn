@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
+import 'package:kolearn/screen/home/widget/category_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MyCourse extends StatefulWidget {
   const MyCourse({Key? key}) : super(key: key);
@@ -45,33 +46,67 @@ class _MyCourseState extends State<MyCourse> {
           title: const Text("My Course"),
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            BlocConsumer<MycourseCubit, MycourseState>(
-              listener: (context, state) {
-                if (state is MycourseLoading) {
-                  EasyLoading.show(
-                    status: 'loading...',
-                    maskType: EasyLoadingMaskType.black,
-                  );
-                }
-                if (state is MycourseSuccess) {
-                  EasyLoading.dismiss();
-                }
-              },
-              builder: (context, state) {
-                return Container();
-              },
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  color: const Color(0xffE7F6FF),
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      LevelButtonWidget(
+                        label: "Easy",
+                      ),
+                      LevelButtonWidget(
+                        label: "Medium",
+                      ),
+                      LevelButtonWidget(
+                        label: "Hard",
+                      ),
+                    ],
+                  ),
+                ),
+                BlocBuilder<MycourseCubit, MycourseState>(
+                  builder: (context, state) {
+                    if (state is MycourseLoading) {
+                      return Shimmer.fromColors(
+                          baseColor: const Color.fromARGB(255, 216, 211, 211),
+                          highlightColor:
+                              const Color.fromARGB(255, 231, 231, 231),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 2,
+                            itemBuilder: (context, index) => const Card(
+                              elevation: 6,
+                              margin: EdgeInsets.all(10),
+                              child: ListTile(),
+                            ),
+                          ));
+                    }
+                    if (state is MycourseSuccess) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 2.h),
+                        width: double.infinity,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.getCourseModel.length,
+                          itemBuilder: (context, index) {
+                            return courseCard(
+                                state.getCourseModel[index].courseName);
+                          },
+                        ),
+                      );
+                    }
+                    return Container();
+                  },
+                )
+              ],
             ),
-            BlocBuilder<MycourseCubit, MycourseState>(
-              builder: (context, state) {
-                if (state is MycourseSuccess) {
-                  return Text(state.getCourseModel[1].courseName.toString());
-                }
-                return Container();
-              },
-            )
-          ],
+          ),
         ));
   }
 
@@ -142,6 +177,75 @@ class _MyCourseState extends State<MyCourse> {
       },
     );
   }
+}
+
+Widget courseCard(String title) {
+  return Container(
+    margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
+    width: 360.w,
+    height: 170.h,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 5,
+          blurRadius: 4,
+          offset: const Offset(0, 4), // changes position of shadow
+        ),
+      ],
+    ),
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 85.h,
+            width: 85.h,
+            decoration: BoxDecoration(
+              color: Colors.yellow,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          SizedBox(
+            width: 20.w,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                children: <Widget>[
+                  const Icon(
+                    Icons.book,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "12 Materi",
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.grey),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    ),
+  );
 }
 
 class MateriCard extends StatelessWidget {

@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kolearn/core/app_url.dart';
 import 'package:http/http.dart' as http;
-import 'package:kolearn/models/course.dart';
 import 'package:kolearn/models/get_course.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,13 +61,37 @@ class MycourseCubit extends Cubit<MycourseState> {
         });
 
     if (response.statusCode == 200) {
-      // ignore: avoid_print
-      // print(response.body);
-      GetCourseModel getCourseModel =
-          GetCourseModel.fromJson(json.decode(response.body));
+      GetCourseModel getCourseModel = GetCourseModel.fromJson(
+        json.decode(response.body),
+      );
       List<Datum> kursus = getCourseModel.data;
-      print(kursus[1]);
       emit(MycourseSuccess(kursus));
+    } else {
+      // ignore: avoid_print
+      print(response.body);
+      emit(const MycourseError(error: "error"));
+    }
+  }
+
+  void updateCourse(String id) async {
+    String url = AppUrl.baseUrl;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+
+    emit(MycourseLoading());
+
+    var response = await http.put(
+        Uri.parse(
+          "$url/api/myCourse/$id",
+        ),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: ({"status": "progress"}));
+    if (response.statusCode == 200) {
+      print("Berhasil update status course");
+      emit(MycourseSuccessUpdate());
     } else {
       // ignore: avoid_print
       print(response.body);

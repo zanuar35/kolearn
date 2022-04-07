@@ -70,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     tag: 'gambar',
                     child: Image(
                       image: NetworkImage(
-                          "https://i.ibb.co/ypnVV2m/undraw-Access-account-re-8spm-1.png"),
+                          "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Access-account-re-8spm-1.png?alt=media&token=6fcabfd2-4347-4f94-9d2e-9bc6608ce137"),
                     ),
                   ),
                 ),
