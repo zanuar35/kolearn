@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     // Loading state
     emit(LoginLoading());
-
+    
     // post data to API
     var response = await http.post(
       Uri.parse("$url/api/login"),

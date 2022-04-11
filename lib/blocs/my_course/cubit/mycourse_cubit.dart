@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -38,15 +40,22 @@ class MycourseCubit extends Cubit<MycourseState> {
           'is_submited': '1',
         }));
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
+      Map<String, dynamic> map = json.decode(response.body);
+      print(map);
+      print('200 ${map['data']['id']}');
+      prefs.setInt('course_id', map['data']['id']);
       emit(MycourseSuccessUpdate());
-    } else {}
+    } else {
+      print("Gagal");
+    }
   }
 
   void getCourse() async {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
+
     int? userId = prefs.getInt('user_id');
 
     emit(MycourseLoading());
@@ -67,7 +76,6 @@ class MycourseCubit extends Cubit<MycourseState> {
       List<Datum> kursus = getCourseModel.data;
       emit(MycourseSuccess(kursus));
     } else {
-      // ignore: avoid_print
       print(response.body);
       emit(const MycourseError(error: "error"));
     }
@@ -77,23 +85,27 @@ class MycourseCubit extends Cubit<MycourseState> {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
+    String courseId = prefs.getInt('course_id').toString();
 
     emit(MycourseLoading());
 
     var response = await http.put(
-        Uri.parse(
-          "$url/api/myCourse/$id",
-        ),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: ({"status": "progress"}));
+      Uri.parse(
+        "$url/api/getCourseStatus/$courseId/3",
+      ),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: ({
+        "status": "progress",
+      }),
+    );
     if (response.statusCode == 200) {
-      print("Berhasil update status course");
+      Map<String, dynamic> map = json.decode(response.body);
+      print(map);
       emit(MycourseSuccessUpdate());
     } else {
-      // ignore: avoid_print
       print(response.body);
       emit(const MycourseError(error: "error"));
     }

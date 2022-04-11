@@ -283,9 +283,8 @@ class _MateriPageState extends State<MateriPage> {
               //   widget.jumlahMateri,
               //   'progress',
               // );
-              print(widget.id.toString());
-              // BlocProvider.of<MycourseCubit>(context)
-              //     .updateCourse(widget.id.toString());
+              BlocProvider.of<MycourseCubit>(context)
+                  .updateCourse(widget.id.toString());
             },
             child: const Text("Finish"))
       ],

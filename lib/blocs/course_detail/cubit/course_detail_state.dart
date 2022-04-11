@@ -29,6 +29,17 @@ class CourseDetailSuccess implements CourseDetailState {
   bool? get stringify => true;
 }
 
+class CourseDetailNew implements CourseDetailState {
+  final CourseNewModel courseNew;
+
+  const CourseDetailNew(this.courseNew);
+  @override
+  List<Object?> get props => [courseNew];
+
+  @override
+  bool? get stringify => true;
+}
+
 class CourseDetailFailure implements CourseDetailState {
   final String error;
 

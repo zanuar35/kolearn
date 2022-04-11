@@ -12,52 +12,68 @@ String courseDetailModelToJson(CourseDetailModel data) =>
 class CourseDetailModel {
   CourseDetailModel({
     required this.success,
+    required this.message,
     required this.data,
   });
 
   bool success;
-  Data data;
+  String message;
+  List<Datum> data;
 
   factory CourseDetailModel.fromJson(Map<String, dynamic> json) =>
       CourseDetailModel(
-        success: json["Success"],
-        data: Data.fromJson(json["data"]),
+        success: json["success"],
+        message: json["message"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "Success": success,
-        "data": data.toJson(),
+        "success": success,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 
-class Data {
-  Data({
+class Datum {
+  Datum({
     required this.id,
+    required this.userId,
     required this.courseName,
-    required this.title,
-    required this.category,
+    required this.courseId,
+    required this.jumlahMateri,
+    required this.status,
+    required this.changedAt,
     required this.isSubmited,
   });
 
   int id;
+  int userId;
   String courseName;
-  String title;
-  String category;
+  int courseId;
+  int jumlahMateri;
+  String status;
+  String changedAt;
   int isSubmited;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
+        userId: json["user_id"],
         courseName: json["course_name"],
-        title: json["title"],
-        category: json["category"],
+        courseId: json["course_id"],
+        jumlahMateri: json["jumlah_materi"],
+        status: json["status"],
+        changedAt: json["Changed_at"],
         isSubmited: json["is_submited"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "user_id": userId,
         "course_name": courseName,
-        "title": title,
-        "category": category,
+        "course_id": courseId,
+        "jumlah_materi": jumlahMateri,
+        "status": status,
+        "Changed_at": changedAt,
         "is_submited": isSubmited,
       };
 }
