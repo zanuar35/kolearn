@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/blocs/changePass/cubit/changepass_cubit.dart';
 
 class UbahPassword extends StatefulWidget {
   const UbahPassword({Key? key}) : super(key: key);
@@ -11,8 +13,8 @@ class UbahPassword extends StatefulWidget {
 }
 
 class _UbahPasswordState extends State<UbahPassword> {
-  final _passwordBaru = TextEditingController();
-  bool _isObscure = true;
+  final _passOldC = TextEditingController();
+  final _passwordBaruC = TextEditingController();
   final _konfirmPassBaru = TextEditingController();
 
   @override
@@ -42,39 +44,58 @@ class _UbahPasswordState extends State<UbahPassword> {
               children: <Widget>[
                 const Text(
                   "Kata sandi baru harus berbeda dengan kata sandi sekarang",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
-                const SizedBox(height: 50),
-                labelText("kata sandi sekarang"),
+                const SizedBox(height: 35),
+                labelText("Kata sandi sekarang"),
                 const SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  color: Colors.white,
-                  child: PassTextField(
-                    controller: _passwordBaru,
-                  ),
-                ),
+                PassTextField(isObscure: true, controller: _passOldC),
                 const SizedBox(height: 10),
                 labelText("kata sandi baru"),
                 const SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  color: Colors.white,
-                  child: passField(_passwordBaru),
+                PassTextField(
+                  controller: _passwordBaruC,
+                  isObscure: true,
                 ),
                 const SizedBox(height: 10),
                 labelText("konfirmasi kata sandi baru"),
                 const SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  color: Colors.white,
-                  child: passField(_konfirmPassBaru),
+                PassTextField(
+                  controller: _konfirmPassBaru,
+                  isObscure: true,
                 ),
                 const SizedBox(height: 30),
-                loginBtn()
+                saveBtn(),
+                BlocConsumer<ChangepassCubit, ChangepassState>(
+                  listener: (context, state) {
+                    if (state is ChangepassSuccess) {
+                      final snackBar = SnackBar(
+                        backgroundColor: Color(0xff003663),
+                        duration: Duration(seconds: 2),
+                        behavior: SnackBarBehavior.floating,
+                        content: const Text('Password berhasil diubah'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      // delay for 2 seconds
+                      Future.delayed(const Duration(milliseconds: 2500), () {
+                        Navigator.pop(context);
+                      });
+                    }
+                    if (state is ChangepassFailed) {
+                      final snackBar = SnackBar(
+                        backgroundColor: Color(0xffC73E1D),
+                        duration: Duration(seconds: 2),
+                        behavior: SnackBarBehavior.floating,
+                        content: Text(state.message),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  builder: (context, state) {
+                    return Container();
+                  },
+                )
               ],
             ),
           ),
@@ -90,15 +111,48 @@ class _UbahPasswordState extends State<UbahPassword> {
     );
   }
 
-  Widget loginBtn() {
+  Widget saveBtn() {
     return Row(
       children: <Widget>[
         Expanded(
           child: SizedBox(
             height: 65.h,
             child: ElevatedButton(
-              onPressed: () {},
-              child: const Text("Simpan"),
+              onPressed: () {
+                BlocProvider.of<ChangepassCubit>(context).changePassEvent(
+                  _passOldC.text,
+                  _passwordBaruC.text,
+                  _konfirmPassBaru.text,
+                );
+              },
+              child: BlocBuilder<ChangepassCubit, ChangepassState>(
+                  builder: (context, state) {
+                if (state is ChangepassLoading) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 4,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Loading...",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Text(
+                    "Simpan",
+                    style: TextStyle(color: Colors.white),
+                  );
+                }
+              }),
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xff7383BF),
                 shape: RoundedRectangleBorder(
@@ -111,44 +165,15 @@ class _UbahPasswordState extends State<UbahPassword> {
       ],
     );
   }
-
-  Widget passField(TextEditingController textController) {
-    return TextFormField(
-      obscureText: _isObscure,
-      decoration: InputDecoration(
-        suffixIcon: IconButton(
-            icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
-            onPressed: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            }),
-        hintText: "Enter your password here",
-        hintStyle: const TextStyle(
-            fontWeight: FontWeight.w400, fontSize: 14, color: Colors.grey),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-            color: Color(0xffDDE5E9),
-            width: 2,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-            color: Color(0xffDDE5E9),
-            width: 2.0,
-          ),
-        ),
-      ),
-    );
-  }
 }
 
+// ignore: must_be_immutable
 class PassTextField extends StatefulWidget {
-  const PassTextField({Key? key, required this.controller}) : super(key: key);
+  PassTextField({Key? key, required this.controller, required this.isObscure})
+      : super(key: key);
 
   final TextEditingController controller;
+  bool isObscure;
 
   @override
   State<PassTextField> createState() => _PassTextFieldState();
@@ -157,29 +182,40 @@ class PassTextField extends StatefulWidget {
 class _PassTextFieldState extends State<PassTextField> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      decoration: InputDecoration(
-        suffixIcon: widget.controller.text.isEmpty
-            ? Container(
-                width: 0,
-              )
-            : Icon(Icons.remove_red_eye),
-        hintText: "Enter your password here",
-        hintStyle: const TextStyle(
-            fontWeight: FontWeight.w400, fontSize: 14, color: Colors.grey),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-            color: Color(0xffDDE5E9),
-            width: 2,
+    return Container(
+      width: double.infinity,
+      height: 60,
+      color: Colors.white,
+      child: TextFormField(
+        obscureText: widget.isObscure,
+        controller: widget.controller,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                widget.isObscure = !widget.isObscure;
+              });
+            },
+            icon: widget.isObscure == true
+                ? const Icon(Icons.visibility_off)
+                : const Icon(Icons.visibility),
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-            color: Color(0xffDDE5E9),
-            width: 2.0,
+          hintText: "Enter your password here",
+          hintStyle: const TextStyle(
+              fontWeight: FontWeight.w400, fontSize: 14, color: Colors.grey),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: Color(0xffDDE5E9),
+              width: 2,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: Color(0xffDDE5E9),
+              width: 2.0,
+            ),
           ),
         ),
       ),

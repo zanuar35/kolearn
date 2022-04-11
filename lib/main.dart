@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kolearn/blocs/auth/cubit/auth_cubit.dart';
+import 'package:kolearn/blocs/changePass/cubit/changepass_cubit.dart';
 import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
 import 'package:kolearn/blocs/course_detail/cubit/course_detail_cubit.dart';
 import 'package:kolearn/blocs/login/cubit/login_cubit.dart';
@@ -61,6 +62,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => MycourseCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ChangepassCubit(),
           )
         ],
         child: ScreenUtilInit(
