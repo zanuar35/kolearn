@@ -54,14 +54,7 @@ class _RowBtnState extends State<RowBtn> {
             child: Icon(
               widget.icon,
               color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
-            )
-            // Icon(
-            //   widget.isSubmited == 0
-            //       ? Icons.lock_outline_rounded
-            //       : Icons.task_alt_rounded,
-            //   color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
-            // ),
-            )
+            ))
       ],
     );
   }

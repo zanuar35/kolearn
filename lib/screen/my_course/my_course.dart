@@ -183,7 +183,7 @@ Widget courseCard(String title) {
   return Container(
     margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
     width: 360.w,
-    height: 170.h,
+    height: 130.h,
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
@@ -201,8 +201,8 @@ Widget courseCard(String title) {
       child: Row(
         children: <Widget>[
           Container(
-            height: 85.h,
-            width: 85.h,
+            height: 75.h,
+            width: 75.h,
             decoration: BoxDecoration(
               color: Colors.yellow,
               borderRadius: BorderRadius.circular(8),
@@ -217,7 +217,7 @@ Widget courseCard(String title) {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
               ),
               SizedBox(
                 height: 10.h,

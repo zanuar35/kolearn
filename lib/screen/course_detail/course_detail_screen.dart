@@ -215,13 +215,11 @@ class _CourseDetailState extends State<CourseDetail> {
                         return RowBtn(
                             isSubmited: state.courseNew.data.isSubmited,
                             text: "Materi",
-                            icon: state.courseNew.data.isSubmited == 1
-                                ? Icons.task_alt
-                                : Icons.lock,
+                            icon: Icons.lock,
                             child: Icon(
                               Icons.description_outlined,
                               size: 34.w,
-                              color: Color(0xff3F3F3F),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ));
                       }
                       return Container();
@@ -257,13 +255,11 @@ class _CourseDetailState extends State<CourseDetail> {
                         return RowBtn(
                             isSubmited: state.courseNew.data.isSubmited,
                             text: "Latihan Soal",
-                            icon: state.courseNew.data.isSubmited == 1
-                                ? Icons.task_alt
-                                : Icons.lock,
+                            icon: Icons.lock,
                             child: Icon(
                               Icons.edit_note_rounded,
                               size: 34.w,
-                              color: Color(0xff3F3F3F),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ));
                       }
                       return Container();
