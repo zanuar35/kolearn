@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -33,19 +33,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffF6F9FF),
+        backgroundColor: const Color(0xffF6F9FF),
         elevation: 0,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             )),
       ),
       body: Container(
-          color: Color(0xffF6F9FF),
+          color: const Color(0xffF6F9FF),
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: ListView(
             children: <Widget>[
@@ -66,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   margin: EdgeInsets.only(
                     top: 29.h,
                   ),
-                  child: Hero(
+                  child: const Hero(
                     tag: 'gambar',
                     child: Image(
                       image: NetworkImage(
@@ -129,16 +129,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (state is RegisterSuccess) {
                     EasyLoading.showSuccess('Daftar berhasil!',
                         maskType: EasyLoadingMaskType.black,
-                        duration: Duration(milliseconds: 1500));
+                        duration: const Duration(milliseconds: 1500));
                     EasyLoading.dismiss();
-                    Timer(Duration(seconds: 2), () {
+                    Timer(const Duration(seconds: 2), () {
                       Navigator.pop(context);
                     });
                   }
                   if (state is RegisterFailed) {
                     EasyLoading.showError(state.message,
                         maskType: EasyLoadingMaskType.black,
-                        duration: Duration(milliseconds: 1500));
+                        duration: const Duration(milliseconds: 1500));
                   }
                 },
                 child: Container(),
@@ -153,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(
                 height: 15.h,
               ),
-              LoginBtn(),
+              const LoginBtn(),
               SizedBox(
                 height: 15.h,
               ),

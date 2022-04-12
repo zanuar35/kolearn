@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
+// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: Container(
-        color: Color(0xffF4F7FF),
+        color: const Color(0xffF4F7FF),
         child: ListView(
           children: <Widget>[
             Container(
@@ -106,13 +106,13 @@ class _LoginPageState extends State<LoginPage> {
                         }
                         if (state is LoginSuccess) {
                           EasyLoading.showSuccess('Login success!',
-                              duration: Duration(milliseconds: 1500));
+                              duration: const Duration(milliseconds: 1500));
                           EasyLoading.dismiss();
-                          Timer(Duration(seconds: 2), () {
+                          Timer(const Duration(seconds: 2), () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                                builder: (context) => const HomePage(),
                               ),
                             );
                           });
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                           EasyLoading.dismiss();
                           EasyLoading.showError(state.message,
                               maskType: EasyLoadingMaskType.black,
-                              duration: Duration(milliseconds: 1500));
+                              duration: const Duration(milliseconds: 1500));
                         }
                       },
                       builder: (context, state) {
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 32.h,
                     ),
-                    SignUpButton()
+                    const SignUpButton()
                   ],
                 ),
               ),

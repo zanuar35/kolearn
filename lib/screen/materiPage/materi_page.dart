@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -145,9 +143,9 @@ class _MateriPageState extends State<MateriPage> {
                                     child: Container(
                                       width: 32.w,
                                       height: 32.w,
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.volume_up_rounded,
-                                        color: Color(0xffF8F8F8),
+                                        color:  Color(0xffF8F8F8),
                                       ),
                                       decoration: const BoxDecoration(
                                           color: Color(0xff636363),
@@ -171,7 +169,7 @@ class _MateriPageState extends State<MateriPage> {
                                   child: GestureDetector(
                                 onTap: () {
                                   pageController.nextPage(
-                                      duration: Duration(
+                                      duration: const Duration(
                                         milliseconds: 350,
                                       ),
                                       curve: Curves.easeInOutCubicEmphasized);
@@ -201,7 +199,7 @@ class _MateriPageState extends State<MateriPage> {
                                   child: GestureDetector(
                                 onTap: () {
                                   pageController.nextPage(
-                                      duration: Duration(
+                                      duration: const Duration(
                                         milliseconds: 350,
                                       ),
                                       curve: Curves.easeInCirc);

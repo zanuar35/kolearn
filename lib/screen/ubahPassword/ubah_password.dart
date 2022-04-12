@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +29,7 @@ class _UbahPasswordState extends State<UbahPassword> {
             },
             icon: const Icon(Icons.chevron_left),
           ),
-          title: Text(
+          title: const Text(
             "Ubah Password",
             style: TextStyle(fontSize: 16),
           )),
@@ -69,11 +67,11 @@ class _UbahPasswordState extends State<UbahPassword> {
                 BlocConsumer<ChangepassCubit, ChangepassState>(
                   listener: (context, state) {
                     if (state is ChangepassSuccess) {
-                      final snackBar = SnackBar(
+                      const snackBar = SnackBar(
                         backgroundColor: Color(0xff003663),
                         duration: Duration(seconds: 2),
                         behavior: SnackBarBehavior.floating,
-                        content: const Text('Password berhasil diubah'),
+                        content: Text('Password berhasil diubah'),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
@@ -84,8 +82,8 @@ class _UbahPasswordState extends State<UbahPassword> {
                     }
                     if (state is ChangepassFailed) {
                       final snackBar = SnackBar(
-                        backgroundColor: Color(0xffC73E1D),
-                        duration: Duration(seconds: 2),
+                        backgroundColor: const Color(0xffC73E1D),
+                        duration: const Duration(seconds: 2),
                         behavior: SnackBarBehavior.floating,
                         content: Text(state.message),
                       );
@@ -132,22 +130,23 @@ class _UbahPasswordState extends State<UbahPassword> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
+                        color: Colors.transparent,
                         width: 20,
                         height: 20,
-                        child: CircularProgressIndicator(
+                        child: const CircularProgressIndicator(
                           color: Colors.white,
                           strokeWidth: 4,
                         ),
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         "Loading...",
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
                   );
                 } else {
-                  return Text(
+                  return const Text(
                     "Simpan",
                     style: TextStyle(color: Colors.white),
                   );

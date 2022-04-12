@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kolearn/blocs/notification/cubit/notification_cubit.dart';
@@ -35,32 +33,32 @@ class _NotifScreenState extends State<NotifScreen> {
           builder: (context, state) {
             if (state is NotificationLoading) {
               return Shimmer.fromColors(
-                  baseColor: Color.fromARGB(255, 216, 211, 211),
-                  highlightColor: Color.fromARGB(255, 231, 231, 231),
+                  baseColor: const Color.fromARGB(255, 216, 211, 211),
+                  highlightColor: const Color.fromARGB(255, 231, 231, 231),
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 2,
                     itemBuilder: (context, index) => Card(
                       elevation: 6,
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       child: ListTile(
                         leading: CircleAvatar(
-                          child: Icon(
+                          child: const Icon(
                             Icons.check,
                             color: Colors.white,
                           ),
                           backgroundColor: Colors.green[300],
                         ),
-                        title: Text(''),
-                        subtitle: Text(""),
-                        trailing: Text(""),
+                        title: const Text(''),
+                        subtitle: const Text(""),
+                        trailing: const Text(""),
                       ),
                     ),
                   ));
             }
             if (state is NotificationLoaded) {
               return state.myCourse.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Text(
                         "Tidak ada data",
                         style: TextStyle(
@@ -72,10 +70,10 @@ class _NotifScreenState extends State<NotifScreen> {
                       itemCount: state.myCourse.length,
                       itemBuilder: (context, index) => Card(
                             elevation: 6,
-                            margin: EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
                             child: ListTile(
                               leading: CircleAvatar(
-                                child: Icon(
+                                child: const Icon(
                                   Icons.check,
                                   color: Colors.white,
                                 ),
@@ -83,8 +81,8 @@ class _NotifScreenState extends State<NotifScreen> {
                               ),
                               title:
                                   state.myCourse[index]['status'] == 'started'
-                                      ? Text('Berhasil Memulai')
-                                      : Text('Menyelesaikan Kelas'),
+                                      ? const Text('Berhasil Memulai')
+                                      : const Text('Menyelesaikan Kelas'),
                               subtitle:
                                   Text(state.myCourse[index]['course_name']),
                               trailing:
