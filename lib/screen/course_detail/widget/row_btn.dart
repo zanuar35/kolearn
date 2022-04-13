@@ -53,7 +53,7 @@ class _RowBtnState extends State<RowBtn> {
             ),
             child: Icon(
               widget.icon,
-              color: widget.isSubmited == 1 ? Colors.green : Colors.grey,
+              color: widget.icon == Icons.lock ? Colors.black : Colors.green,
             ))
       ],
     );

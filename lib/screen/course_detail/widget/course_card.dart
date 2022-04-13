@@ -40,7 +40,7 @@ class _CourseCardState extends State<CourseCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          EdgeInsets.only(left: 27.w, right: 27.w, top: 40.h, bottom: 100.h),
+          EdgeInsets.only(left: 27.w, right: 27.w, top: 40.h, bottom: 140.h),
       child: Container(
         width: double.infinity,
         height: 150.h,

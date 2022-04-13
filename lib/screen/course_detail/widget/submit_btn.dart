@@ -7,12 +7,12 @@ import 'package:kolearn/screen/materiPage/materi_page.dart';
 import '../../../blocs/my_course/cubit/mycourse_cubit.dart';
 
 class SubmitBtn extends StatefulWidget {
-  const SubmitBtn(
-      {Key? key,
-      required this.id,
-      required this.courseName,
-      required this.jumlahMateri})
-      : super(key: key);
+  const SubmitBtn({
+    Key? key,
+    required this.id,
+    required this.courseName,
+    required this.jumlahMateri,
+  }) : super(key: key);
 
   final int id;
   final String courseName;
@@ -61,7 +61,7 @@ class _SubmitBtnState extends State<SubmitBtn> {
                   }
                 });
               },
-              child: const Text("Submit"),
+              child: const Text("Lanjutkan"),
             ),
           ),
         ),

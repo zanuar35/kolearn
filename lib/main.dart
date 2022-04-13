@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -69,7 +67,7 @@ class MyApp extends StatelessWidget {
         ],
         child: ScreenUtilInit(
           minTextAdapt: true,
-          designSize: Size(414, 896),
+          designSize: const Size(414, 896),
           builder: () => MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
@@ -77,7 +75,7 @@ class MyApp extends StatelessWidget {
                 textTheme: GoogleFonts.poppinsTextTheme(
               Theme.of(context).textTheme,
             )),
-            home: SplashPage(),
+            home: const SplashPage(),
             builder: EasyLoading.init(builder: (context, widget) {
               ScreenUtil.setContext(context);
               return MediaQuery(
@@ -100,7 +98,7 @@ void configLoading() {
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow
     ..textColor = Colors.yellow
-    ..maskColor = Color.fromARGB(255, 68, 68, 68).withOpacity(0.5)
+    ..maskColor = const Color.fromARGB(255, 68, 68, 68).withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false;
 }

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/user_profile/cubit/user_profile_cubit.dart';
 import 'package:kolearn/models/user/user_model.dart';
@@ -225,52 +224,84 @@ class _EditProfileState extends State<EditProfile> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: ElevatedButton(
-                          onPressed: () {
-                            BlocProvider.of<UserProfileCubit>(context)
-                                .updateUserProfile(
-                                    _nameController.text,
-                                    _emailController.text,
-                                    _telpController.text,
-                                    dataAwal);
-                            _formKey.currentState?.reset();
-                            _nameController.clear();
-                            _emailController.clear();
-                            _telpController.clear();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize:
-                                Size(MediaQuery.of(context).size.width, 55.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                            onPressed: () {
+                              BlocProvider.of<UserProfileCubit>(context)
+                                  .updateUserProfile(
+                                      _nameController.text,
+                                      _emailController.text,
+                                      _telpController.text,
+                                      dataAwal);
+                              _formKey.currentState?.reset();
+                              _nameController.clear();
+                              _emailController.clear();
+                              _telpController.clear();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize:
+                                  Size(MediaQuery.of(context).size.width, 55.h),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              primary: const Color(0xff7383BF),
                             ),
-                            primary: const Color(0xff7383BF),
-                          ),
-                          child: Text(
-                            "Simpan",
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                            child:
+                                BlocBuilder<UserProfileCubit, UserProfileState>(
+                              builder: (context, state) {
+                                if (state is UserProfileLoading) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        color: Colors.transparent,
+                                        width: 20,
+                                        height: 20,
+                                        child: const CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 4,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      const Text(
+                                        "Loading...",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return const Text(
+                                    "Simpan",
+                                    style: TextStyle(color: Colors.white),
+                                  );
+                                }
+                              },
+                            )),
                       ),
                       BlocConsumer<UserProfileCubit, UserProfileState>(
                         listener: (context, state) {
-                          if (state is UserProfileLoading) {
-                            EasyLoading.show(
-                              status: 'loading...',
-                              maskType: EasyLoadingMaskType.black,
-                            );
+                          if (state is UserProfileLoaded) {
+                            setState(() {
+                              dataAwal = state.user.data!.gender.toString();
+                            });
                           }
                           if (state is UserProfileUpdated) {
-                            EasyLoading.dismiss();
-                            EasyLoading.showSuccess('Berhasil');
-                          }
-                          if (state is UserProfileLoaded) {
-                            EasyLoading.dismiss();
+                            const snackBar = SnackBar(
+                              backgroundColor: Color.fromARGB(255, 27, 137, 53),
+                              duration: Duration(seconds: 2),
+                              behavior: SnackBarBehavior.floating,
+                              content: Text('Data berhasil diubah'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                           if (state is UserProfileError) {
-                            EasyLoading.showError('Terjadi kesalahan');
+                            const snackBar = SnackBar(
+                              backgroundColor: Color(0xffdc3545),
+                              duration: Duration(seconds: 2),
+                              behavior: SnackBarBehavior.floating,
+                              content: Text('Terjadi kesalahan'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         },
                         builder: (context, state) {

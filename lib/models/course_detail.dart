@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final courseDetailModel = courseDetailModelFromJson(jsonString);
 import 'dart:convert';
 
 CourseDetailModel courseDetailModelFromJson(String str) =>
@@ -18,24 +15,24 @@ class CourseDetailModel {
 
   bool success;
   String message;
-  List<Datum> data;
+  Data data;
 
   factory CourseDetailModel.fromJson(Map<String, dynamic> json) =>
       CourseDetailModel(
         success: json["success"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
       };
 }
 
-class Datum {
-  Datum({
+class Data {
+  Data({
     required this.id,
     required this.userId,
     required this.courseName,
@@ -44,6 +41,7 @@ class Datum {
     required this.status,
     required this.changedAt,
     required this.isSubmited,
+    required this.title,
   });
 
   int id;
@@ -54,8 +52,9 @@ class Datum {
   String status;
   String changedAt;
   int isSubmited;
+  String title;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         userId: json["user_id"],
         courseName: json["course_name"],
@@ -64,6 +63,7 @@ class Datum {
         status: json["status"],
         changedAt: json["Changed_at"],
         isSubmited: json["is_submited"],
+        title: json["title"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,5 +75,6 @@ class Datum {
         "status": status,
         "Changed_at": changedAt,
         "is_submited": isSubmited,
+        "title": title,
       };
 }

@@ -86,8 +86,8 @@ class _CourseDetailState extends State<CourseDetail> {
               if (state is CourseDetailSuccess) {
                 EasyLoading.dismiss();
                 return CourseCard(
-                  title: state.courseDetail.data[0].courseName,
-                  hangul: state.courseDetail.data[0].status,
+                  title: state.courseDetail.data.courseName,
+                  hangul: state.courseDetail.data.title,
                   index: widget.index + 1,
                 );
               }
@@ -165,7 +165,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       }
                       if (state is CourseDetailSuccess) {
                         return Text(
-                          state.courseDetail.data[0].courseName.toUpperCase(),
+                          state.courseDetail.data.courseName.toUpperCase(),
                           style: TextStyle(
                               fontSize: 30.sp, fontWeight: FontWeight.bold),
                         );
@@ -200,9 +200,9 @@ class _CourseDetailState extends State<CourseDetail> {
                       }
                       if (state is CourseDetailSuccess) {
                         return RowBtn(
-                            isSubmited: state.courseDetail.data[0].isSubmited,
+                            isSubmited: state.courseDetail.data.isSubmited,
                             text: "Materi",
-                            icon: state.courseDetail.data[0].isSubmited == 1
+                            icon: state.courseDetail.data.status == 'progress'
                                 ? Icons.task_alt
                                 : Icons.lock,
                             child: Icon(
@@ -240,11 +240,12 @@ class _CourseDetailState extends State<CourseDetail> {
                       }
                       if (state is CourseDetailSuccess) {
                         return RowBtn(
-                            isSubmited: state.courseDetail.data[0].isSubmited,
+                            isSubmited: state.courseDetail.data.isSubmited,
                             text: "Latihan Soal",
-                            icon: state.courseDetail.data[0].isSubmited == 1
-                                ? Icons.task_alt
-                                : Icons.lock,
+                            icon: state.courseDetail.data.status == 'started' ||
+                                    state.courseDetail.data.status == 'progress'
+                                ? Icons.lock
+                                : Icons.task_alt,
                             child: Icon(
                               Icons.edit_note_rounded,
                               size: 34.w,
