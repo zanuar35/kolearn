@@ -70,6 +70,7 @@ class MycourseCubit extends Cubit<MycourseState> {
         });
 
     if (response.statusCode == 200) {
+      print(response.body);
       GetCourseModel getCourseModel = GetCourseModel.fromJson(
         json.decode(response.body),
       );

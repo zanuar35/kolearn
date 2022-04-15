@@ -96,7 +96,9 @@ class _MyCourseState extends State<MyCourse> {
                           itemCount: state.getCourseModel.length,
                           itemBuilder: (context, index) {
                             return courseCard(
-                                state.getCourseModel[index].courseName);
+                              state.getCourseModel[index].courseName,
+                              state.getCourseModel[index].title,
+                            );
                           },
                         ),
                       );
@@ -179,7 +181,7 @@ class _MyCourseState extends State<MyCourse> {
   }
 }
 
-Widget courseCard(String title) {
+Widget courseCard(String courseName, title) {
   return Container(
     margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
     width: 360.w,
@@ -204,8 +206,19 @@ Widget courseCard(String title) {
             height: 75.h,
             width: 75.h,
             decoration: BoxDecoration(
-              color: Colors.yellow,
+              color: const Color(0xff1D207B),
               borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 40.sp,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
             ),
           ),
           SizedBox(
@@ -216,7 +229,7 @@ Widget courseCard(String title) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                title,
+                courseName,
                 style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
               ),
               SizedBox(
@@ -324,45 +337,3 @@ class MateriCard extends StatelessWidget {
     );
   }
 }
-
-
-/*
-SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 120.h,
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 22.h),
-                child: SizedBox(
-                  height: 60.h,
-                  width: double.infinity,
-                  child: ListView.builder(
-                      itemCount: 3,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                            padding: const EdgeInsets.only(right: 13),
-                            child: customRadio(kategori[index], index));
-                      }),
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
-              width: double.infinity,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const MateriCard();
-                  }),
-            )
-          ],
-        ),
-      )),
-*/

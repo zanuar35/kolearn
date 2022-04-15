@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
-import 'package:kolearn/screen/home/widget/category_widget.dart';
+
 import 'package:kolearn/screen/home/widget/container_profile.dart';
 import 'package:kolearn/screen/home/widget/materi_card_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
-List<String> item = ['Pemula', 'Menengah', 'Mahir'];
 List course = [];
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selected = 0;
+  int selectedIndex = -1;
   @override
   void initState() {
     super.initState();
@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffE7F6FF),
-        body: SafeArea(
-            child: SingleChildScrollView(
+      backgroundColor: const Color(0xffE7F6FF),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               const ContainerProfile(),
@@ -65,19 +65,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 16.h,
                     ),
                     Container(
+                      height: 70.h,
                       color: const Color(0xffE7F6FF),
                       width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          LevelButtonWidget(
-                            label: "Easy",
+                          categoryBtn(
+                            0,
+                            Image.asset('assets/img/all_btnBlue.png'),
+                            Image.asset('assets/img/all_btn.png'),
                           ),
-                          LevelButtonWidget(
-                            label: "Medium",
+                          categoryBtn(
+                            1,
+                            Image.asset('assets/img/easy_btnBlue.png'),
+                            Image.asset('assets/img/easy_btn.png'),
                           ),
-                          LevelButtonWidget(
-                            label: "Hard",
+                          categoryBtn(
+                            2,
+                            Image.asset('assets/img/medium_btnBlue.png'),
+                            Image.asset('assets/img/medium_btn.png'),
+                          ),
+                          categoryBtn(
+                            3,
+                            Image.asset('assets/img/advance_btnBlue.png'),
+                            Image.asset('assets/img/advance_btn.png'),
                           ),
                         ],
                       ),
@@ -156,6 +169,23 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-        )));
+        ),
+      ),
+    );
+  }
+
+  Widget categoryBtn(int index, Image gambar, Image gambar1) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selected = index;
+        });
+      },
+      child: Container(
+          width: 120.w,
+          height: 70.h,
+          color: Colors.transparent,
+          child: selected == index ? gambar : gambar1),
+    );
   }
 }
