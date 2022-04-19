@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +80,9 @@ class _EditProfileState extends State<EditProfile> {
                         tag: "fotoProfil",
                         child: CircleAvatar(
                           radius: 55.r,
-                          backgroundColor: Colors.blue,
+                          backgroundColor: const Color(0xff0D8ABC),
+                          child: Image.network(
+                              'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
                         ),
                       ),
                       const CameraIcon()

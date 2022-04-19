@@ -24,9 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    if (course.isEmpty) {
-      BlocProvider.of<CourseCubit>(context).fetchCourse();
-    }
+    BlocProvider.of<CourseCubit>(context).fetchCourse();
+    // if (course.isEmpty) {
+    //   BlocProvider.of<CourseCubit>(context).fetchCourse();
+    // }
   }
 
   @override
@@ -123,6 +124,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )),
                           );
                         }
+                        if (state is CourseBerhasil) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30.w, vertical: 20.h),
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 200,
+                                        childAspectRatio: 1.6 / 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20),
+                                itemCount: course.length,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return MateriCard(
+                                      index: index,
+                                      text: course[index].title,
+                                      courseName: course[index].courseName,
+                                      courses: course);
+                                }),
+                          );
+                        }
+
                         if (state is CourseSuccess) {
                           return Container(
                             padding: EdgeInsets.symmetric(
@@ -147,6 +172,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }),
                           );
                         }
+                        // if (CourseState is CourseBerhasil) {
+                        //   return Container(
+                        //       color: Colors.grey[800],
+                        //       child: Text(course[0].title));
+                        // }
                         return Container();
                       },
                     ),
@@ -158,6 +188,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               course = state.courses;
                             });
                           }
+                        }
+                        if (state is CourseBerhasil) {
+                          setState(() {
+                            course = state.course;
+                          });
+                          print(course[0].title);
                         }
                       },
                       builder: (context, state) {
@@ -179,13 +215,44 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         setState(() {
           selected = index;
+          switch (index) {
+            case 0:
+              {
+                BlocProvider.of<CourseCubit>(context).fetchCourse();
+              }
+              break;
+
+            case 1:
+              {
+                BlocProvider.of<CourseCubit>(context).getCourseCategory(1);
+              }
+              break;
+
+            case 2:
+              {
+                BlocProvider.of<CourseCubit>(context).getCourseCategory(2);
+              }
+              break;
+
+            case 3:
+              {
+                BlocProvider.of<CourseCubit>(context).getCourseCategory(3);
+              }
+              break;
+            default:
+              {
+                print("Invalid choice");
+              }
+              break;
+          }
         });
       },
       child: Container(
-          width: 120.w,
-          height: 70.h,
-          color: Colors.transparent,
-          child: selected == index ? gambar : gambar1),
+        width: 120.w,
+        height: 70.h,
+        color: Colors.transparent,
+        child: selected == index ? gambar : gambar1,
+      ),
     );
   }
 }

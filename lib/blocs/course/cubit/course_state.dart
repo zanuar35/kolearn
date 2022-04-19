@@ -28,3 +28,24 @@ class CourseSuccess implements CourseState {
   @override
   bool? get stringify => true;
 }
+
+class CourseBerhasil implements CourseState {
+  final List course;
+  const CourseBerhasil(this.course);
+  @override
+  List<Object?> get props => [course];
+
+  @override
+  bool? get stringify => true;
+}
+
+class CourseFailure implements CourseState {
+  final String error;
+  const CourseFailure(this.error);
+
+  @override
+  List<Object?> get props => [error];
+
+  @override
+  bool? get stringify => true;
+}

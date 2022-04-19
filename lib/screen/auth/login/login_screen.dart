@@ -105,10 +105,8 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         }
                         if (state is LoginSuccess) {
-                          EasyLoading.showSuccess('Login success!',
-                              duration: const Duration(milliseconds: 1500));
                           EasyLoading.dismiss();
-                          Timer(const Duration(seconds: 2), () {
+                          Timer(const Duration(seconds: 1), () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
