@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
+import 'package:kolearn/core/app_colors.dart';
 
 import 'package:kolearn/screen/home/widget/container_profile.dart';
 import 'package:kolearn/screen/home/widget/materi_card_widget.dart';
@@ -20,14 +21,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selected = 0;
-  int selectedIndex = -1;
+  int? selectedIndex;
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<CourseCubit>(context).fetchCourse();
-    // if (course.isEmpty) {
-    //   BlocProvider.of<CourseCubit>(context).fetchCourse();
-    // }
+    if (course.isEmpty) {
+      BlocProvider.of<CourseCubit>(context).fetchCourse();
+    }
   }
 
   @override
@@ -112,7 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context, state) {
                         if (state is CourseLoading) {
                           return Container(
-                            padding: EdgeInsets.all(35.w),
+                            padding: EdgeInsets.only(
+                                top: 20.h,
+                                left: 35.w,
+                                right: 35.w,
+                                bottom: 30.h),
                             child: GridView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -125,10 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: 4,
                                 itemBuilder: (BuildContext ctx, index) {
                                   return Shimmer.fromColors(
-                                      baseColor: const Color.fromARGB(
-                                          255, 216, 211, 211),
-                                      highlightColor: const Color.fromARGB(
-                                          255, 231, 231, 231),
+                                      baseColor: AppColors.baseColor,
+                                      highlightColor: AppColors.highlightColor,
                                       child: Container(
                                         height: 120.h,
                                         width: 40.w,
@@ -188,11 +190,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }),
                           );
                         }
-                        // if (CourseState is CourseBerhasil) {
-                        //   return Container(
-                        //       color: Colors.grey[800],
-                        //       child: Text(course[0].title));
-                        // }
                         return Container();
                       },
                     ),
@@ -231,6 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         setState(() {
           selected = index;
+          selectedIndex = index;
           switch (index) {
             case 0:
               {

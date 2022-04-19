@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
+import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/screen/home/widget/category_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -72,18 +73,14 @@ class _MyCourseState extends State<MyCourse> {
                   builder: (context, state) {
                     if (state is MycourseLoading) {
                       return Shimmer.fromColors(
-                          baseColor: const Color.fromARGB(255, 216, 211, 211),
-                          highlightColor:
-                              const Color.fromARGB(255, 231, 231, 231),
+                          baseColor: AppColors.baseColor,
+                          highlightColor: AppColors.highlightColor,
                           child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 2,
-                            itemBuilder: (context, index) => const Card(
-                              elevation: 6,
-                              margin: EdgeInsets.all(10),
-                              child: ListTile(),
-                            ),
-                          ));
+                              shrinkWrap: true,
+                              itemCount: 2,
+                              itemBuilder: (context, index) {
+                                return courseCard("a", "a");
+                              }));
                     }
                     if (state is MycourseSuccess) {
                       return Container(

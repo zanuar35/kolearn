@@ -37,4 +37,8 @@ class AppColors {
   static final Color levelButtonTextMedium = darkGreen;
   static final Color levelButtonTextHard = Color(0xFFE8891C);
   static final Color levelButtonTextExpert = darkRed;
+
+  // Shimmer color
+  static final baseColor = Color.fromARGB(255, 216, 211, 211);
+  static final highlightColor = Color.fromARGB(255, 231, 231, 231);
 }

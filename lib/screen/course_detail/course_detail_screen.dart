@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course_detail/cubit/course_detail_cubit.dart';
+import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
 import 'package:kolearn/screen/materiPage/materi_page.dart';
 import 'package:shimmer/shimmer.dart';
@@ -56,8 +57,8 @@ class _CourseDetailState extends State<CourseDetail> {
             builder: (context, state) {
               if (state is CourseDetailLoading) {
                 return Shimmer.fromColors(
-                    baseColor: Color(0xffC2C2C2),
-                    highlightColor: Color.fromARGB(255, 175, 170, 170),
+                    baseColor: AppColors.baseColor,
+                    highlightColor: AppColors.highlightColor,
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: 27.w, right: 27.w, top: 40.h, bottom: 100.h),
@@ -138,8 +139,8 @@ class _CourseDetailState extends State<CourseDetail> {
                     builder: (context, state) {
                       if (state is CourseDetailLoading) {
                         return Shimmer.fromColors(
-                            baseColor: Color(0xffC2C2C2),
-                            highlightColor: Color.fromARGB(255, 175, 170, 170),
+                            baseColor: AppColors.baseColor,
+                            highlightColor: AppColors.highlightColor,
                             child: Padding(
                               padding: EdgeInsets.only(
                                   left: 2.w,
@@ -272,42 +273,13 @@ class _CourseDetailState extends State<CourseDetail> {
                       }
                       if (state is CourseDetailSuccess) {
                         return _submitBtn();
-                        // SubmitBtn(
-                        //   courseName: course[widget.index].courseName,
-                        //   jumlahMateri: length.toString(),
-                        //   id: 1,
-                        // );
                       }
                       if (state is CourseDetailNew) {
                         return _submitBtn();
-                        // SubmitBtn(
-                        //   courseName: course[widget.index].courseName,
-                        //   jumlahMateri: length.toString(),
-                        //   id: 1,
-                        // );
                       }
                       return Container();
                     },
                   )
-                  // BlocBuilder<MateriCubit, MateriState>(
-                  //   builder: (context, state) {
-                  //     if (state is MateriLoading) {
-                  //       return loadingBtn();
-                  //     }
-                  //     if (state is MateriLoaded) {
-                  //       print(course[widget.index].courseName);
-                  //       print(course[widget.index].id);
-                  //       // return ElevatedButton(
-                  //       //     onPressed: () {}, child: Text("Submit"));
-                  //       return SubmitBtn(
-                  //         courseName: course[widget.index].courseName,
-                  //         jumlahMateri: length.toString(),
-                  //         id: course[widget.index].id,
-                  //       );
-                  //     }
-                  //     return Container();
-                  //   },
-                  // )
                 ],
               ),
             ),

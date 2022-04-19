@@ -32,12 +32,14 @@ class MyApp extends StatelessWidget {
           BlocProvider<ObscuretextCubit>(
               create: (context) => ObscuretextCubit()),
           BlocProvider(
+            lazy: false,
             create: (context) => LoginCubit(),
           ),
           BlocProvider(
             create: (context) => LogoutCubit(),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => RegisterCubit(),
           ),
           BlocProvider(
@@ -47,6 +49,7 @@ class MyApp extends StatelessWidget {
             create: (context) => MateriCubit(),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => AuthCubit(),
           ),
           BlocProvider(
@@ -59,6 +62,7 @@ class MyApp extends StatelessWidget {
             create: (context) => NotificationCubit(),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => MycourseCubit(),
           ),
           BlocProvider(
