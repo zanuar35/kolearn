@@ -8,13 +8,11 @@ import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 
 class MateriPage extends StatefulWidget {
   final int id;
-  final String courseName;
-  final String jumlahMateri;
+ 
 
   const MateriPage(
       {Key? key,
-      required this.courseName,
-      required this.jumlahMateri,
+      
       required this.id})
       : super(key: key);
 

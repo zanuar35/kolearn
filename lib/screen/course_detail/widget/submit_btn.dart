@@ -48,8 +48,6 @@ class _SubmitBtnState extends State<SubmitBtn> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => MateriPage(
-                      courseName: widget.courseName,
-                      jumlahMateri: widget.jumlahMateri,
                       id: widget.id,
                     ),
                   ),

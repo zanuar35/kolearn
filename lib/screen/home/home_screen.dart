@@ -111,17 +111,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlocBuilder<CourseCubit, CourseState>(
                       builder: (context, state) {
                         if (state is CourseLoading) {
-                          return SizedBox(
-                            width: 200.0,
-                            height: 100.0,
-                            child: Shimmer.fromColors(
-                                baseColor: Colors.grey,
-                                highlightColor: Colors.blueGrey,
-                                child: Container(
-                                  height: 120.h,
-                                  width: 40.w,
-                                  color: Colors.black,
-                                )),
+                          return Container(
+                            padding: EdgeInsets.all(35.w),
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 200,
+                                        childAspectRatio: 1.6 / 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20),
+                                itemCount: 4,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return Shimmer.fromColors(
+                                      baseColor: const Color.fromARGB(
+                                          255, 216, 211, 211),
+                                      highlightColor: const Color.fromARGB(
+                                          255, 231, 231, 231),
+                                      child: Container(
+                                        height: 120.h,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                      ));
+                                }),
                           );
                         }
                         if (state is CourseBerhasil) {
@@ -140,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: course.length,
                                 itemBuilder: (BuildContext ctx, index) {
                                   return MateriCard(
-                                      index: index,
+                                      index: course[index].id - 1,
                                       text: course[index].title,
                                       courseName: course[index].courseName,
                                       courses: course);
@@ -164,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: state.courses.length,
                                 itemBuilder: (BuildContext ctx, index) {
                                   return MateriCard(
-                                      index: index,
+                                      index: state.courses[index].id - 1,
                                       text: state.courses[index].title,
                                       courseName:
                                           state.courses[index].courseName,
@@ -191,9 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                         if (state is CourseBerhasil) {
                           setState(() {
+                            course.clear();
                             course = state.course;
                           });
-                          print(course[0].title);
                         }
                       },
                       builder: (context, state) {

@@ -70,9 +70,6 @@ class CourseCubit extends Cubit<CourseState> {
       final Map<String, dynamic> parsed = json.decode(response.body);
       CourseCategoryModel course = CourseCategoryModel.fromJson(parsed);
       List<Datum> kurses = course.data;
-
-      print(response.body);
-
       // set data course to state
       // Success state
       emit(CourseBerhasil(kurses));

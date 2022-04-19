@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors
+// ignore_for_file: must_be_immutable, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course_detail/cubit/course_detail_cubit.dart';
 import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
-import 'package:kolearn/screen/course_detail/widget/submit_btn.dart';
-import 'package:kolearn/screen/home/home_screen.dart';
+import 'package:kolearn/screen/materiPage/materi_page.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../blocs/materi/cubit/materi_cubit.dart';
@@ -28,7 +27,7 @@ class _CourseDetailState extends State<CourseDetail> {
   void initState() {
     super.initState();
     BlocProvider.of<CourseDetailCubit>(context).getDetail(widget.index + 1);
-    BlocProvider.of<MateriCubit>(context).getMateri(widget.index + 1);
+    // BlocProvider.of<MateriCubit>(context).getMateri(widget.index);
   }
 
   int length = 0;
@@ -266,27 +265,85 @@ class _CourseDetailState extends State<CourseDetail> {
                       return Container();
                     },
                   ),
-                  BlocBuilder<MateriCubit, MateriState>(
+                  BlocBuilder<CourseDetailCubit, CourseDetailState>(
                     builder: (context, state) {
-                      if (state is MateriLoading) {
+                      if (state is CourseDetailLoading) {
                         return loadingBtn();
                       }
-                      if (state is MateriLoaded) {
-                        return SubmitBtn(
-                          courseName: course[widget.index].courseName,
-                          jumlahMateri: length.toString(),
-                          id: course[widget.index].id,
-                        );
+                      if (state is CourseDetailSuccess) {
+                        return _submitBtn();
+                        // SubmitBtn(
+                        //   courseName: course[widget.index].courseName,
+                        //   jumlahMateri: length.toString(),
+                        //   id: 1,
+                        // );
+                      }
+                      if (state is CourseDetailNew) {
+                        return _submitBtn();
+                        // SubmitBtn(
+                        //   courseName: course[widget.index].courseName,
+                        //   jumlahMateri: length.toString(),
+                        //   id: 1,
+                        // );
                       }
                       return Container();
                     },
                   )
+                  // BlocBuilder<MateriCubit, MateriState>(
+                  //   builder: (context, state) {
+                  //     if (state is MateriLoading) {
+                  //       return loadingBtn();
+                  //     }
+                  //     if (state is MateriLoaded) {
+                  //       print(course[widget.index].courseName);
+                  //       print(course[widget.index].id);
+                  //       // return ElevatedButton(
+                  //       //     onPressed: () {}, child: Text("Submit"));
+                  //       return SubmitBtn(
+                  //         courseName: course[widget.index].courseName,
+                  //         jumlahMateri: length.toString(),
+                  //         id: course[widget.index].id,
+                  //       );
+                  //     }
+                  //     return Container();
+                  //   },
+                  // )
                 ],
               ),
             ),
           )
         ]),
       ),
+    );
+  }
+
+  Widget _submitBtn() {
+    return Row(
+      children: [
+        Expanded(
+            child: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(height: 60.h),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: const Color(0xff7383BF)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MateriPage(
+                      id: widget.index + 1,
+                    ),
+                  ),
+                ).then((value) {
+                  if (mounted) {
+                    setState(() {
+                      // Your state change code goes here
+                    });
+                  }
+                });
+              },
+              child: Text("Submit")),
+        ))
+      ],
     );
   }
 
