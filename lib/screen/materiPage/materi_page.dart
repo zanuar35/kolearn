@@ -8,13 +8,8 @@ import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 
 class MateriPage extends StatefulWidget {
   final int id;
- 
 
-  const MateriPage(
-      {Key? key,
-      
-      required this.id})
-      : super(key: key);
+  const MateriPage({Key? key, required this.id}) : super(key: key);
 
   @override
   _MateriPageState createState() => _MateriPageState();
@@ -143,7 +138,7 @@ class _MateriPageState extends State<MateriPage> {
                                       height: 32.w,
                                       child: const Icon(
                                         Icons.volume_up_rounded,
-                                        color:  Color(0xffF8F8F8),
+                                        color: Color(0xffF8F8F8),
                                       ),
                                       decoration: const BoxDecoration(
                                           color: Color(0xff636363),
@@ -267,7 +262,6 @@ class _MateriPageState extends State<MateriPage> {
                 MaterialPageRoute(
                   builder: (context) => CourseDetail(
                     index: 2,
-                    course: const [],
                   ),
                 ),
               );

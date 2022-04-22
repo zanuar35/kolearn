@@ -6,6 +6,8 @@ import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/screen/home/widget/category_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../course_detail/course_detail_screen.dart';
+
 class MyCourse extends StatefulWidget {
   const MyCourse({Key? key}) : super(key: key);
 
@@ -79,7 +81,12 @@ class _MyCourseState extends State<MyCourse> {
                               shrinkWrap: true,
                               itemCount: 2,
                               itemBuilder: (context, index) {
-                                return courseCard("a", "a");
+                                return courseCard(
+                                  "a",
+                                  "a",
+                                  1,
+                                  context,
+                                );
                               }));
                     }
                     if (state is MycourseSuccess) {
@@ -95,6 +102,8 @@ class _MyCourseState extends State<MyCourse> {
                             return courseCard(
                               state.getCourseModel[index].courseName,
                               state.getCourseModel[index].title,
+                              state.getCourseModel[index].courseId - 1,
+                              context,
                             );
                           },
                         ),
@@ -178,81 +187,97 @@ class _MyCourseState extends State<MyCourse> {
   }
 }
 
-Widget courseCard(String courseName, title) {
-  return Container(
-    margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
-    width: 360.w,
-    height: 130.h,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.2),
-          spreadRadius: 5,
-          blurRadius: 4,
-          offset: const Offset(0, 4), // changes position of shadow
+Widget courseCard(String courseName, title, int index, BuildContext context) {
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (c, a1, a2) => CourseDetail(
+            index: index,
+          ),
+          transitionsBuilder: (c, anim, a2, child) =>
+              FadeTransition(opacity: anim, child: child),
+          transitionDuration: const Duration(milliseconds: 200),
         ),
-      ],
-    ),
+      );
+    },
     child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 30.w),
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: 75.h,
-            width: 75.h,
-            decoration: BoxDecoration(
-              color: const Color(0xff1D207B),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 40.sp,
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-            ),
+      margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
+      width: 360.w,
+      height: 130.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 5,
+            blurRadius: 4,
+            offset: const Offset(0, 4), // changes position of shadow
           ),
-          SizedBox(
-            width: 20.w,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                courseName,
-                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Row(
-                children: <Widget>[
-                  const Icon(
-                    Icons.book,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "12 Materi",
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.grey),
-                  ),
-                ],
-              )
-            ],
-          )
         ],
+      ),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30.w),
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: 75.h,
+              width: 75.h,
+              decoration: BoxDecoration(
+                color: const Color(0xff1D207B),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 40.sp,
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 20.w,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  courseName,
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Row(
+                  children: <Widget>[
+                    const Icon(
+                      Icons.book,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      "12 Materi",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.grey),
+                    ),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     ),
   );

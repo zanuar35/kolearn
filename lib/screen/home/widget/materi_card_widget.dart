@@ -84,11 +84,13 @@ class MateriCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) =>  CourseDetail(
+          PageRouteBuilder(
+            pageBuilder: (c, a1, a2) => CourseDetail(
               index: index,
-              course: courses,
             ),
+            transitionsBuilder: (c, anim, a2, child) =>
+                FadeTransition(opacity: anim, child: child),
+            transitionDuration: const Duration(milliseconds: 200),
           ),
         );
       },

@@ -14,10 +14,10 @@ import '../../blocs/materi/cubit/materi_cubit.dart';
 import 'widget/course_card.dart';
 
 class CourseDetail extends StatefulWidget {
-  CourseDetail({required this.index, required this.course, Key? key})
+  CourseDetail({required this.index,Key? key})
       : super(key: key);
 
-  List course = [];
+  
   int index;
   @override
   _CourseDetailState createState() => _CourseDetailState();
@@ -28,7 +28,6 @@ class _CourseDetailState extends State<CourseDetail> {
   void initState() {
     super.initState();
     BlocProvider.of<CourseDetailCubit>(context).getDetail(widget.index + 1);
-    // BlocProvider.of<MateriCubit>(context).getMateri(widget.index);
   }
 
   int length = 0;

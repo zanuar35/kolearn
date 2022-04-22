@@ -36,9 +36,7 @@ class CourseDetailCubit extends Cubit<CourseDetailState> {
       // get data from json
 
       var data = json.decode(response.body);
-      print(response.body);
-      // print(data);
-      print(data["success"]);
+
       if (data['success'] == true) {
         CourseDetailModel courseDetail = CourseDetailModel.fromJson(data);
         emit(CourseDetailSuccess(courseDetail));
@@ -47,8 +45,6 @@ class CourseDetailCubit extends Cubit<CourseDetailState> {
         emit(CourseDetailNew(courseNew));
       }
     } else {
-      print(response.statusCode);
-      print('error' + response.body);
       emit(CourseDetailFailure('Failed to get data'));
     }
   }
