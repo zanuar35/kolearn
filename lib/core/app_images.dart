@@ -19,7 +19,7 @@ class AppImage {
   //////////////// ########### ////////////
 
   // MyCourse Screen
-  static final Image progressAll = Image.asset('assets/img/all_btn1.png.png');
+  static final Image progressAll = Image.asset('assets/img/all_btn1.png');
   static final Image progressAllBlue =
       Image.asset('assets/img/all_btn1blue.png');
 

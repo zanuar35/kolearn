@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:kolearn/core/app_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:kolearn/models/get_course.dart';
+import 'package:kolearn/models/mycourse.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'mycourse_state.dart';
@@ -74,8 +75,8 @@ class MycourseCubit extends Cubit<MycourseState> {
       GetCourseModel getCourseModel = GetCourseModel.fromJson(
         json.decode(response.body),
       );
-      List<Datum> kursus = getCourseModel.data;
-      emit(MycourseSuccess(kursus));
+
+      emit(MycourseSuccess(getCourseModel.data));
     } else {
       print(response.body);
       emit(const MycourseError(error: "error"));
@@ -106,6 +107,38 @@ class MycourseCubit extends Cubit<MycourseState> {
       Map<String, dynamic> map = json.decode(response.body);
       print(map);
       emit(MycourseSuccessUpdate());
+    } else {
+      print(response.body);
+      emit(const MycourseError(error: "error"));
+    }
+  }
+
+  void getCourseStatus(String status) async {
+    String url = AppUrl.baseUrl;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+
+    emit(MycourseLoading());
+
+    var response = await http.post(
+        Uri.parse(
+          "$url/api/getCourseStatus",
+        ),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          'user_id': prefs.getInt('user_id').toString(),
+          'status': status,
+        });
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      Map<String, dynamic> map = json.decode(response.body);
+      MyCourseCategoryModel myCourseCategoryModel =
+          MyCourseCategoryModel.fromJson(map);
+      emit(MycourseLoaded(myCourseCategoryModel.data));
     } else {
       print(response.body);
       emit(const MycourseError(error: "error"));

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
-import 'package:kolearn/core/app_colors.dart';
-import 'package:kolearn/screen/home/widget/category_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../core/core.dart';
 import '../course_detail/course_detail_screen.dart';
 
 class MyCourse extends StatefulWidget {
@@ -27,16 +26,9 @@ class _MyCourseState extends State<MyCourse> {
     super.dispose();
   }
 
-  final List<Color> warnaCard = [
-    Colors.white,
-    const Color(0xff7383C0),
-    const Color(0xffF9AE2B),
-    const Color(0xff5BDEDE)
-  ];
-
-  final List<String> kategori = ['All', 'OnGoing', 'Finish'];
-
   int selected = 0;
+  int? selectedIndex;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,20 +46,21 @@ class _MyCourseState extends State<MyCourse> {
             child: Column(
               children: [
                 Container(
+                  height: 70.h,
                   color: const Color(0xffE7F6FF),
                   width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  child: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     children: [
-                      LevelButtonWidget(
-                        label: "Easy",
-                      ),
-                      LevelButtonWidget(
-                        label: "Medium",
-                      ),
-                      LevelButtonWidget(
-                        label: "Hard",
-                      ),
+                      SizedBox(width: 10.w),
+                      categoryBtn(
+                          0, AppImage.progressAllBlue, AppImage.progressAll),
+                      SizedBox(width: 20.w),
+                      categoryBtn(1, AppImage.onGoingBlue, AppImage.onGoing),
+                      SizedBox(width: 20.w),
+                      categoryBtn(2, AppImage.finishBlue, AppImage.finish),
+                      SizedBox(width: 10.w),
                     ],
                   ),
                 ),
@@ -109,6 +102,26 @@ class _MyCourseState extends State<MyCourse> {
                         ),
                       );
                     }
+                    if (state is MycourseLoaded) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 2.h),
+                        width: double.infinity,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.getCourseModel.length,
+                          itemBuilder: (context, index) {
+                            return courseCard(
+                              state.getCourseModel[index].courseName,
+                              state.getCourseModel[index].title,
+                              state.getCourseModel[index].courseId - 1,
+                              context,
+                            );
+                          },
+                        ),
+                      );
+                    }
                     return Container();
                   },
                 )
@@ -118,71 +131,48 @@ class _MyCourseState extends State<MyCourse> {
         ));
   }
 
-  Widget categoryCard(Color warna, int indeks) {
-    return Container(
-      width: 108.w,
-      height: 50.h,
-      decoration: BoxDecoration(
-        color: (indeks == 0) ? const Color(0xff53C0FA) : Colors.white,
-        borderRadius: BorderRadius.circular(40.r),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Container(
-            height: 45.h,
-            width: 45.h,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: warna),
-          ),
-          Text(
-            "All Topics",
-            style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget customRadio(String text, int index) {
+  Widget categoryBtn(int index, Image gambar, Image gambar1) {
     return GestureDetector(
-      child: Container(
-        decoration: BoxDecoration(
-          color: (selected == index)
-              ? const Color(0xff52C3FF)
-              : const Color.fromARGB(255, 238, 122, 114),
-          borderRadius: BorderRadius.circular(40.r),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            SizedBox(
-              width: 10.w,
-            ),
-            Container(
-              height: 55.h,
-              width: 55.h,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 255, 255, 255)),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Text(
-              text,
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 18.w,
-            )
-          ],
-        ),
-      ),
       onTap: () {
         setState(() {
           selected = index;
+          selectedIndex = index;
+          switch (index) {
+            case 0:
+              {
+                BlocProvider.of<MycourseCubit>(context)
+                    .getCourseStatus('started');
+              }
+              break;
+
+            case 1:
+              {
+                BlocProvider.of<MycourseCubit>(context)
+                    .getCourseStatus('started');
+              }
+              break;
+
+            case 2:
+              {
+                BlocProvider.of<MycourseCubit>(context)
+                    .getCourseStatus('progress');
+              }
+              break;
+            default:
+              {
+                // ignore: avoid_print
+                print("Invalid choice");
+              }
+              break;
+          }
         });
       },
+      child: Container(
+        width: 120.w,
+        height: 70.h,
+        color: Colors.transparent,
+        child: selected == index ? gambar : gambar1,
+      ),
     );
   }
 }
@@ -281,81 +271,4 @@ Widget courseCard(String courseName, title, int index, BuildContext context) {
       ),
     ),
   );
-}
-
-class MateriCard extends StatelessWidget {
-  const MateriCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20.h, left: 24.w, right: 24.w, bottom: 5.h),
-      width: 360.w,
-      height: 170.h,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 5,
-            blurRadius: 4,
-            offset: const Offset(0, 4), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30.w),
-        child: Row(
-          children: <Widget>[
-            Container(
-              height: 85.h,
-              width: 85.h,
-              decoration: BoxDecoration(
-                color: Colors.yellow,
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            SizedBox(
-              width: 20.w,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Huruf Vokal Dasar",
-                  style:
-                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: <Widget>[
-                    const Icon(
-                      Icons.book,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text(
-                      "12 Materi",
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.grey),
-                    ),
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
