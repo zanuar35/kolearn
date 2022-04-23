@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
 import 'package:kolearn/core/app_colors.dart';
-
+import 'package:kolearn/core/app_images.dart';
 import 'package:kolearn/screen/home/widget/container_profile.dart';
 import 'package:kolearn/screen/home/widget/materi_card_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -74,25 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           categoryBtn(
-                            0,
-                            Image.asset('assets/img/all_btnBlue.png'),
-                            Image.asset('assets/img/all_btn.png'),
-                          ),
+                              0, AppImage.allTopicActive, AppImage.allTopic),
                           categoryBtn(
-                            1,
-                            Image.asset('assets/img/easy_btnBlue.png'),
-                            Image.asset('assets/img/easy_btn.png'),
-                          ),
+                              1, AppImage.easybtnActive, AppImage.easybtn),
                           categoryBtn(
-                            2,
-                            Image.asset('assets/img/medium_btnBlue.png'),
-                            Image.asset('assets/img/medium_btn.png'),
-                          ),
-                          categoryBtn(
-                            3,
-                            Image.asset('assets/img/advance_btnBlue.png'),
-                            Image.asset('assets/img/advance_btn.png'),
-                          ),
+                              2, AppImage.mediumbtnActive, AppImage.mediumbtn),
+                          categoryBtn(3, AppImage.advanceBtnActive,
+                              AppImage.advanceBtn),
                         ],
                       ),
                     ),
