@@ -240,8 +240,6 @@ class _MateriPageState extends State<MateriPage> {
 
   void audioPlay(String url) async {
     AudioPlayer audioPlayer = AudioPlayer();
-    // var url =
-    //     "https://90daykoreanaudiobytes.s3-us-west-1.amazonaws.com/audio-giyeok.mp3";
     var res = await audioPlayer.play(url, isLocal: true);
     if (res == 1) {}
   }
@@ -266,13 +264,6 @@ class _MateriPageState extends State<MateriPage> {
                 ),
               );
 
-              // Update status to onProgress
-              // BlocProvider.of<MycourseCubit>(context).saveCourse(
-              //   widget.courseName,
-              //   widget.id.toString(),
-              //   widget.jumlahMateri,
-              //   'progress',
-              // );
               BlocProvider.of<MycourseCubit>(context)
                   .updateCourse(widget.id.toString());
             },

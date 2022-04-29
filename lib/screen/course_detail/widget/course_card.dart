@@ -1,34 +1,33 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../blocs/materi/cubit/materi_cubit.dart';
 
 class CourseCard extends StatefulWidget {
   CourseCard({
     required this.title,
     required this.hangul,
     required this.index,
+    required this.length,
     Key? key,
   }) : super(key: key);
 
   final String title;
   final String hangul;
   final int index;
+  final int length;
 
   @override
   State<CourseCard> createState() => _CourseCardState();
 }
 
 class _CourseCardState extends State<CourseCard> {
-  int length = 0;
+  // int length = 0;
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MateriCubit>(context).getMateri(widget.index);
+    // BlocProvider.of<MateriCubit>(context).getMateri(widget.index);
   }
 
   @override
@@ -78,6 +77,20 @@ class _CourseCardState extends State<CourseCard> {
               SizedBox(
                 width: 20.w,
               ),
+              // BlocConsumer<MateriCubit, MateriState>(
+              //   listener: (context, state) {
+              //     if (state is MateriLoaded) {
+              //       setState(() {
+              //         length = state.materi.length;
+              //       });
+              //     }
+              //   },
+              //   builder: (context, state) {
+              //     return SizedBox(
+              //       height: 0,
+              //     );
+              //   },
+              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,25 +106,13 @@ class _CourseCardState extends State<CourseCard> {
                       SizedBox(
                         width: 10.w,
                       ),
-                      length == 0
+                      widget.length == 0
                           ? Text('Loading')
-                          : Text(length.toString() + ' materi'),
+                          : Text(widget.length.toString() + ' materi'),
                     ],
                   )
                 ],
               ),
-              BlocConsumer<MateriCubit, MateriState>(
-                listener: (context, state) {
-                  if (state is MateriLoaded) {
-                    setState(() {
-                      length = state.materi.length;
-                    });
-                  }
-                },
-                builder: (context, state) {
-                  return Container();
-                },
-              )
             ],
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course_detail/cubit/course_detail_cubit.dart';
+import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
 import 'package:kolearn/screen/materiPage/materi_page.dart';
@@ -14,10 +15,8 @@ import '../../blocs/materi/cubit/materi_cubit.dart';
 import 'widget/course_card.dart';
 
 class CourseDetail extends StatefulWidget {
-  CourseDetail({required this.index,Key? key})
-      : super(key: key);
+  CourseDetail({required this.index, Key? key}) : super(key: key);
 
-  
   int index;
   @override
   _CourseDetailState createState() => _CourseDetailState();
@@ -28,6 +27,7 @@ class _CourseDetailState extends State<CourseDetail> {
   void initState() {
     super.initState();
     BlocProvider.of<CourseDetailCubit>(context).getDetail(widget.index + 1);
+    BlocProvider.of<MateriCubit>(context).getMateri(widget.index + 1);
   }
 
   int length = 0;
@@ -88,6 +88,7 @@ class _CourseDetailState extends State<CourseDetail> {
                   title: state.courseDetail.data.courseName,
                   hangul: state.courseDetail.data.title,
                   index: widget.index + 1,
+                  length: length,
                 );
               }
               if (state is CourseDetailNew) {
@@ -96,20 +97,9 @@ class _CourseDetailState extends State<CourseDetail> {
                   title: state.courseNew.data.courseName,
                   hangul: state.courseNew.data.title,
                   index: widget.index + 1,
+                  length: length,
                 );
               }
-              return Container();
-            },
-          ),
-          BlocConsumer<MateriCubit, MateriState>(
-            listener: (context, state) {
-              if (state is MateriLoaded) {
-                setState(() {
-                  length = state.materi.length;
-                });
-              }
-            },
-            builder: (context, state) {
               return Container();
             },
           ),
@@ -177,6 +167,18 @@ class _CourseDetailState extends State<CourseDetail> {
                         );
                       }
                       return Container();
+                    },
+                  ),
+                  BlocConsumer<MateriCubit, MateriState>(
+                    listener: (context, state) {
+                      if (state is MateriLoaded) {
+                        setState(() {
+                          length = state.materi.length;
+                        });
+                      }
+                    },
+                    builder: (context, state) {
+                      return Row();
                     },
                   ),
                   const Text(
@@ -271,14 +273,22 @@ class _CourseDetailState extends State<CourseDetail> {
                         return loadingBtn();
                       }
                       if (state is CourseDetailSuccess) {
-                        return _submitBtn();
+                        return _submitBtn(
+                            state.courseDetail.data.courseName,
+                            'started',
+                            state.courseDetail.data.id.toString(),
+                            length.toString());
                       }
                       if (state is CourseDetailNew) {
-                        return _submitBtn();
+                        return _submitBtn(
+                            state.courseNew.data.courseName,
+                            'started',
+                            state.courseNew.data.id.toString(),
+                            length.toString());
                       }
                       return Container();
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -288,7 +298,8 @@ class _CourseDetailState extends State<CourseDetail> {
     );
   }
 
-  Widget _submitBtn() {
+  Widget _submitBtn(
+      String courseName, String status, String id, String jumlahMateri) {
     return Row(
       children: [
         Expanded(
@@ -297,6 +308,11 @@ class _CourseDetailState extends State<CourseDetail> {
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: const Color(0xff7383BF)),
               onPressed: () {
+                // Save course
+                BlocProvider.of<MycourseCubit>(context)
+                    .saveCourse(courseName, id, jumlahMateri, status);
+
+                // Ke halaman materi dan atau latihan soal
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -87,19 +87,23 @@ class MycourseCubit extends Cubit<MycourseState> {
     String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
-    String courseId = prefs.getInt('course_id').toString();
+    int? userId = prefs.getInt('user_id');
+    //String courseId = prefs.getInt('course_id').toString();
 
     emit(MycourseLoading());
+    print("user id : $userId , course id : $id");
 
-    var response = await http.put(
+    var response = await http.post(
       Uri.parse(
-        "$url/api/getCourseStatus/$courseId/3",
+        "$url/api/updateCourse",
       ),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       },
       body: ({
+        "user_id": "$userId",
+        "course_id": id,
         "status": "progress",
       }),
     );
