@@ -140,8 +140,7 @@ class _MyCourseState extends State<MyCourse> {
           switch (index) {
             case 0:
               {
-                BlocProvider.of<MycourseCubit>(context)
-                    .getCourseStatus('started');
+                BlocProvider.of<MycourseCubit>(context).getCourseByUid();
               }
               break;
 

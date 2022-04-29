@@ -73,12 +73,21 @@ class _NotifScreenState extends State<NotifScreen> {
                             margin: const EdgeInsets.all(10),
                             child: ListTile(
                               leading: CircleAvatar(
-                                child: const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                ),
-                                backgroundColor: Colors.green[300],
-                              ),
+                                  child: state.myCourse[index]['status'] ==
+                                          'started'
+                                      ? const Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                        )
+                                      : const Icon(
+                                          Icons.emoji_events,
+                                          color: Colors.white,
+                                        ),
+                                  backgroundColor: state.myCourse[index]
+                                              ['status'] ==
+                                          'started'
+                                      ? Colors.green[500]
+                                      : Colors.blue[500]),
                               title:
                                   state.myCourse[index]['status'] == 'started'
                                       ? const Text('Berhasil Memulai')

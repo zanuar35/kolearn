@@ -8,6 +8,7 @@ import 'package:kolearn/core/app_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:kolearn/models/get_course.dart';
 import 'package:kolearn/models/mycourse.dart';
+import 'package:kolearn/models/mycourse_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'mycourse_state.dart';
@@ -138,11 +139,39 @@ class MycourseCubit extends Cubit<MycourseState> {
         });
 
     if (response.statusCode == 200) {
-      print(response.body);
       Map<String, dynamic> map = json.decode(response.body);
       MyCourseCategoryModel myCourseCategoryModel =
           MyCourseCategoryModel.fromJson(map);
       emit(MycourseLoaded(myCourseCategoryModel.data));
+    } else {
+      print(response.body);
+      emit(const MycourseError(error: "error"));
+    }
+  }
+
+  void getCourseByUid() async {
+    String url = AppUrl.baseUrl;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+    int? userId = prefs.getInt('user_id');
+
+    emit(MycourseLoading());
+    var response = await http.post(
+        Uri.parse(
+          "$url/api/getCoursebyUid",
+        ),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          'user_id': "$userId",
+        });
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> map = json.decode(response.body);
+      MyCourseAllModel myCourseAllModel = MyCourseAllModel.fromJson(map);
+      emit(MycourseLoaded(myCourseAllModel.data));
     } else {
       print(response.body);
       emit(const MycourseError(error: "error"));

@@ -40,3 +40,12 @@ class MycourseError extends MycourseState {
   @override
   List<Object> get props => [error];
 }
+
+// class MycourseAll extends MycourseState {
+//   final List getCourseModel;
+
+//   const MycourseAll(this.getCourseModel);
+
+//   @override
+//   List<Object> get props => [getCourseModel];
+// }
