@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/screen/accountPage/widget/row_button.dart';
 import 'package:kolearn/screen/coba.dart';
-import 'package:kolearn/screen/ubahPassword/ubah_password.dart';
+import 'package:kolearn/screen/quiz_screen/quiz_screen.dart';
 
 class ContainerTentang extends StatelessWidget {
   const ContainerTentang({
@@ -43,7 +43,7 @@ class ContainerTentang extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const UbahPassword(),
+                    builder: (context) => const QuizScreen(),
                   ),
                 );
               },

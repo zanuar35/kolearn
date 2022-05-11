@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
+import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/screen/accountPage/widget/container_tentang.dart';
 import 'package:kolearn/screen/auth/login/login_screen.dart';
 import 'widget/container_akun.dart';
@@ -29,7 +30,7 @@ class AccountPage extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: const Color(0xffE6F6FF),
+        color: AppColors.backgroundColor,
         child: Column(
           children: <Widget>[
             BlocListener<LogoutCubit, LogoutState>(
