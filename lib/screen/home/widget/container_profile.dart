@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/user_profile/cubit/user_profile_cubit.dart';
+import 'package:kolearn/core/app_shared_preferences.dart';
 
 class ContainerProfile extends StatefulWidget {
   const ContainerProfile({
@@ -14,14 +15,23 @@ class ContainerProfile extends StatefulWidget {
 
 class _ContainerProfileState extends State<ContainerProfile> {
   @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<UserProfileCubit>(context).getUserProfile();
-  }
-
-  @override
   void dispose() {
     super.dispose();
+  }
+
+  void getName() async {
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+    nama = await sharedPreferencesHelper.getUserName();
+    setState(() {});
+  }
+
+  String? nama;
+
+  @override
+  void initState() {
+    super.initState();
+    nama == null ? getName() : null;
+    BlocProvider.of<UserProfileCubit>(context).getUserProfile();
   }
 
   @override
@@ -49,29 +59,17 @@ class _ContainerProfileState extends State<ContainerProfile> {
                       fontWeight: FontWeight.w500,
                       color: const Color(0xff747474)),
                 ),
+                Text(
+                  nama.toString()[0].toUpperCase() +
+                      nama.toString().substring(1).toLowerCase(),
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    letterSpacing: 0.7,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 BlocBuilder<UserProfileCubit, UserProfileState>(
                   builder: (context, state) {
-                    if (state is UserProfileLoading) {
-                      return Text("Loading...",
-                          style: TextStyle(
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.w600,
-                          ));
-                    }
-                    if (state is UserProfileLoaded) {
-                      String name =
-                          state.user.data!.name.toString()[0].toUpperCase() +
-                              state.user.data!.name
-                                  .toString()
-                                  .substring(1)
-                                  .toLowerCase();
-                      return Text(name,
-                          style: TextStyle(
-                            fontSize: 24.sp,
-                            letterSpacing: 0.7,
-                            fontWeight: FontWeight.w600,
-                          ));
-                    }
                     return Container();
                   },
                 ),

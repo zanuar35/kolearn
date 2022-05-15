@@ -1,3 +1,3 @@
 class AppUrl {
-  static String baseUrl = "https://1112-103-108-20-85.ap.ngrok.io";
+  static String baseUrl = "https://0f08-103-108-21-95.ap.ngrok.io";
 }

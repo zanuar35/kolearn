@@ -9,6 +9,8 @@ abstract class UserProfileState extends Equatable {
 
 class UserProfileInitial extends UserProfileState {}
 
+
+
 class UserProfileLoading extends UserProfileState {}
 
 class UserProfileLoaded extends UserProfileState {

@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kolearn/core/app_shared_preferences.dart';
 
-class ContainerBadgeProfile extends StatelessWidget {
+class ContainerBadgeProfile extends StatefulWidget {
   const ContainerBadgeProfile({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<ContainerBadgeProfile> createState() => _ContainerBadgeProfileState();
+}
+
+class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
+  @override
+  void initState() {
+    super.initState();
+
+    getName();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void getName() async {
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+    nama = await sharedPreferencesHelper.getUserName();
+    setState(() {});
+  }
+
+  String? nama;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +50,19 @@ class ContainerBadgeProfile extends StatelessWidget {
               tag: "fotoProfil",
               child: CircleAvatar(
                 radius: 40.r,
+                child: Image.network(
+                    'https://ui-avatars.com/api/?name=$nama&background=0D8ABC&color=fff&rounded=true'),
               ),
             ),
             SizedBox(
               height: 5.h,
             ),
             Text(
-              "Contoh Nama",
+              nama.toString().toUpperCase(),
               style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18.sp,
-              ),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20.sp,
+                  letterSpacing: 1),
             ),
             SizedBox(
               height: 5.h,

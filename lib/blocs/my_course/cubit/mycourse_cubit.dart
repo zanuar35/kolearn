@@ -154,6 +154,7 @@ class MycourseCubit extends Cubit<MycourseState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
     int? userId = prefs.getInt('user_id');
+    print(userId);
 
     emit(MycourseLoading());
     var response = await http.post(

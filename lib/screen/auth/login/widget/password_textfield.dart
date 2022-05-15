@@ -63,9 +63,9 @@ class _PassFieldState extends State<PassField> {
           hintStyle: TextStyle(
               fontWeight: FontWeight.w400, fontSize: 13.sp, color: Colors.grey),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0.r),
-            borderSide: const BorderSide(
-              color: Color(0xffDDE5E9),
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: Colors.blue,
               width: 2,
             ),
           ),

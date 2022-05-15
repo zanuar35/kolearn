@@ -35,7 +35,7 @@ class BuildTextField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(
-              color: Color(0xffDDE5E9),
+              color: Colors.blue,
               width: 2,
             ),
           ),

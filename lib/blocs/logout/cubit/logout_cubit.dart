@@ -29,7 +29,7 @@ class LogoutCubit extends Cubit<LogoutState> {
       Uri.parse("$url/api/logout"),
       headers: {'Accept': 'application/json', "Authorization": 'Bearer $token'},
     );
-
+    await prefs.clear();
     // Jika response berhasil
     if (response.statusCode == 200) {
       emit(LogoutSuccess());

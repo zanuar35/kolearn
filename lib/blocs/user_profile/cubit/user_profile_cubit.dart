@@ -19,7 +19,6 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
     UserModel userModel;
-
     emit(UserProfileLoading());
     try {
       var response = await http.get(Uri.parse("$url/api/user"), headers: {

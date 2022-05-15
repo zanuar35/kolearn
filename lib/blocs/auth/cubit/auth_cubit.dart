@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kolearn/core/app_shared_preferences.dart';
 
 part 'auth_state.dart';
 
@@ -12,8 +12,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
 
     // Get the shared preferences
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isLogin = prefs.getBool('isLogin');
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+    bool? isLogin = await sharedPreferencesHelper.getIsLogin();
 
     // Check if the user is logged in
     if (isLogin == true) {

@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
+import 'package:kolearn/core/app_shared_preferences.dart';
 import 'package:kolearn/core/app_url.dart';
 import 'package:kolearn/models/user/user_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login_state.dart';
 
@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     // Loading state
     emit(LoginLoading());
-    
+
     // post data to API
     var response = await http.post(
       Uri.parse("$url/api/login"),
@@ -35,15 +35,23 @@ class LoginCubit extends Cubit<LoginState> {
 
     // if response status code is 200
     if (response.statusCode == 200) {
-      // get data from response
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       Map<String, dynamic> data = jsonDecode(response.body);
+      UserModel user = UserModel.fromJson(jsonDecode(response.body));
+      print(data['user']);
+      print(data['user']['name']);
+      SharedPreferencesHelper sharedPreferencesHelper =
+          SharedPreferencesHelper();
+
+      sharedPreferencesHelper.setIsLogin(true);
+      sharedPreferencesHelper.setToken(data['token']);
+      sharedPreferencesHelper.setUserId(data['user']['id']);
+      sharedPreferencesHelper.setUserName(data['user']['name']);
 
       // set data to SharedPreferences
-      prefs.setString('token', data['token']);
-      prefs.setInt('user_id', data['user']['id']);
-      prefs.setBool("isLogin", true);
-      UserModel user = UserModel.fromJson(jsonDecode(response.body));
+      // prefs.setString('token', data['token']);
+      // prefs.setInt('user_id', data['user']['id']);
+      // prefs.setBool("isLogin", true);
+
       // Success state
       emit(LoginSuccess(user: user));
     }

@@ -17,6 +17,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     String token = prefs.getString('token').toString();
     int? userId = prefs.getInt('user_id');
 
+
     emit(NotificationLoading());
     var response = await http.get(
       Uri.parse("$url/api/getCourse/$userId"),
