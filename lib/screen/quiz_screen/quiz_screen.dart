@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kolearn/blocs/quiz/cubit/quiz_cubit.dart';
 
 import 'package:kolearn/core/app_colors.dart';
 
@@ -23,31 +25,43 @@ class _QuizScreenState extends State<QuizScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('AlertDialog Title'),
-                                content: const Text('AlertDialog description'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'Cancel'),
-                                    child: const Text('Cancel'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('AlertDialog Title'),
+                                    content:
+                                        const Text('AlertDialog description'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          Navigator.pop(context, 'OK');
+                                          Navigator.pop(context, 'OK');
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
                                   ),
-                                  TextButton(
-                                    onPressed: () async {
-                                      Navigator.pop(context, 'OK');
-                                      Navigator.pop(context, 'OK');
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.close)),
+                                );
+                              },
+                              icon: const Icon(Icons.close)),
+                          IconButton(
+                              onPressed: () {
+                                BlocProvider.of<QuizCubit>(context).loadQuiz();
+                              },
+                              icon: const Icon(Icons.download))
+                        ],
+                      ),
                       Row(
                         children: const [
                           Expanded(
