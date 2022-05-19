@@ -12,9 +12,9 @@ class QuizInitial extends QuizState {}
 class QuizLoading extends QuizState {}
 
 class QuizLoaded extends QuizState {
-  final QuizModel quizModel;
-  const QuizLoaded({required this.quizModel});
+  final List list;
+  const QuizLoaded({required this.list});
 
   @override
-  List<Object> get props => [quizModel];
+  List<Object> get props => [list];
 }
