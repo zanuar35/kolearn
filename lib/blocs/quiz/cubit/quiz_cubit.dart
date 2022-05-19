@@ -13,7 +13,6 @@ class QuizCubit extends Cubit<QuizState> {
     emit(QuizLoading());
     var jsonText = await rootBundle.loadString('assets/quiz.json');
     var response = json.decode(jsonText);
-    print(response[0]);
     await Future.delayed(const Duration(milliseconds: 500));
     emit(QuizLoaded(list: response));
   }

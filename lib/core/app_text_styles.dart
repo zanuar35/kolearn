@@ -84,4 +84,15 @@ class AppTextStyles {
     fontSize: 11,
     fontWeight: FontWeight.normal,
   );
+  static final TextStyle body13 = GoogleFonts.poppins(
+    color: AppColors.black,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 1.5,
+  );
+  static final TextStyle answerBody = GoogleFonts.poppins(
+    color: AppColors.black,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  );
 }
