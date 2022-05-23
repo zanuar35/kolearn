@@ -153,7 +153,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }),
                           );
                         }
-
                         if (state is CourseSuccess) {
                           return Container(
                             padding: EdgeInsets.symmetric(
@@ -226,18 +225,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
             case 1:
               {
+                course.clear();
                 BlocProvider.of<CourseCubit>(context).getCourseCategory(1);
               }
               break;
 
             case 2:
               {
+                course.clear();
                 BlocProvider.of<CourseCubit>(context).getCourseCategory(2);
               }
               break;
 
             case 3:
               {
+                course.clear();
                 BlocProvider.of<CourseCubit>(context).getCourseCategory(3);
               }
               break;

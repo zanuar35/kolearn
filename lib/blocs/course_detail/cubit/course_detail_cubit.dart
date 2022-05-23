@@ -1,13 +1,11 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kolearn/core/app_shared_preferences.dart';
 import 'package:kolearn/core/app_url.dart';
 import 'package:kolearn/models/course_detail.dart';
 import 'package:kolearn/models/course_exist.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 part 'course_detail_state.dart';
@@ -19,16 +17,17 @@ class CourseDetailCubit extends Cubit<CourseDetailState> {
     String url = AppUrl.baseUrl;
 
     // get token from shared preference
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token').toString();
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+    String token = await sharedPreferencesHelper.getToken();
+    int? userId = await sharedPreferencesHelper.getUserId();
 
     emit(CourseDetailLoading());
 
     var response = await http.post(
       Uri.parse("$url/api/getDetailMateri"),
       body: ({
-        'user_id': prefs.getInt('user_id').toString(),
-        'course_id': id.toString()
+        'user_id': userId.toString(),
+        'course_id': id.toString(),
       }),
       headers: {'Accept': 'application/json', "Authorization": 'Bearer $token'},
     );

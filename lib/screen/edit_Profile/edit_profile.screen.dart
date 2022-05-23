@@ -22,15 +22,8 @@ class _EditProfileState extends State<EditProfile> {
 
   final _telpController = TextEditingController();
 
-  late String dataAwal;
-  List data = [
-    {'judul': "Laki-Laki", 'data': 'Laki-Laki'},
-    {'judul': "Perempuan", 'data': 'Perempuan'},
-  ];
-
   @override
   void initState() {
-    dataAwal = data[0]["data"];
     BlocProvider.of<UserProfileCubit>(context).getUserProfile();
     super.initState();
   }
@@ -49,6 +42,7 @@ class _EditProfileState extends State<EditProfile> {
   String hintNama = '';
   String hintEmail = '';
   String hintTelp = '';
+  String valueGender = 'Laki-laki';
 
   @override
   Widget build(BuildContext context) {
@@ -196,31 +190,87 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 25.w),
-                        height: 60.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: const Color(0xffEFEFEF),
-                        ),
-                        child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: dataAwal,
-                            items: data
-                                .map((e) => DropdownMenuItem(
-                                    child: Text("${e['judul']}"),
-                                    value: "${e['data']}"))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                dataAwal = value!;
-                              });
-                            }),
+                      BlocBuilder<UserProfileCubit, UserProfileState>(
+                        builder: (context, state) {
+                          if (state is UserProfileLoading) {
+                            return Container(
+                              color: Colors.transparent,
+                              width: double.infinity,
+                              height: 60.h,
+                              child: DropdownButton<String>(
+                                isExpanded: true,
+                                value: "Loading...",
+                                icon: const Icon(Icons.arrow_circle_down),
+                                elevation: 16,
+                                style:
+                                    const TextStyle(color: Colors.deepPurple),
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    valueGender = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  'Loading...',
+                                  'Two',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          }
+                          if (state is UserProfileLoaded) {
+                            return Container(
+                              color: Colors.transparent,
+                              width: double.infinity,
+                              height: 60.h,
+                              child: DropdownButton<String>(
+                                isExpanded: true,
+                                value: valueGender,
+                                icon: const Icon(Icons.arrow_circle_down),
+                                elevation: 16,
+                                style:
+                                    const TextStyle(color: Colors.deepPurple),
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    valueGender = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  'Laki-laki',
+                                  'Perempuan',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          }
+                          if (state is UserProfileUpdated) {
+                            return InputTextField(
+                              hints: state.user.data!.telp.toString(),
+                              controller: _telpController,
+                            );
+                          }
+                          return Container();
+                        },
                       ),
                       SizedBox(
                         height: 35.h,
                       ),
+                      /* == Submit Button == */
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: ElevatedButton(
@@ -230,7 +280,7 @@ class _EditProfileState extends State<EditProfile> {
                                       _nameController.text,
                                       _emailController.text,
                                       _telpController.text,
-                                      dataAwal);
+                                      valueGender);
                               _formKey.currentState?.reset();
                               _nameController.clear();
                               _emailController.clear();
@@ -280,7 +330,7 @@ class _EditProfileState extends State<EditProfile> {
                         listener: (context, state) {
                           if (state is UserProfileLoaded) {
                             setState(() {
-                              dataAwal = state.user.data!.gender.toString();
+                              valueGender = state.user.data!.gender.toString();
                             });
                           }
                           if (state is UserProfileUpdated) {
@@ -290,8 +340,12 @@ class _EditProfileState extends State<EditProfile> {
                               behavior: SnackBarBehavior.floating,
                               content: Text('Data berhasil diubah'),
                             );
+                            FocusManager.instance.primaryFocus?.unfocus();
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
+                            Future.delayed(const Duration(seconds: 2), (() {
+                              Navigator.pop(context);
+                            }));
                           }
                           if (state is UserProfileError) {
                             const snackBar = SnackBar(
