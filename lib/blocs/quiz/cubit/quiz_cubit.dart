@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -8,6 +10,17 @@ part 'quiz_state.dart';
 
 class QuizCubit extends Cubit<QuizState> {
   QuizCubit() : super(QuizInitial());
+
+  int nilai = 0;
+
+  void correctAnswer() {
+    nilai++;
+    print(nilai);
+  }
+
+  int? getNilai() {
+    return nilai;
+  }
 
   void loadQuiz() async {
     emit(QuizLoading());

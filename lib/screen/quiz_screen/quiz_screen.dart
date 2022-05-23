@@ -13,15 +13,19 @@ class QuizScreen extends StatefulWidget {
 }
 
 int selectedIndex = 0;
+QuizCubit quizCubit = QuizCubit();
+
 final _pageController = PageController(initialPage: 0);
 
 class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<QuizCubit>(context).loadQuiz();
     selectedIndex = 0;
   }
 
+  int? nilai;
   @override
   Widget build(BuildContext context) {
     int _currentIndex = 0;
@@ -48,11 +52,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               },
                               icon: const Icon(Icons.close)),
                           Expanded(child: Container()),
-                          IconButton(
-                              onPressed: () {
-                                BlocProvider.of<QuizCubit>(context).loadQuiz();
-                              },
-                              icon: const Icon(Icons.download))
+                          Text(nilai == null ? '0' : nilai.toString())
                         ],
                       ),
                       Row(
@@ -143,6 +143,10 @@ class _QuizScreenState extends State<QuizScreen> {
       onTap: () {
         selectedIndex = index;
         setState(() {});
+        if (selectedIndex != 0 && index == selectedIndex && isRight == true) {
+          quizCubit.correctAnswer();
+        }
+        nilai = quizCubit.getNilai();
         Future.delayed(const Duration(seconds: 1), () {
           _pageController.nextPage(
               duration: const Duration(milliseconds: 2000),
@@ -202,7 +206,10 @@ Future<dynamic> showDialogBox(BuildContext context) {
             Navigator.pop(context, 'OK');
             Navigator.pop(context, 'OK');
           },
-          child: const Text('OK'),
+          child: const Text(
+            'OK',
+            style: TextStyle(color: Colors.red),
+          ),
         ),
       ],
     ),

@@ -107,12 +107,18 @@ class _LoginPageState extends State<LoginPage> {
                         if (state is LoginSuccess) {
                           EasyLoading.dismiss();
                           Timer(const Duration(milliseconds: 150), () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
-                            );
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()),
+                                (route) => false);
+
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const HomePage(),
+                            //   ),
+                            // );
                           });
                         }
                       },

@@ -9,6 +9,7 @@ import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
 import 'package:kolearn/screen/materiPage/materi_page.dart';
+import 'package:kolearn/screen/quiz_screen/quiz_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../blocs/materi/cubit/materi_cubit.dart';
@@ -275,7 +276,7 @@ class _CourseDetailState extends State<CourseDetail> {
                       if (state is CourseDetailSuccess) {
                         return _submitBtn(
                             state.courseDetail.data.courseName,
-                            'started',
+                            state.courseDetail.data.status,
                             state.courseDetail.data.id.toString(),
                             length.toString());
                       }
@@ -308,25 +309,67 @@ class _CourseDetailState extends State<CourseDetail> {
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: const Color(0xff7383BF)),
               onPressed: () {
-                // Save course
-                BlocProvider.of<MycourseCubit>(context)
-                    .saveCourse(courseName, id, jumlahMateri, status);
-
-                // Ke halaman materi dan atau latihan soal
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MateriPage(
-                      id: widget.index + 1,
+                if (status == 'progress') {
+                  // show dialog to confirm take the quiz
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      content: const Text('Ingin mengambil kuis sekarang? '),
+                      actions: <Widget>[
+                        // Cancel button
+                        TextButton(
+                          onPressed: () =>
+                              // close the dialog
+                              Navigator.of(context, rootNavigator: true)
+                                  .pop('dialog'),
+                          child: const Text('Cancel'),
+                        ),
+                        // Ok button
+                        TextButton(
+                          onPressed: () {
+                            // close alert dialog
+                            Navigator.of(context, rootNavigator: true)
+                                .pop('dialog');
+                            // navigate to new route
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuizScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
                     ),
-                  ),
-                ).then((value) {
-                  if (mounted) {
-                    setState(() {
-                      // Your state change code goes here
-                    });
-                  }
-                });
+                  );
+                } else if (status == 'started') {
+                  BlocProvider.of<MycourseCubit>(context).saveCourse(
+                      courseName,
+                      id,
+                      jumlahMateri,
+                      status); // save course if status is started
+
+                  // // Ke halaman materi dan atau latihan soal
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MateriPage(
+                        id: widget.index + 1,
+                      ),
+                    ),
+                  ).then((value) {
+                    if (mounted) {
+                      setState(() {
+                        // Your state change code goes here
+                      });
+                    }
+                  });
+                }
+
+                // // Save course
+                // BlocProvider.of<MycourseCubit>(context)
+                //     .saveCourse(courseName, id, jumlahMateri, status);
               },
               child: Text("Submit")),
         ))
