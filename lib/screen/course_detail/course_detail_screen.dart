@@ -205,8 +205,10 @@ class _CourseDetailState extends State<CourseDetail> {
                             isSubmited: state.courseDetail.data.isSubmited,
                             text: "Materi",
                             icon: state.courseDetail.data.status == 'progress'
-                                ? Icons.task_alt
-                                : Icons.lock,
+                                ? Icons.check_circle_outline
+                                : state.courseDetail.data.status == 'started'
+                                    ? Icons.lock_open_rounded
+                                    : Icons.lock_outline,
                             child: Icon(
                               Icons.description_outlined,
                               size: 34.w,

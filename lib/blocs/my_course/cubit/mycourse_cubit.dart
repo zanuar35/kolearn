@@ -1,9 +1,8 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kolearn/core/app_shared_preferences.dart';
 import 'package:kolearn/core/app_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:kolearn/models/get_course.dart';
@@ -16,12 +15,17 @@ part 'mycourse_state.dart';
 class MycourseCubit extends Cubit<MycourseState> {
   MycourseCubit() : super(MycourseInitial());
 
+  SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+
   void saveCourse(
       String courseName, String id, String jumlahMateri, String status) async {
     String url = AppUrl.baseUrl;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token').toString();
-    int? userId = prefs.getInt('user_id');
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // String token = prefs.getString('token').toString();
+    // int? userId = prefs.getInt('user_id');
+
+    String token = await sharedPreferencesHelper.getToken();
+    int? userId = await sharedPreferencesHelper.getUserId();
 
     emit(MycourseLoading());
 
@@ -43,12 +47,12 @@ class MycourseCubit extends Cubit<MycourseState> {
         }));
 
     if (response.statusCode == 201) {
+      // ignore: unused_local_variable
       Map<String, dynamic> map = json.decode(response.body);
-      print(map);
-      print('200 ${map['data']['id']}');
-      prefs.setInt('course_id', map['data']['id']);
+      // prefs.setInt('course_id', map['data']['id']);
       emit(MycourseSuccessUpdate());
     } else {
+      // ignore: avoid_print
       print("Gagal");
     }
   }
@@ -72,14 +76,12 @@ class MycourseCubit extends Cubit<MycourseState> {
         });
 
     if (response.statusCode == 200) {
-      print(response.body);
       GetCourseModel getCourseModel = GetCourseModel.fromJson(
         json.decode(response.body),
       );
 
       emit(MycourseSuccess(getCourseModel.data));
     } else {
-      print(response.body);
       emit(const MycourseError(error: "error"));
     }
   }
@@ -92,7 +94,6 @@ class MycourseCubit extends Cubit<MycourseState> {
     //String courseId = prefs.getInt('course_id').toString();
 
     emit(MycourseLoading());
-    print("user id : $userId , course id : $id");
 
     var response = await http.post(
       Uri.parse(
@@ -109,11 +110,8 @@ class MycourseCubit extends Cubit<MycourseState> {
       }),
     );
     if (response.statusCode == 200) {
-      Map<String, dynamic> map = json.decode(response.body);
-      print(map);
       emit(MycourseSuccessUpdate());
     } else {
-      print(response.body);
       emit(const MycourseError(error: "error"));
     }
   }
@@ -144,7 +142,6 @@ class MycourseCubit extends Cubit<MycourseState> {
           MyCourseCategoryModel.fromJson(map);
       emit(MycourseLoaded(myCourseCategoryModel.data));
     } else {
-      print(response.body);
       emit(const MycourseError(error: "error"));
     }
   }
@@ -154,7 +151,6 @@ class MycourseCubit extends Cubit<MycourseState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
     int? userId = prefs.getInt('user_id');
-    print(userId);
 
     emit(MycourseLoading());
     var response = await http.post(
@@ -172,9 +168,9 @@ class MycourseCubit extends Cubit<MycourseState> {
     if (response.statusCode == 200) {
       Map<String, dynamic> map = json.decode(response.body);
       MyCourseAllModel myCourseAllModel = MyCourseAllModel.fromJson(map);
+      sharedPreferencesHelper.setCourseLength(myCourseAllModel.data.length);
       emit(MycourseLoaded(myCourseAllModel.data));
     } else {
-      print(response.body);
       emit(const MycourseError(error: "error"));
     }
   }

@@ -15,6 +15,7 @@ class QuizCubit extends Cubit<QuizState> {
 
   void correctAnswer() {
     nilai++;
+    // ignore: avoid_print
     print(nilai);
   }
 

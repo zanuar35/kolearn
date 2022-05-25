@@ -37,9 +37,11 @@ class CourseDetailCubit extends Cubit<CourseDetailState> {
       var data = json.decode(response.body);
 
       if (data['success'] == true) {
+        
         CourseDetailModel courseDetail = CourseDetailModel.fromJson(data);
         emit(CourseDetailSuccess(courseDetail));
       } else {
+        
         CourseNewModel courseNew = CourseNewModel.fromJson(data);
         emit(CourseDetailNew(courseNew));
       }

@@ -27,17 +27,19 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
   void getName() async {
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
     nama = await sharedPreferencesHelper.getUserName();
+    courseLenght = await sharedPreferencesHelper.getCourseLength();
     setState(() {});
   }
 
   String? nama;
+  int? courseLenght;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(
-          top: 15.h,
+          top: 5.h,
         ),
         width: double.infinity,
         height: double.infinity,
@@ -94,13 +96,6 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
                     SizedBox(
                       width: 15.w,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                      child: VerticalDivider(
-                        width: 4.w,
-                        color: Colors.black,
-                      ),
-                    ),
                     SizedBox(
                       width: 15.w,
                     ),
@@ -109,13 +104,13 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "4",
+                          courseLenght.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.sp,
                           ),
                         ),
-                        const Text("Courses"),
+                        const Text("Materi"),
                       ],
                     ),
                   ],

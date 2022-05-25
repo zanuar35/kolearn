@@ -92,6 +92,13 @@ class _MyCourseState extends State<MyCourse> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.getCourseModel.length,
                           itemBuilder: (context, index) {
+                            if (state.getCourseModel.isEmpty) {
+                              return const Text(
+                                "Belum ada data",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              );
+                            }
                             return courseCard(
                               state.getCourseModel[index].courseName,
                               state.getCourseModel[index].title,
@@ -107,19 +114,34 @@ class _MyCourseState extends State<MyCourse> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 2.h),
                         width: double.infinity,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.getCourseModel.length,
-                          itemBuilder: (context, index) {
-                            return courseCard(
-                              state.getCourseModel[index].courseName,
-                              state.getCourseModel[index].title,
-                              state.getCourseModel[index].courseId - 1,
-                              context,
-                            );
-                          },
-                        ),
+                        child: state.getCourseModel.isEmpty
+                            ? Container(
+                                color: AppColors.backgroundColor,
+                                width: double.infinity,
+                                height: 350,
+                                child: const Center(
+                                  child: Text(
+                                    "Belum ada data ",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: state.getCourseModel.length,
+                                itemBuilder: (context, index) {
+                                  return courseCard(
+                                    state.getCourseModel[index].courseName,
+                                    state.getCourseModel[index].title,
+                                    state.getCourseModel[index].courseId - 1,
+                                    context,
+                                  );
+                                },
+                              ),
                       );
                     }
                     return Container();

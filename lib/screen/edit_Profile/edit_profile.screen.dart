@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/user_profile/cubit/user_profile_cubit.dart';
 import 'package:kolearn/models/user/user_model.dart';
-import 'package:kolearn/screen/edit_Profile/widget/camera_icon.dart';
 import 'package:kolearn/screen/edit_Profile/widget/input_textfield.dart';
 
 class EditProfile extends StatefulWidget {
@@ -79,7 +78,6 @@ class _EditProfileState extends State<EditProfile> {
                               'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
                         ),
                       ),
-                      const CameraIcon()
                     ],
                   ),
                   SizedBox(
@@ -200,7 +198,9 @@ class _EditProfileState extends State<EditProfile> {
                               child: DropdownButton<String>(
                                 isExpanded: true,
                                 value: "Loading...",
-                                icon: const Icon(Icons.arrow_circle_down),
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                ),
                                 elevation: 16,
                                 style:
                                     const TextStyle(color: Colors.deepPurple),
@@ -233,7 +233,9 @@ class _EditProfileState extends State<EditProfile> {
                               child: DropdownButton<String>(
                                 isExpanded: true,
                                 value: valueGender,
-                                icon: const Icon(Icons.arrow_circle_down),
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                ),
                                 elevation: 16,
                                 style:
                                     const TextStyle(color: Colors.deepPurple),

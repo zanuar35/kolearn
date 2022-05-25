@@ -52,4 +52,15 @@ class SharedPreferencesHelper {
 
     return prefs.getInt('user_id');
   }
+
+  Future<int> setCourseLength(int length) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('courseLength', length);
+    return length;
+  }
+
+  Future<int?> getCourseLength() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('courseLength');
+  }
 }
