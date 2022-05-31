@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
+import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/core/app_images.dart';
 import 'package:kolearn/screen/home/widget/container_profile.dart';
@@ -22,9 +23,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selected = 0;
   int? selectedIndex;
+
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<MycourseCubit>(context).getCourseByUid();
     if (course.isEmpty) {
       BlocProvider.of<CourseCubit>(context).fetchCourse();
     }

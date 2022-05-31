@@ -63,4 +63,15 @@ class SharedPreferencesHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt('courseLength');
   }
+
+  Future<int> setUserNilai({required int nilai}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('user_nilai', nilai);
+    return nilai;
+  }
+
+  Future<int?> getUserNilai() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('user_nilai');
+  }
 }

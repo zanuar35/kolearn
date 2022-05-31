@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
 
@@ -37,8 +37,8 @@ class LoginCubit extends Cubit<LoginState> {
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
       UserModel user = UserModel.fromJson(jsonDecode(response.body));
-      print(data['user']);
-      print(data['user']['name']);
+      // print(data['user']);
+      // print(data['user']['name']);
       SharedPreferencesHelper sharedPreferencesHelper =
           SharedPreferencesHelper();
 
@@ -46,11 +46,7 @@ class LoginCubit extends Cubit<LoginState> {
       sharedPreferencesHelper.setToken(data['token']);
       sharedPreferencesHelper.setUserId(data['user']['id']);
       sharedPreferencesHelper.setUserName(data['user']['name']);
-
-      // set data to SharedPreferences
-      // prefs.setString('token', data['token']);
-      // prefs.setInt('user_id', data['user']['id']);
-      // prefs.setBool("isLogin", true);
+      sharedPreferencesHelper.setUserNilai(nilai: data['user']['nilai']);
 
       // Success state
       emit(LoginSuccess(user: user));

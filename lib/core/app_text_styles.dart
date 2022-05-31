@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
@@ -89,6 +90,21 @@ class AppTextStyles {
     fontSize: 13,
     fontWeight: FontWeight.w500,
     letterSpacing: 1.5,
+  );
+  static final TextStyle body16Bold = GoogleFonts.poppins(
+    color: AppColors.black,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+  );
+  static final TextStyle body16Grey = GoogleFonts.poppins(
+    color: Colors.grey,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+  );
+  static final TextStyle body16White = GoogleFonts.poppins(
+    color: AppColors.white,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
   );
   static final TextStyle answerBody = GoogleFonts.poppins(
     color: AppColors.black,

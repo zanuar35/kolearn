@@ -23,6 +23,12 @@ class QuizCubit extends Cubit<QuizState> {
     return nilai;
   }
 
+  void resetNilai() {
+    nilai = 0;
+  }
+
+  
+
   void loadQuiz() async {
     emit(QuizLoading());
     var jsonText = await rootBundle.loadString('assets/quiz.json');

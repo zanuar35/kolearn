@@ -45,6 +45,8 @@ dependencies:
   shimmer: ^2.0.0
   flutter_svg: ^1.0.3
   audioplayers: ^0.20.1
+  percent_indicator: ^4.2.1
+  awesome_dialog: ^2.2.1
 
 dev_dependencies:
   flutter_test:

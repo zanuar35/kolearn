@@ -15,8 +15,7 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
   @override
   void initState() {
     super.initState();
-
-    getName();
+    getPrefs();
   }
 
   @override
@@ -24,15 +23,17 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
     super.dispose();
   }
 
-  void getName() async {
+  void getPrefs() async {
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
     nama = await sharedPreferencesHelper.getUserName();
     courseLenght = await sharedPreferencesHelper.getCourseLength();
+    userNilai = await sharedPreferencesHelper.getUserNilai();
     setState(() {});
   }
 
   String? nama;
   int? courseLenght;
+  int? userNilai;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,9 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "1000",
+                          userNilai != null
+                              ? userNilai.toString() + " Xp"
+                              : "0 Xp",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.sp,
@@ -104,7 +107,7 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          courseLenght.toString(),
+                          courseLenght != null ? courseLenght.toString() : '0',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.sp,

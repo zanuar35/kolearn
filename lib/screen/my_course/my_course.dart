@@ -7,6 +7,8 @@ import 'package:shimmer/shimmer.dart';
 import '../../core/core.dart';
 import '../course_detail/course_detail_screen.dart';
 
+List courseList = [];
+
 class MyCourse extends StatefulWidget {
   const MyCourse({Key? key}) : super(key: key);
 
@@ -15,19 +17,21 @@ class MyCourse extends StatefulWidget {
 }
 
 class _MyCourseState extends State<MyCourse> {
+  int selected = 0;
+  int? selectedIndex;
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MycourseCubit>(context).getCourse();
+    courseList.isEmpty
+        ? BlocProvider.of<MycourseCubit>(context).getCourse()
+        : null;
   }
 
   @override
   void dispose() {
     super.dispose();
   }
-
-  int selected = 0;
-  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +149,21 @@ class _MyCourseState extends State<MyCourse> {
                       );
                     }
                     return Container();
+                  },
+                ),
+                BlocConsumer<MycourseCubit, MycourseState>(
+                  listener: (context, state) {
+                    if (state is MycourseSuccess) {
+                      courseList = state.getCourseModel;
+                    }
+                    if (state is MycourseLoaded) {
+                      courseList = state.getCourseModel;
+                    }
+                  },
+                  builder: (context, state) {
+                    return SizedBox(
+                      width: 1.w,
+                    );
                   },
                 )
               ],

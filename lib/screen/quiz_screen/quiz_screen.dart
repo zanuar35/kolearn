@@ -1,9 +1,14 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/quiz/cubit/quiz_cubit.dart';
 
 import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/core/app_text_styles.dart';
+import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
+
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key}) : super(key: key);
@@ -36,7 +41,7 @@ class _QuizScreenState extends State<QuizScreen> {
             controller: _pageController,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 4,
-            itemBuilder: (context, index) {
+            itemBuilder: (context, pageIndex) {
               return Container(
                   padding: const EdgeInsets.all(16),
                   color: AppColors.backgroundColor,
@@ -84,7 +89,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   child: Center(
                                     child: Text(
                                         state.list[_currentIndex]['questions']
-                                            [index]['title'],
+                                            [pageIndex]['title'],
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                             fontSize: 24,
@@ -118,15 +123,18 @@ class _QuizScreenState extends State<QuizScreen> {
                                 return BlocBuilder<QuizCubit, QuizState>(
                                     builder: ((context, state) {
                                   if (state is QuizLoading) {
-                                    return answerBox("loading", '', 4);
+                                    return answerBox("loading", '', 4, 4);
                                   }
                                   if (state is QuizLoaded) {
                                     return answerBox(
                                         state.list[_currentIndex]['questions']
-                                            [index]['answers'][index1]['title'],
-                                        state.list[index]['questions'][index]
-                                            ['answers'][index1]['isRight'],
-                                        index1 + 1);
+                                                [pageIndex]['answers'][index1]
+                                            ['title'],
+                                        state.list[pageIndex]['questions']
+                                                [pageIndex]['answers'][index1]
+                                            ['isRight'],
+                                        index1 + 1,
+                                        pageIndex);
                                   }
                                   return Container();
                                 }));
@@ -138,7 +146,7 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget answerBox(String text, isRight, int index) {
+  Widget answerBox(String text, isRight, int index, int pageIndex) {
     return InkWell(
       onTap: () {
         selectedIndex = index;
@@ -147,12 +155,29 @@ class _QuizScreenState extends State<QuizScreen> {
           quizCubit.correctAnswer();
         }
         nilai = quizCubit.getNilai();
-        Future.delayed(const Duration(seconds: 1), () {
-          _pageController.nextPage(
-              duration: const Duration(milliseconds: 2000),
-              curve: Curves.linearToEaseOut);
-          selectedIndex = 0;
-        });
+
+        // Future.delayed(const Duration(seconds: 1), () {
+        //   _pageController.nextPage(
+        //       duration: const Duration(milliseconds: 2000),
+        //       curve: Curves.linearToEaseOut);
+        //   selectedIndex = 0;
+        // });
+        pageIndex != 3
+            ? Future.delayed(const Duration(seconds: 1), () {
+                _pageController.nextPage(
+                    duration: const Duration(milliseconds: 2000),
+                    curve: Curves.linearToEaseOut);
+                selectedIndex = 0;
+              })
+            : finishDialog(context);
+        // Future.delayed(const Duration(seconds: 1), () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => const QuizResult(),
+        //       ),
+        //     );
+        //   });
       },
       child: Container(
         width: 100,
@@ -188,6 +213,60 @@ class _QuizScreenState extends State<QuizScreen> {
       ),
     );
   }
+}
+
+Future finishDialog(BuildContext context) {
+  return AwesomeDialog(
+    dismissOnTouchOutside: false,
+    dismissOnBackKeyPress: false,
+    customHeader: Container(
+      color: Colors.transparent,
+      child: CircularPercentIndicator(
+        radius: 50.0,
+        lineWidth: 8.0,
+        percent: 0.1,
+        center: const Text("10%"),
+        progressColor: Colors.green,
+      ),
+    ),
+    context: context,
+    body: Column(children: [
+      Container(
+        padding: EdgeInsets.all(10.h),
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(25.r)),
+        child: const Text(
+          "+30 XP",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+      ),
+      const Text("Selesai",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      SizedBox(
+        height: 10.h,
+      ),
+      const Text(
+        "Kamu telah menyelesaikan \nkuis materi ini",
+        style: TextStyle(
+            color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      )
+    ]),
+    headerAnimationLoop: false,
+    dialogType: DialogType.NO_HEADER,
+    btnOkOnPress: () {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CourseDetail(
+                    index: selectedIndex,
+                  )),
+          (route) => false);
+      debugPrint('OnClcik');
+    },
+    btnOkIcon: Icons.check_circle,
+  ).show();
 }
 
 Future<dynamic> showDialogBox(BuildContext context) {
