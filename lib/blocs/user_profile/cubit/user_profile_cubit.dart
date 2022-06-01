@@ -13,9 +13,9 @@ part 'user_profile_state.dart';
 
 class UserProfileCubit extends Cubit<UserProfileState> {
   UserProfileCubit() : super(UserProfileInitial());
+  String url = AppUrl.baseUrl;
 
   void getUserProfile() async {
-    String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
     UserModel userModel;
@@ -30,16 +30,15 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         userModel = UserModel.fromJson(json.decode(response.body));
         emit(UserProfileLoaded(user: userModel));
       } else {
-        emit(UserProfileError());
+        emit(UserProfileError(err: response.statusCode.toString()));
       }
     } catch (e) {
-      emit(UserProfileError());
+      emit(UserProfileError(err: e.toString()));
     }
   }
 
   void updateUserProfile(
       String nama, String email, String telp, String gender) async {
-    String url = AppUrl.baseUrl;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
     UserModel userModel;
@@ -62,10 +61,10 @@ class UserProfileCubit extends Cubit<UserProfileState> {
 
         emit(UserProfileUpdated(user: userModel));
       } else {
-        emit(UserProfileError());
+        emit(UserProfileError(err: response.statusCode.toString()));
       }
     } catch (e) {
-      emit(UserProfileError());
+      emit(UserProfileError(err: e.toString()));
     }
   }
 }

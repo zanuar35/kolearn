@@ -9,8 +9,6 @@ abstract class UserProfileState extends Equatable {
 
 class UserProfileInitial extends UserProfileState {}
 
-
-
 class UserProfileLoading extends UserProfileState {}
 
 class UserProfileLoaded extends UserProfileState {
@@ -31,4 +29,10 @@ class UserProfileUpdated extends UserProfileState {
   List<Object> get props => [user];
 }
 
-class UserProfileError extends UserProfileState {}
+class UserProfileError extends UserProfileState {
+  final String err;
+  const UserProfileError({required this.err});
+
+  @override
+  List<Object> get props => [err];
+}

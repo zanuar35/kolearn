@@ -74,8 +74,9 @@ class _EditProfileState extends State<EditProfile> {
                         child: CircleAvatar(
                           radius: 55.r,
                           backgroundColor: const Color(0xff0D8ABC),
-                          child: Image.network(
-                              'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
+                          child: const Text("nama"),
+                          // child: Image.network(
+                          //     'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
                         ),
                       ),
                     ],
@@ -100,6 +101,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       BlocBuilder<UserProfileCubit, UserProfileState>(
                         builder: (context, state) {
+                          // print(state);
                           if (state is UserProfileLoading) {
                             return InputTextField(
                               hints: "Loading..",
@@ -108,13 +110,13 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileLoaded) {
                             return InputTextField(
-                              hints: state.user.data!.name.toString(),
+                              hints: state.user.data[0].name,
                               controller: _nameController,
                             );
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data!.name.toString(),
+                              hints: state.user.data[0].name.toString(),
                               controller: _nameController,
                             );
                           }
@@ -138,13 +140,13 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileLoaded) {
                             return InputTextField(
-                              hints: state.user.data!.email.toString(),
+                              hints: state.user.data.first.email.toString(),
                               controller: _emailController,
                             );
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data!.email.toString(),
+                              hints: state.user.data.first.email.toString(),
                               controller: _emailController,
                             );
                           }
@@ -168,13 +170,13 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileLoaded) {
                             return InputTextField(
-                              hints: state.user.data!.telp.toString(),
+                              hints: state.user.data.first.telp.toString(),
                               controller: _telpController,
                             );
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data!.telp.toString(),
+                              hints: state.user.data.first.telp.toString(),
                               controller: _telpController,
                             );
                           }
@@ -262,7 +264,7 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data!.telp.toString(),
+                              hints: state.user.data.first.telp.toString(),
                               controller: _telpController,
                             );
                           }
@@ -332,7 +334,8 @@ class _EditProfileState extends State<EditProfile> {
                         listener: (context, state) {
                           if (state is UserProfileLoaded) {
                             setState(() {
-                              valueGender = state.user.data!.gender.toString();
+                              valueGender =
+                                  state.user.data.first.gender.toString();
                             });
                           }
                           if (state is UserProfileUpdated) {

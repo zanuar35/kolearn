@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppImage {
+  // Login Screen
+  static const String loginImage =
+      "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Login-re-4vu2-1.png?alt=media&token=7c6d5b05-1433-4b9a-be3c-8e8036808e5c";
+
+  // Register screen
+  static const String registerImage =
+      "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Access-account-re-8spm-1.png?alt=media&token=6fcabfd2-4347-4f94-9d2e-9bc6608ce137";
   // Home Screen
   static final Image allTopic = Image.asset('assets/img/all_btn.png');
   static final Image allTopicActive = Image.asset('assets/img/all_btnBlue.png');

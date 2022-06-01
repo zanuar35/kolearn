@@ -7,26 +7,33 @@ import 'app_colors.dart';
 class AppTextStyles {
   static final TextStyle title = GoogleFonts.poppins(
     color: AppColors.white,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w400,
   );
 
   static final TextStyle titleBold = GoogleFonts.poppins(
     color: AppColors.white,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w600,
   );
 
   static final TextStyle heading = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w600,
   );
 
   static final TextStyle heading40 = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 40,
+    fontSize: 40.sp,
     fontWeight: FontWeight.w600,
+  );
+
+  static final TextStyle heading24 = GoogleFonts.poppins(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.4,
+    color: Colors.black,
   );
 
   static final TextStyle heading15 = GoogleFonts.poppins(
@@ -66,20 +73,27 @@ class AppTextStyles {
 
   static final TextStyle body20 = GoogleFonts.poppins(
     color: AppColors.grey,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.normal,
   );
   static final TextStyle bodyLightGrey20 = GoogleFonts.poppins(
     color: AppColors.lightGrey,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.normal,
   );
 
   static final TextStyle bodyWhite20 = GoogleFonts.poppins(
     color: AppColors.white,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.normal,
   );
+
+  static final TextStyle body20Bold = GoogleFonts.poppins(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 1,
+  );
+
   static final TextStyle body11 = GoogleFonts.poppins(
     color: AppColors.grey,
     fontSize: 11,
@@ -96,6 +110,13 @@ class AppTextStyles {
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
   );
+
+  static final TextStyle body16 = GoogleFonts.poppins(
+    color: AppColors.black,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.normal,
+  );
+
   static final TextStyle body16Grey = GoogleFonts.poppins(
     color: Colors.grey,
     fontSize: 16.sp,
