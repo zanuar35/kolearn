@@ -4,7 +4,9 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kolearn/core/app_shared_preferences.dart';
 import 'package:kolearn/core/app_url.dart';
+import 'package:kolearn/models/user/user.dart';
 import 'package:kolearn/models/user/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -16,24 +18,30 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   String url = AppUrl.baseUrl;
 
   void getUserProfile() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token').toString();
-    UserModel userModel;
+    SharedPreferencesHelper _sharedPreferencesHelper =
+        SharedPreferencesHelper();
+    String token = await _sharedPreferencesHelper.getToken();
     emit(UserProfileLoading());
     try {
       var response = await http.get(Uri.parse("$url/api/user"), headers: {
         'Accept': 'application/json',
         "Authorization": "Bearer $token",
       });
-      print(response.body);
       if (response.statusCode == 200) {
-        userModel = UserModel.fromJson(json.decode(response.body));
-        emit(UserProfileLoaded(user: userModel));
+        print(response.body);
+        print("status code:" + response.statusCode.toString());
+        var jsonResponse = json.decode(response.body);
+        print("== bisa 1 == ");
+        UserProfile userProfile = UserProfile.fromJson(jsonResponse);
+        print("== bisa 2 == ");
+        emit(UserProfileLoaded(user: userProfile));
       } else {
-        emit(UserProfileError(err: response.statusCode.toString()));
+        emit(const UserProfileError(err: "Error"));
       }
+      print(response.body);
+      print(response.statusCode);
     } catch (e) {
-      emit(UserProfileError(err: e.toString()));
+      print(e);
     }
   }
 
@@ -68,3 +76,31 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     }
   }
 }
+
+/*
+SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+    User user;
+    emit(UserProfileLoading());
+    try {
+      var response = await http.get(Uri.parse("$url/api/user"), headers: {
+        'Accept': 'application/json',
+        "Authorization": "Bearer $token",
+      });
+      if (response.statusCode == 200) {
+        print("== response code 200 == ");
+        print(response.body);
+        user = User.fromJson(json.decode(response.body));
+        print("Success get user profile");
+        (UserProfileLoaded(user: user));
+      } else {
+        print("== error 1 == ");
+        emit(UserProfileError(err: response.statusCode.toString()));
+      }
+    } catch (e) {
+      print("== error 2 ==");
+
+      emit(UserProfileError(err: e.toString()));
+    }
+    print(state);
+*/

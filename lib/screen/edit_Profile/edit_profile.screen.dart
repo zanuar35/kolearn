@@ -74,9 +74,9 @@ class _EditProfileState extends State<EditProfile> {
                         child: CircleAvatar(
                           radius: 55.r,
                           backgroundColor: const Color(0xff0D8ABC),
-                          child: const Text("nama"),
-                          // child: Image.network(
-                          //     'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
+                          // child: const Text("nama"),
+                          child: Image.network(
+                              'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
                         ),
                       ),
                     ],
@@ -116,7 +116,7 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data[0].name.toString(),
+                              hints: state.user.user.name,
                               controller: _nameController,
                             );
                           }
@@ -140,13 +140,13 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileLoaded) {
                             return InputTextField(
-                              hints: state.user.data.first.email.toString(),
+                              hints: state.user.data[0].email,
                               controller: _emailController,
                             );
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data.first.email.toString(),
+                              hints: state.user.user.email,
                               controller: _emailController,
                             );
                           }
@@ -170,13 +170,15 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileLoaded) {
                             return InputTextField(
-                              hints: state.user.data.first.telp.toString(),
+                              hints: state.user.data[0].telp == "0"
+                                  ? "0812345678"
+                                  : state.user.data[0].telp.toString(),
                               controller: _telpController,
                             );
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data.first.telp.toString(),
+                              hints: state.user.user.telp.toString(),
                               controller: _telpController,
                             );
                           }
@@ -264,7 +266,7 @@ class _EditProfileState extends State<EditProfile> {
                           }
                           if (state is UserProfileUpdated) {
                             return InputTextField(
-                              hints: state.user.data.first.telp.toString(),
+                              hints: state.user.user.telp.toString(),
                               controller: _telpController,
                             );
                           }
@@ -335,7 +337,7 @@ class _EditProfileState extends State<EditProfile> {
                           if (state is UserProfileLoaded) {
                             setState(() {
                               valueGender =
-                                  state.user.data.first.gender.toString();
+                                  state.user.data[0].gender.toString();
                             });
                           }
                           if (state is UserProfileUpdated) {

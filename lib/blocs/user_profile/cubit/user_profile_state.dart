@@ -12,7 +12,7 @@ class UserProfileInitial extends UserProfileState {}
 class UserProfileLoading extends UserProfileState {}
 
 class UserProfileLoaded extends UserProfileState {
-  final UserModel user;
+  final UserProfile user;
 
   const UserProfileLoaded({required this.user});
 

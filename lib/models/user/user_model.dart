@@ -1,67 +1,77 @@
+import 'dart:convert';
+
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+
+String userModelToJson(UserModel data) => json.encode(data.toJson());
+
 class UserModel {
-  String? status;
-  String? message;
-  Data? data;
+  UserModel({
+    required this.success,
+    required this.user,
+    required this.token,
+  });
 
-  UserModel({this.status, this.message, this.data});
+  bool success;
+  User user;
+  String token;
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
-  }
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        success: json["success"],
+        user: User.fromJson(json["user"]),
+        token: json["token"],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "success": success,
+        "user": user.toJson(),
+        "token": token,
+      };
 }
 
-class Data {
-  int? id;
-  String? name;
-  String? email;
-  String? gender;
-  String? telp;
+class User {
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.gender,
+    required this.telp,
+    required this.emailVerifiedAt,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.nilai,
+  });
 
-  String? createdAt;
-  String? updatedAt;
+  int id;
+  String name;
+  String email;
+  String gender;
+  String telp;
+  dynamic emailVerifiedAt;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int nilai;
 
-  Data(
-      {this.id,
-      this.name,
-      this.email,
-      this.gender,
-      this.telp,
-      this.createdAt,
-      this.updatedAt});
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        gender: json["gender"],
+        telp: json["telp"],
+        emailVerifiedAt: json["email_verified_at"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        nilai: json["nilai"],
+      );
 
-  Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    gender = json['gender'];
-    telp = json['telp'];
-
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['email'] = email;
-    data['gender'] = gender;
-    data['telp'] = telp;
-
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "email": email,
+        "gender": gender,
+        "telp": telp,
+        "email_verified_at": emailVerifiedAt,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "nilai": nilai,
+      };
 }
