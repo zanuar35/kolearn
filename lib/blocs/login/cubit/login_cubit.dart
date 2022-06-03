@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart' as http;
-import 'package:kolearn/core/app_shared_preferences.dart';
-import 'package:kolearn/core/app_url.dart';
 import 'package:kolearn/models/user/user_model.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../core/app_shared_preferences.dart';
+import '../../../core/app_url.dart';
 
 part 'login_state.dart';
 
@@ -17,6 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
   void loginEvent(String nama, String pass) async {
     // Get url endpoint API
     String url = AppUrl.baseUrl;
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
 
     // if nama is empty
     // NotValidate state
@@ -36,11 +37,8 @@ class LoginCubit extends Cubit<LoginState> {
     // if response status code is 200
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
-      UserModel user = UserModel.fromJson(jsonDecode(response.body));
-      // print(data['user']);
-      // print(data['user']['name']);
-      SharedPreferencesHelper sharedPreferencesHelper =
-          SharedPreferencesHelper();
+      // UserModel user = UserModel.fromJson(jsonDecode(response.body));
+      UserModel user = UserModel.fromJson(data);
 
       sharedPreferencesHelper.setIsLogin(true);
       sharedPreferencesHelper.setToken(data['token']);

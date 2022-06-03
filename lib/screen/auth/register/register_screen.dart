@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/register/cubit/register_cubit.dart';
+import 'package:kolearn/core/app_images.dart';
+import 'package:kolearn/core/app_text_styles.dart';
 import 'package:kolearn/screen/auth/register/widget/login_btn.dart';
 import 'package:kolearn/screen/auth/register/widget/password_field.dart';
 import 'package:kolearn/screen/auth/register/widget/register_btn.dart';
@@ -25,12 +27,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    final _nameController = TextEditingController();
-    final _emailController = TextEditingController();
-    final _passController = TextEditingController();
-    final _confirmPassController = TextEditingController();
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+    _confirmPassController.dispose();
+    super.dispose();
+  }
 
+  // declare texteditingcontroller
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+  final _confirmPassController = TextEditingController();
+
+  // Build UI
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffF6F9FF),
@@ -49,16 +62,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: ListView(
             children: <Widget>[
-              Text("Buat akun Kolearn  ",
-                  style: TextStyle(
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w600,
-                  )),
-              Text("Create account to learn obout hangeul",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  )),
+              Text("Buat akun Kolearn  ", style: AppTextStyles.heading24),
+              Text("Create account to learn hangeul",
+                  style: AppTextStyles.body16Bold),
               Center(
                 child: Container(
                   height: 250.h,
@@ -69,8 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: const Hero(
                     tag: 'gambar',
                     child: Image(
-                      image: NetworkImage(
-                          "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Access-account-re-8spm-1.png?alt=media&token=6fcabfd2-4347-4f94-9d2e-9bc6608ce137"),
+                      image: NetworkImage(AppImage.registerImage),
                     ),
                   ),
                 ),

@@ -24,6 +24,8 @@ class _InputFieldState extends State<InputField> {
       color: Colors.white,
       height: 60.h,
       child: TextFormField(
+          autocorrect: false,
+          enableSuggestions: false,
           style: TextStyle(fontSize: 16.sp),
           controller: widget.controller,
           decoration: InputDecoration(
