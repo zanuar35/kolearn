@@ -54,7 +54,7 @@ class _CourseCardState extends State<CourseCard> {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.only(left: 34.w, right: 30.w),
+          padding: EdgeInsets.only(left: 30.w, right: 30.w),
           child: Row(
             children: <Widget>[
               Container(

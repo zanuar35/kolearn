@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
               );
             }
             if (state is AuthLoggedIn) {
-              Timer(const Duration(seconds: 2), () {
+              Timer(const Duration(milliseconds: 1200), () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -44,7 +44,7 @@ class _SplashPageState extends State<SplashPage> {
               });
             }
             if (state is AuthNotLoggedIn) {
-              Timer(const Duration(seconds: 2), () {
+              Timer(const Duration(milliseconds: 1200), () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(

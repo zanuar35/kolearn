@@ -7,6 +7,7 @@ import 'package:kolearn/blocs/course/cubit/course_cubit.dart';
 import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/core/app_images.dart';
+import 'package:kolearn/core/app_text_styles.dart';
 import 'package:kolearn/screen/home/widget/container_profile.dart';
 import 'package:kolearn/screen/home/widget/materi_card_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -58,12 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.w),
-                      child: Text(
-                        "Category",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 24.sp),
-                      ),
+                      child: Text("Category",
+                          textAlign: TextAlign.start,
+                          style: AppTextStyles.heading24),
                     ),
                     SizedBox(
                       height: 16.h,
@@ -92,12 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.w),
-                      child: Text(
-                        "Courses",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 24.sp),
-                      ),
+                      child: Text("Courses",
+                          textAlign: TextAlign.start,
+                          style: AppTextStyles.heading24),
                     ),
                     BlocBuilder<CourseCubit, CourseState>(
                       builder: (context, state) {

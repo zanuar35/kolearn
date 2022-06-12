@@ -31,15 +31,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         print(response.body);
         print("status code:" + response.statusCode.toString());
         var jsonResponse = json.decode(response.body);
-        print("== bisa 1 == ");
         UserProfile userProfile = UserProfile.fromJson(jsonResponse);
-        print("== bisa 2 == ");
         emit(UserProfileLoaded(user: userProfile));
       } else {
         emit(const UserProfileError(err: "Error"));
       }
-      print(response.body);
-      print(response.statusCode);
     } catch (e) {
       print(e);
     }

@@ -29,8 +29,6 @@ class LoginButton extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  // BlocProvider.of<LoginBloc>(context).add(LoginSubmit(
-                  //     _emailController.text, _passwordController.text));
                   BlocProvider.of<LoginCubit>(context).loginEvent(
                       _emailController.text, _passwordController.text);
                 }

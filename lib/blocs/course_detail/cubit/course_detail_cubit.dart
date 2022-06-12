@@ -33,15 +33,13 @@ class CourseDetailCubit extends Cubit<CourseDetailState> {
     );
     if (response.statusCode == 200 || response.statusCode == 401) {
       // get data from json
-
+      print(response.body);
       var data = json.decode(response.body);
 
       if (data['success'] == true) {
-        
         CourseDetailModel courseDetail = CourseDetailModel.fromJson(data);
         emit(CourseDetailSuccess(courseDetail));
       } else {
-        
         CourseNewModel courseNew = CourseNewModel.fromJson(data);
         emit(CourseDetailNew(courseNew));
       }

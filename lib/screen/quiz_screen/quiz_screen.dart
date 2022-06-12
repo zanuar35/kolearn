@@ -91,8 +91,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                         state.list[_currentIndex]['questions']
                                             [pageIndex]['title'],
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontSize: 24,
+                                        style: TextStyle(
+                                            fontSize: 86.sp,
                                             fontWeight: FontWeight.bold)),
                                   ),
                                 ),
@@ -155,29 +155,14 @@ class _QuizScreenState extends State<QuizScreen> {
           quizCubit.correctAnswer();
         }
         nilai = quizCubit.getNilai();
-
-        // Future.delayed(const Duration(seconds: 1), () {
-        //   _pageController.nextPage(
-        //       duration: const Duration(milliseconds: 2000),
-        //       curve: Curves.linearToEaseOut);
-        //   selectedIndex = 0;
-        // });
         pageIndex != 3
             ? Future.delayed(const Duration(seconds: 1), () {
                 _pageController.nextPage(
-                    duration: const Duration(milliseconds: 2000),
-                    curve: Curves.linearToEaseOut);
+                    duration: const Duration(milliseconds: 900),
+                    curve: Curves.easeOutSine);
                 selectedIndex = 0;
               })
-            : finishDialog(context);
-        // Future.delayed(const Duration(seconds: 1), () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => const QuizResult(),
-        //       ),
-        //     );
-        //   });
+            : finishDialog(context, nilai);
       },
       child: Container(
         width: 100,
@@ -215,7 +200,9 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-Future finishDialog(BuildContext context) {
+Future finishDialog(BuildContext context, int? nilai) {
+  double percent = (nilai! * 25) / 100;
+  double percentValue = percent * 100;
   return AwesomeDialog(
     dismissOnTouchOutside: false,
     dismissOnBackKeyPress: false,
@@ -224,8 +211,8 @@ Future finishDialog(BuildContext context) {
       child: CircularPercentIndicator(
         radius: 50.0,
         lineWidth: 8.0,
-        percent: 0.1,
-        center: const Text("10%"),
+        percent: percent,
+        center: Text(percentValue.toString() + "%"),
         progressColor: Colors.green,
       ),
     ),
@@ -235,9 +222,9 @@ Future finishDialog(BuildContext context) {
         padding: EdgeInsets.all(10.h),
         decoration: BoxDecoration(
             color: Colors.blue, borderRadius: BorderRadius.circular(25.r)),
-        child: const Text(
-          "+30 XP",
-          style: TextStyle(
+        child: Text(
+          (nilai * 10).toString() + " XP",
+          style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
@@ -263,6 +250,7 @@ Future finishDialog(BuildContext context) {
                     index: selectedIndex,
                   )),
           (route) => false);
+      quizCubit.resetNilai();
       debugPrint('OnClcik');
     },
     btnOkIcon: Icons.check_circle,

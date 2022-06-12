@@ -30,6 +30,7 @@ class MateriCubit extends Cubit<MateriState> {
     if (response.statusCode == 200) {
       final Map dataMap = json.decode(response.body);
       Materi materi = Materi.fromJson(dataMap);
+      print(response.body);
       List<Data> materiData = materi.data;
       emit(MateriLoaded(materiData));
     }

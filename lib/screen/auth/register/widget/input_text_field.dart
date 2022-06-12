@@ -40,9 +40,7 @@ class _InputFieldState extends State<InputField> {
                 color: Colors.grey),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
-              borderSide: const BorderSide(
-                color: Color(0xffDDE5E9),
-              ),
+              borderSide: const BorderSide(color: Colors.blue),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),

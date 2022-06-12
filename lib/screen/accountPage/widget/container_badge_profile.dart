@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/core/app_shared_preferences.dart';
+import 'package:kolearn/core/app_text_styles.dart';
 
 class ContainerBadgeProfile extends StatefulWidget {
   const ContainerBadgeProfile({
@@ -24,17 +25,22 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
   }
 
   void getPrefs() async {
+    // declare instance of AppSharedPreferences
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+
+    // get data from shared preferences
     nama = await sharedPreferencesHelper.getUserName();
     courseLenght = await sharedPreferencesHelper.getCourseLength();
     userNilai = await sharedPreferencesHelper.getUserNilai();
     setState(() {});
   }
 
+  // declare variable
   String? nama;
   int? courseLenght;
   int? userNilai;
 
+  // Build UI
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -62,10 +68,7 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
             ),
             Text(
               nama.toString().toUpperCase(),
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20.sp,
-                  letterSpacing: 1),
+              style: AppTextStyles.body20Bold,
             ),
             SizedBox(
               height: 5.h,
@@ -88,10 +91,7 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
                           userNilai != null
                               ? userNilai.toString() + " Xp"
                               : "0 Xp",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
+                          style: AppTextStyles.body16Bold,
                         ),
                         const Text("Points"),
                       ],
@@ -108,10 +108,7 @@ class _ContainerBadgeProfileState extends State<ContainerBadgeProfile> {
                       children: <Widget>[
                         Text(
                           courseLenght != null ? courseLenght.toString() : '0',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
+                          style: AppTextStyles.body16Bold,
                         ),
                         const Text("Materi"),
                       ],

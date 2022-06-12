@@ -5,6 +5,8 @@ import 'package:kolearn/blocs/user_profile/cubit/user_profile_cubit.dart';
 import 'package:kolearn/models/user/user_model.dart';
 import 'package:kolearn/screen/edit_Profile/widget/input_textfield.dart';
 
+import '../../core/app_shared_preferences.dart';
+
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
 
@@ -24,6 +26,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     BlocProvider.of<UserProfileCubit>(context).getUserProfile();
+    getPrefs();
     super.initState();
   }
 
@@ -35,8 +38,18 @@ class _EditProfileState extends State<EditProfile> {
     super.dispose();
   }
 
+  void getPrefs() async {
+    // declare instance of AppSharedPreferences
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
+
+    // get data from shared preferences
+    nama = await sharedPreferencesHelper.getUserName();
+    setState(() {});
+  }
+
   UserModel? userModel;
 
+  String? nama;
   String hint = 'Loading';
   String hintNama = '';
   String hintEmail = '';
@@ -76,7 +89,7 @@ class _EditProfileState extends State<EditProfile> {
                           backgroundColor: const Color(0xff0D8ABC),
                           // child: const Text("nama"),
                           child: Image.network(
-                              'https://ui-avatars.com/api/?name=Coba+nama&background=0D8ABC&color=fff&rounded=true'),
+                              'https://ui-avatars.com/api/?name=$nama&background=0D8ABC&color=fff&rounded=true'),
                         ),
                       ),
                     ],
@@ -96,9 +109,6 @@ class _EditProfileState extends State<EditProfile> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       labelText("Nama"),
-                      SizedBox(
-                        height: 10.h,
-                      ),
                       BlocBuilder<UserProfileCubit, UserProfileState>(
                         builder: (context, state) {
                           // print(state);
@@ -124,12 +134,9 @@ class _EditProfileState extends State<EditProfile> {
                         },
                       ),
                       SizedBox(
-                        height: 25.h,
+                        height: 20.h,
                       ),
                       labelText("Email"),
-                      SizedBox(
-                        height: 10.h,
-                      ),
                       BlocBuilder<UserProfileCubit, UserProfileState>(
                         builder: (context, state) {
                           if (state is UserProfileLoading) {
@@ -154,12 +161,9 @@ class _EditProfileState extends State<EditProfile> {
                         },
                       ),
                       SizedBox(
-                        height: 25.h,
+                        height: 20.h,
                       ),
                       labelText("No telp"),
-                      SizedBox(
-                        height: 10.h,
-                      ),
                       BlocBuilder<UserProfileCubit, UserProfileState>(
                         builder: (context, state) {
                           if (state is UserProfileLoading) {
@@ -186,12 +190,9 @@ class _EditProfileState extends State<EditProfile> {
                         },
                       ),
                       SizedBox(
-                        height: 25.h,
+                        height: 20.h,
                       ),
                       labelText("Gender"),
-                      SizedBox(
-                        height: 10.h,
-                      ),
                       BlocBuilder<UserProfileCubit, UserProfileState>(
                         builder: (context, state) {
                           if (state is UserProfileLoading) {
@@ -276,61 +277,14 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 35.h,
                       ),
+                      // const Expanded(
+                      //     child: SizedBox(
+                      //   width: 0,
+                      // )),
                       /* == Submit Button == */
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: ElevatedButton(
-                            onPressed: () {
-                              BlocProvider.of<UserProfileCubit>(context)
-                                  .updateUserProfile(
-                                      _nameController.text,
-                                      _emailController.text,
-                                      _telpController.text,
-                                      valueGender);
-                              _formKey.currentState?.reset();
-                              _nameController.clear();
-                              _emailController.clear();
-                              _telpController.clear();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize:
-                                  Size(MediaQuery.of(context).size.width, 55.h),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              primary: const Color(0xff7383BF),
-                            ),
-                            child:
-                                BlocBuilder<UserProfileCubit, UserProfileState>(
-                              builder: (context, state) {
-                                if (state is UserProfileLoading) {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        color: Colors.transparent,
-                                        width: 20,
-                                        height: 20,
-                                        child: const CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 4,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      const Text(
-                                        "Loading...",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return const Text(
-                                    "Simpan",
-                                    style: TextStyle(color: Colors.white),
-                                  );
-                                }
-                              },
-                            )),
+                      submitButton(),
+                      SizedBox(
+                        height: 35.h,
                       ),
                       BlocConsumer<UserProfileCubit, UserProfileState>(
                         listener: (context, state) {
@@ -374,6 +328,61 @@ class _EditProfileState extends State<EditProfile> {
             ),
           ],
         ));
+  }
+
+  Widget submitButton() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
+      child: ElevatedButton(
+          onPressed: () {
+            BlocProvider.of<UserProfileCubit>(context).updateUserProfile(
+                _nameController.text,
+                _emailController.text,
+                _telpController.text,
+                valueGender);
+            _formKey.currentState?.reset();
+            _nameController.clear();
+            _emailController.clear();
+            _telpController.clear();
+          },
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(MediaQuery.of(context).size.width, 55.h),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            primary: const Color(0xff7383BF),
+          ),
+          child: BlocBuilder<UserProfileCubit, UserProfileState>(
+            builder: (context, state) {
+              if (state is UserProfileLoading) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      color: Colors.transparent,
+                      width: 20,
+                      height: 20,
+                      child: const CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 4,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(
+                      "Loading...",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                );
+              } else {
+                return const Text(
+                  "Simpan",
+                  style: TextStyle(color: Colors.white),
+                );
+              }
+            },
+          )),
+    );
   }
 
   Widget labelText(String text) {

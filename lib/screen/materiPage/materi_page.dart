@@ -153,7 +153,10 @@ class _MateriPageState extends State<MateriPage> {
                       ),
                     ),
                     Expanded(child: Container()),
-                    detailMateri(),
+                    detailMateri(
+                        state.materi[position].contohKata,
+                        state.materi[position].descKata,
+                        state.materi[position].descGambar),
                     position != length - 1
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -272,7 +275,7 @@ class _MateriPageState extends State<MateriPage> {
     );
   }
 
-  Widget detailMateri() {
+  Widget detailMateri(String hangeul, descKata, descGambar) {
     return Container(
       width: double.infinity,
       height: 176.h,
@@ -304,7 +307,7 @@ class _MateriPageState extends State<MateriPage> {
                 color: Colors.red[300],
               ),
               Text(
-                "Tas",
+                descGambar,
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w700,
@@ -316,14 +319,14 @@ class _MateriPageState extends State<MateriPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "가 방",
+                hangeul,
                 style: TextStyle(
                   fontSize: 45.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               Text(
-                "Ga bang",
+                descKata,
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w700,
