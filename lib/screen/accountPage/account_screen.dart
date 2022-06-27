@@ -42,10 +42,8 @@ class AccountPage extends StatelessWidget {
                   );
                 }
                 if (state is LogoutSuccess) {
-                  EasyLoading.showSuccess('Logout success!',
-                      duration: Duration(milliseconds: 1500));
                   EasyLoading.dismiss();
-                  Timer(Duration(milliseconds: 1200), () {
+                  Timer(Duration(milliseconds: 20), () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => LoginPage()),

@@ -9,7 +9,6 @@ import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 import 'package:kolearn/core/app_colors.dart';
 import 'package:kolearn/home_page.dart';
 import 'package:kolearn/screen/course_detail/widget/row_btn.dart';
-import 'package:kolearn/screen/home/home_screen.dart';
 import 'package:kolearn/screen/materiPage/materi_page.dart';
 import 'package:kolearn/screen/quiz_screen/quiz_screen.dart';
 import 'package:shimmer/shimmer.dart';
@@ -50,16 +49,6 @@ class _CourseDetailState extends State<CourseDetail> {
               MaterialPageRoute(builder: (context) => HomePage()),
               (route) => false,
             );
-
-            // Navigator.pop(context);
-            // Navigator.of(context).push(MaterialPageRoute(
-            //   builder: (_) {
-            //     return HomePage();
-            //   },
-            //   settings: RouteSettings(
-            //     name: 'SecondPage',
-            //   ),
-            // ));
           },
           icon: const Icon(Icons.chevron_left),
         ),

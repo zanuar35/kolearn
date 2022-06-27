@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
+import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
 
 class LogoutBtn extends StatelessWidget {
   const LogoutBtn({
@@ -16,7 +17,41 @@ class LogoutBtn extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: ElevatedButton(
         onPressed: () {
-          BlocProvider.of<LogoutCubit>(context).logOut();
+          showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    content: const Text(
+                      'Ingin mengambil kuis sekarang? ',
+                      textAlign: TextAlign.center,
+                    ),
+                    actions: <Widget>[
+                      // Cancel button
+                      TextButton(
+                        onPressed: () =>
+                            // close the dialog
+                            Navigator.of(context, rootNavigator: true)
+                                .pop('dialog'),
+                        child: const Text('Cancel'),
+                      ),
+                      // Ok button
+                      TextButton(
+                        onPressed: () {
+                          // close alert dialog
+                          Navigator.of(context, rootNavigator: true)
+                              .pop('dialog');
+                          // navigate to new route
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditProfile()),
+                          );
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ));
+
+          // BlocProvider.of<LogoutCubit>(context).logOut();
         },
         style: ElevatedButton.styleFrom(
           fixedSize: Size(MediaQuery.of(context).size.width, 55.h),

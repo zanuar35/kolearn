@@ -205,7 +205,7 @@ class _PassTextFieldState extends State<PassTextField> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(
-              color: Color(0xffDDE5E9),
+              color: Colors.blue,
               width: 2,
             ),
           ),

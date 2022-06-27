@@ -57,7 +57,10 @@ class _QuizScreenState extends State<QuizScreen> {
                               },
                               icon: const Icon(Icons.close)),
                           Expanded(child: Container()),
-                          Text(nilai == null ? '0' : nilai.toString())
+                          Text(nilai == null ? '0' : nilai.toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp)),
                         ],
                       ),
                       Row(

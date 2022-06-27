@@ -38,36 +38,36 @@ class AppTextStyles {
 
   static final TextStyle heading15 = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 15,
+    fontSize: 15.sp,
     fontWeight: FontWeight.w600,
   );
 
   static final TextStyle body = GoogleFonts.poppins(
     color: AppColors.grey,
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.normal,
   );
 
   static final TextStyle bodyBold = GoogleFonts.poppins(
     color: AppColors.grey,
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.bold,
   );
 
   static final TextStyle bodylightGrey = GoogleFonts.poppins(
     color: AppColors.lightGreen,
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.normal,
   );
   static final TextStyle bodyDarkGreen = GoogleFonts.poppins(
     color: AppColors.darkGreen,
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.w500,
   );
 
   static final TextStyle bodyDarkRed = GoogleFonts.poppins(
     color: AppColors.darkRed,
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.w500,
   );
 
@@ -96,12 +96,12 @@ class AppTextStyles {
 
   static final TextStyle body11 = GoogleFonts.poppins(
     color: AppColors.grey,
-    fontSize: 11,
+    fontSize: 11.sp,
     fontWeight: FontWeight.normal,
   );
   static final TextStyle body13 = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.w500,
     letterSpacing: 1.5,
   );
@@ -129,7 +129,7 @@ class AppTextStyles {
   );
   static final TextStyle answerBody = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 15,
+    fontSize: 15.sp,
     fontWeight: FontWeight.w600,
   );
 }

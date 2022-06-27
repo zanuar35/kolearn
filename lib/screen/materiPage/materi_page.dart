@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kolearn/blocs/materi/cubit/materi_cubit.dart';
 import 'package:kolearn/blocs/my_course/cubit/mycourse_cubit.dart';
 import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
@@ -302,16 +303,16 @@ class _MateriPageState extends State<MateriPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                Icons.leave_bags_at_home_rounded,
-                color: Colors.red[300],
+              SvgPicture.asset(
+                "assets/eye.svg",
+                width: 40,
               ),
               Text(
                 descGambar,
                 style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: .4),
               )
             ],
           ),

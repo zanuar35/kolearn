@@ -76,8 +76,12 @@ class _ContainerProfileState extends State<ContainerProfile> {
               ],
             ),
             CircleAvatar(
-              radius: 30.r,
-            )
+              radius: 35.r,
+              backgroundColor: const Color(0xff0D8ABC),
+              // child: const Text("nama"),
+              child: Image.network(
+                  'https://ui-avatars.com/api/?name=$nama&background=0D8ABC&color=fff&rounded=true'),
+            ),
           ],
         ),
       ),
