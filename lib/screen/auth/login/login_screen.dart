@@ -54,10 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       margin: EdgeInsets.only(top: 85.h),
                       width: 354.w,
                       height: 227.h,
-                      child: Hero(
-                        tag: 'gambar',
-                        child: Image.network(AppImage.loginImage),
-                      )),
+                      child: Hero(tag: 'gambar', child: AppImage.loginImage)),
                   SizedBox(
                     height: 40.h,
                   ),

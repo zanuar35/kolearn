@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 class AppImage {
   // Login Screen
-  static const String loginImage =
-      "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Login-re-4vu2-1.png?alt=media&token=7c6d5b05-1433-4b9a-be3c-8e8036808e5c";
+  static final Image loginImage =
+      Image.asset('assets/img/undraw_Login_re_4vu21.png');
 
   // Register screen
-  static const String registerImage =
-      "https://firebasestorage.googleapis.com/v0/b/firestore-example-43d61.appspot.com/o/undraw-Access-account-re-8spm-1.png?alt=media&token=6fcabfd2-4347-4f94-9d2e-9bc6608ce137";
+  static final Image registerImage =
+      Image.asset('assets/img/undraw_Access_account_re_8spm 1.png');
+
+  static final Image logo = Image.asset('assets/img/logo.png');
+
   // Home Screen
   static final Image allTopic = Image.asset('assets/img/all_btn.png');
   static final Image allTopicActive = Image.asset('assets/img/all_btnBlue.png');

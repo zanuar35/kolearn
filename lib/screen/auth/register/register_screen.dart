@@ -74,11 +74,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     margin: EdgeInsets.only(
                       top: 29.h,
                     ),
-                    child: const Hero(
+                    child: Hero(
                       tag: 'gambar',
-                      child: Image(
-                        image: NetworkImage(AppImage.registerImage),
-                      ),
+                      child: AppImage.registerImage,
                     ),
                   ),
                 ),
