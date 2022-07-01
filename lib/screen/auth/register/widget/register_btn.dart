@@ -36,6 +36,9 @@ class _RegisterButtonState extends State<RegisterButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        print(widget._confirmPassController);
+        print(widget._passwordController);
+        // Send request to server
         if (widget._passwordController.text ==
                 widget._confirmPassController.text &&
             widget._formKey1.currentState!.validate()) {
@@ -44,8 +47,15 @@ class _RegisterButtonState extends State<RegisterButton> {
             widget._emailController.text,
             widget._passwordController.text,
           );
-        } else {
+        }
+        // password not match
+        else if (widget._passwordController.text !=
+            widget._confirmPassController.text) {
           EasyLoading.showError('Password berbeda',
+              maskType: EasyLoadingMaskType.custom,
+              duration: const Duration(milliseconds: 1200));
+        } else {
+          EasyLoading.showError('Terjadi kesalahan',
               maskType: EasyLoadingMaskType.custom,
               duration: const Duration(milliseconds: 1500));
         }

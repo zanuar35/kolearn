@@ -93,11 +93,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _nameController,
                           hint: "Full Name",
                           icons: Icons.person,
+                          isEmail: false,
                         ),
                         SizedBox(
                           height: 15.h,
                         ),
                         InputField(
+                          isEmail: true,
                           controller: _emailController,
                           hint: "Email",
                           icons: Icons.mark_email_read,

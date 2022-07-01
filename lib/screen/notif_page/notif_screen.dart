@@ -60,7 +60,7 @@ class _NotifScreenState extends State<NotifScreen> {
               return state.myCourse.isEmpty
                   ? const Center(
                       child: Text(
-                        "Tidak ada data",
+                        "Belum ada data",
                         style: TextStyle(
                             fontSize: 17, fontWeight: FontWeight.w600),
                       ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/auth/cubit/auth_cubit.dart';
 import 'package:kolearn/home_page.dart';
 import 'package:kolearn/screen/auth/login/login_screen.dart';
@@ -25,36 +26,48 @@ class _SplashPageState extends State<SplashPage> {
     return Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.amber,
-        child: BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoading) {
-              const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (state is AuthLoggedIn) {
-              Timer(const Duration(milliseconds: 1200), () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
-              });
-            }
-            if (state is AuthNotLoggedIn) {
-              Timer(const Duration(milliseconds: 1200), () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
-                  ),
-                );
-              });
-            }
-          },
-          child: Container(),
+        color: const Color(0xffF9F2ED),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              height: 400.h,
+              width: 400.w,
+              curve: Curves.easeOutQuad,
+              child: const Image(image: AssetImage('assets/img/logo.png')),
+            ),
+            BlocListener<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is AuthLoading) {
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is AuthLoggedIn) {
+                  Timer(const Duration(milliseconds: 700), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  });
+                }
+                if (state is AuthNotLoggedIn) {
+                  Timer(const Duration(milliseconds: 700), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
+                  });
+                }
+              },
+              child: Container(),
+            ),
+          ],
         ));
   }
 }

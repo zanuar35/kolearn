@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/screen/accountPage/widget/row_button.dart';
 import 'package:kolearn/screen/coba.dart';
-import 'package:kolearn/screen/edit_Profile/edit_profile.screen.dart';
 import 'package:kolearn/screen/quiz_screen/quiz_screen.dart';
 
 class ContainerTentang extends StatelessWidget {
