@@ -28,12 +28,14 @@ class _QuizScreenState extends State<QuizScreen> {
     super.initState();
     BlocProvider.of<QuizCubit>(context).loadQuiz();
     selectedIndex = 0;
+    quizCubit.resetNilai();
   }
 
   int? nilai;
   @override
   Widget build(BuildContext context) {
     int _currentIndex = 0;
+    int length = 1;
 
     return Scaffold(
       body: SafeArea(
@@ -48,6 +50,16 @@ class _QuizScreenState extends State<QuizScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      BlocListener<QuizCubit, QuizState>(
+                        listener: (context, state) {
+                          if (state is QuizLoaded) {
+                            setState(() {
+                              length = state.list.length;
+                            });
+                          }
+                        },
+                        child: Container(),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -126,7 +138,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                 return BlocBuilder<QuizCubit, QuizState>(
                                     builder: ((context, state) {
                                   if (state is QuizLoading) {
-                                    return answerBox("loading", '', 4, 4);
+                                    return answerBox("loading", '', 4, 4, 5);
                                   }
                                   if (state is QuizLoaded) {
                                     return answerBox(
@@ -137,7 +149,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 [pageIndex]['answers'][index1]
                                             ['isRight'],
                                         index1 + 1,
-                                        pageIndex);
+                                        pageIndex,
+                                        length);
                                   }
                                   return Container();
                                 }));
@@ -149,7 +162,7 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget answerBox(String text, isRight, int index, int pageIndex) {
+  Widget answerBox(String text, isRight, int index, int pageIndex, int length) {
     return InkWell(
       onTap: () {
         selectedIndex = index;
@@ -162,10 +175,10 @@ class _QuizScreenState extends State<QuizScreen> {
             ? Future.delayed(const Duration(seconds: 1), () {
                 _pageController.nextPage(
                     duration: const Duration(milliseconds: 900),
-                    curve: Curves.easeOutSine);
+                    curve: Curves.decelerate);
                 selectedIndex = 0;
               })
-            : finishDialog(context, nilai);
+            : finishDialog(context, nilai, length);
       },
       child: Container(
         width: 100,
@@ -188,13 +201,11 @@ class _QuizScreenState extends State<QuizScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                style: text == "loading"
-                    ? AppTextStyles.body13
-                    : AppTextStyles.answerBody,
-              ),
+              Text(text,
+                  textAlign: TextAlign.center,
+                  style: text == "loading"
+                      ? AppTextStyles.body13
+                      : AppTextStyles.answerBody),
             ],
           ),
         ),
@@ -203,9 +214,9 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-Future finishDialog(BuildContext context, int? nilai) {
-  double percent = (nilai! * 25) / 100;
-  double percentValue = percent * 100;
+Future finishDialog(BuildContext context, int? nilai, int length) {
+  double percent = (nilai! * (100 / length)) / 100;
+  double percentValue = percent;
   return AwesomeDialog(
     dismissOnTouchOutside: false,
     dismissOnBackKeyPress: false,
@@ -214,7 +225,7 @@ Future finishDialog(BuildContext context, int? nilai) {
       child: CircularPercentIndicator(
         radius: 50.0,
         lineWidth: 8.0,
-        percent: percent,
+        percent: 0.4,
         center: Text(percentValue.toString() + "%"),
         progressColor: Colors.green,
       ),
