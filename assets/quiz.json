@@ -30,14 +30,31 @@
         ]
       }   ,
       {
-       "title": "A", 
+       "title": "a", 
         "answers": [
           {"title": "ㅑ"},
           {"title": "ㅏ", "isRight": true},
           {"title": "ㅣ"},
           {"title": "ㅜ"}
         ]
-      }   
+      },
+      {
+       "title": "i", 
+        "answers": [
+          {"title": "ㅏ"},
+          {"title": "ㅜ"},
+          {"title": "ㅣ", "isRight": true},
+          {"title": "ㅑ"}
+        ]
+      }  ,{
+       "title": "ieung", 
+        "answers": [
+          {"title": "ㅏ"},
+          {"title": "ㅑ"},
+          {"title": "ㅜ"},
+          {"title": "ㅇ", "isRight": true}
+        ]
+      }      
     ]
   },
   {
@@ -132,7 +149,7 @@
     ]
   },
    {
-    "title": "Pertyanyan keempat",
+    "title": "Pertanyan keempat",
     "questions": [
       {
         "title": "ㄱ ", 
@@ -169,52 +186,416 @@
           {"title": "ㅎ"},
           {"title": "ㅍ"}
         ]
+      } ,
+       {
+       "title": "g", 
+        "answers": [
+          {"title": "ㅍ"},
+          {"title": "ㅎ"},
+          {"title": "ㄱ","isRight": true},
+          {"title": "ㅋ"}
+        ]
       } 
-      
     ]
   },
   {
-    "title": "Pertanyaan keempat",
-    "imagem": "blocks",
-    "questionAnswered": 1,
-    "level": "facil",
-    "questions": [
+    "title": "Pertanyaan kelima",
+     "questions": [
       {
-        "title": "Coba pertanyaan 1?", 
+        "title": "ㄴ", 
         "answers": [
-          {"title": "Estou curtindo"},
-          {"title": "Amando Flutter"},
-          {"title": "Muito top"},
-          {"title": "Show de bola!", "isRight": true}
+          {"title": "j"},
+          {"title": "n"},
+          {"title": "b"},
+          {"title": "g", "isRight": true}
         ]
       } ,
       {
-       "title": "Coba pertanyaan 2?", 
+       "title": "ㄷ", 
         "answers": [
-          {"title": "Estou curtindo", "isRight": true},
-          {"title": "Amando Flutter"},
-          {"title": "Muito top"},
-          {"title": "Show de bola!"}
+          {"title": "k","isRight": true},
+          {"title": "m"},
+          {"title": "s"},
+          {"title": "j"}
         ]
       }   ,
       {
-       "title": "Coba pertanyaan ketiga", 
+       "title": "ㅌ", 
         "answers": [
-          {"title": "Benar", "isRight": true},
-          {"title": "salah "},
-          {"title": "salah 1"},
-          {"title": "salah 2"}
+          {"title": "h","isRight": true},
+          {"title": "a"},
+          {"title": "o"},
+          {"title": "n"}
         ]
       }   ,
       {
-       "title": "Coba pertanyaan ketiga", 
+       "title": "ㄹ", 
         "answers": [
-          {"title": "Benar", "isRight": true},
-          {"title": "salah "},
-          {"title": "salah 1"},
-          {"title": "salah 2"}
+          {"title": "ㄱ"},
+          {"title": "ㅋ", "isRight": true},
+          {"title": "ㅎ"},
+          {"title": "ㅍ"}
         ]
-      }   
+      } ,
+       {
+       "title": "d", 
+        "answers": [
+          {"title": "ㅍ"},
+          {"title": "ㅎ"},
+          {"title": "ㄷ","isRight": true},
+          {"title": "ㅋ"}
+        ]
+      }       
+    ]
+  },
+  {
+    "title": "Pertanyaan keenam",
+     "questions": [
+      {
+        "title": "ㅁ", 
+        "answers": [
+          {"title": "d"},
+          {"title": "o"},
+          {"title": "b"},
+          {"title": "m", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㅂ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "u"},
+          {"title": "b","isRight": true},
+          {"title": "n"}
+        ]
+      }   ,
+      {
+       "title": "ㅍ", 
+        "answers": [
+          {"title": "a"},
+          {"title": "p","isRight": true},
+          {"title": "n"},
+          {"title": "o"}
+        ]
+      }   ,
+      {
+       "title": "m", 
+        "answers": [
+          {"title": "ㅁ", "isRight": true},
+          {"title": "ㄱ"},
+          {"title": "ㅎ"},
+          {"title": "ㅍ"}
+        ]
+      } ,
+       {
+       "title": "p", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅍ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
+    ]
+  },
+  {
+    "title": "Pertanyaan ketujuh",
+     "questions": [
+      {
+        "title": "ㅅ", 
+        "answers": [
+          {"title": "j"},
+          {"title": "k"},
+          {"title": "t"},
+          {"title": "s", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㅈ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "d"},
+          {"title": "j","isRight": true},
+          {"title": "s"}
+        ]
+      }   ,
+      {
+       "title": "ㅊ", 
+        "answers": [
+          {"title": "t"},
+          {"title": "c","isRight": true},
+          {"title": "s"},
+          {"title": "j"}
+        ]
+      }   ,
+      {
+       "title": "j", 
+        "answers": [
+          {"title": "ㅈ", "isRight": true},
+          {"title": "ㅊ"},
+          {"title": "ㅎ"},
+          {"title": "ㅅ"}
+        ]
+      } ,
+       {
+       "title": "p", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅍ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
+    ]
+  },
+  {
+    "title": "Pertanyaan kedelapan",
+     "questions": [
+      {
+        "title": "ㄲ", 
+        "answers": [
+          {"title": "j"},
+          {"title": "k"},
+          {"title": "t"},
+          {"title": "kk", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㄸ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "d"},
+          {"title": "dd","isRight": true},
+          {"title": "s"}
+        ]
+      }   ,
+      {
+       "title": "kk", 
+        "answers": [
+          {"title": "t"},
+          {"title": "ㄲ","isRight": true},
+          {"title": "s"},
+          {"title": "j"}
+        ]
+      }   ,
+      {
+       "title": "dd", 
+        "answers": [
+          {"title": "ㄸ", "isRight": true},
+          {"title": "ㅊ"},
+          {"title": "ㅎ"},
+          {"title": "ㅅ"}
+        ]
+      } ,
+       {
+       "title": "k", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅋ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
+    ]
+  },
+  {
+    "title": "Pertanyaan kesembilan",
+     "questions": [
+      {
+        "title": "ㅃ", 
+        "answers": [
+          {"title": "j"},
+          {"title": "k"},
+          {"title": "t"},
+          {"title": "bb", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㅆ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "d"},
+          {"title": "ss","isRight": true},
+          {"title": "s"}
+        ]
+      }   ,
+      {
+       "title": "ㅉ", 
+        "answers": [
+          {"title": "t"},
+          {"title": "jj","isRight": true},
+          {"title": "s"},
+          {"title": "j"}
+        ]
+      }   ,
+      {
+       "title": "bb", 
+        "answers": [
+          {"title": "ㅃ", "isRight": true},
+          {"title": "ㅊ"},
+          {"title": "ㅎ"},
+          {"title": "ㅅ"}
+        ]
+      } ,
+       {
+       "title": "ss", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅆ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
+    ]
+  },
+  {
+    "title": "Pertanyaan kesepuluh ",
+     "questions": [
+      {
+        "title": "ㅐ", 
+        "answers": [
+          {"title": "j"},
+          {"title": "k"},
+          {"title": "t"},
+          {"title": "ae", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㅒ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "d"},
+          {"title": "yae","isRight": true},
+          {"title": "s"}
+        ]
+      }   ,
+      {
+       "title": "ㅔ", 
+        "answers": [
+          {"title": "t"},
+          {"title": "e","isRight": true},
+          {"title": "s"},
+          {"title": "j"}
+        ]
+      }   ,
+      {
+       "title": "ㅖ", 
+        "answers": [
+          {"title": "ㅃ", "isRight": true},
+          {"title": "ㅊ"},
+          {"title": "ㅎ"},
+          {"title": "ㅅ"}
+        ]
+      } ,
+       {
+       "title": "yae", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅒ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
+    ]
+  },
+   {
+    "title": "Pertanyaan kesebelas",
+     "questions": [
+      {
+        "title": "ㅙ", 
+        "answers": [
+          {"title": "j"},
+          {"title": "k"},
+          {"title": "t"},
+          {"title": "wae", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㅘ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "d"},
+          {"title": "wa","isRight": true},
+          {"title": "s"}
+        ]
+      }   ,
+      {
+       "title": "ㅢ", 
+        "answers": [
+          {"title": "t"},
+          {"title": "wi","isRight": true},
+          {"title": "s"},
+          {"title": "j"}
+        ]
+      }   ,
+      {
+       "title": "wae", 
+        "answers": [
+          {"title": "ㅙ", "isRight": true},
+          {"title": "ㅊ"},
+          {"title": "ㅎ"},
+          {"title": "ㅅ"}
+        ]
+      } ,
+       {
+       "title": "wa", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅘ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
+    ]
+  },
+  {
+    "title": "Pertanyaan kedua belas",
+     "questions": [
+      {
+        "title": "ㅚ", 
+        "answers": [
+          {"title": "j"},
+          {"title": "k"},
+          {"title": "t"},
+          {"title": "oe", "isRight": true}
+        ]
+      } ,
+      {
+       "title": "ㅝ", 
+        "answers": [
+          {"title": "r"},
+          {"title": "d"},
+          {"title": "wo","isRight": true},
+          {"title": "s"}
+        ]
+      }   ,
+      {
+       "title": "ㅞ", 
+        "answers": [
+          {"title": "t"},
+          {"title": "we","isRight": true},
+          {"title": "s"},
+          {"title": "j"}
+        ]
+      }   ,
+      {
+       "title": "ㅟ", 
+        "answers": [
+          {"title": "wi", "isRight": true},
+          {"title": "ㅊ"},
+          {"title": "ㅎ"},
+          {"title": "ㅅ"}
+        ]
+      } ,
+       {
+       "title": "oe", 
+        "answers": [
+          {"title": "ㄹ"},
+          {"title": "ㅅ"},
+          {"title": "ㅚ","isRight": true},
+          {"title": "ㅂ"}
+        ]
+      }       
     ]
   }
 ]
