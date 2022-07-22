@@ -39,7 +39,7 @@ class _CourseCardState extends State<CourseCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          EdgeInsets.only(left: 27.w, right: 27.w, top: 40.h, bottom: 150.h),
+          EdgeInsets.only(left: 27.w, right: 27.w, top: 60.h, bottom: 150.h),
       child: Container(
         width: double.infinity,
         height: 150.h,
@@ -77,20 +77,6 @@ class _CourseCardState extends State<CourseCard> {
               SizedBox(
                 width: 20.w,
               ),
-              // BlocConsumer<MateriCubit, MateriState>(
-              //   listener: (context, state) {
-              //     if (state is MateriLoaded) {
-              //       setState(() {
-              //         length = state.materi.length;
-              //       });
-              //     }
-              //   },
-              //   builder: (context, state) {
-              //     return SizedBox(
-              //       height: 0,
-              //     );
-              //   },
-              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

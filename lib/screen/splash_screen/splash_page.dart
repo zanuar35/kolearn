@@ -37,15 +37,24 @@ class _SplashPageState extends State<SplashPage> {
               curve: Curves.easeOutQuad,
               child: const Image(image: AssetImage('assets/img/logo.png')),
             ),
+            SizedBox(height: 50.h),
+            Center(
+                child: SizedBox(
+              height: 35.h,
+              width: 35.h,
+              child: const CircularProgressIndicator(),
+            )),
             BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is AuthLoading) {
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  Center(
+                      child: SizedBox(
+                    height: 15.h,
+                    child: const CircularProgressIndicator(),
+                  ));
                 }
                 if (state is AuthLoggedIn) {
-                  Timer(const Duration(milliseconds: 700), () {
+                  Timer(const Duration(milliseconds: 2000), () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(

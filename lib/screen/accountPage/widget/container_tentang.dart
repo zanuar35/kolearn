@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kolearn/blocs/logout/cubit/logout_cubit.dart';
 import 'package:kolearn/screen/accountPage/widget/row_button.dart';
 import 'package:kolearn/screen/coba.dart';
-import 'package:kolearn/screen/quiz_screen/quiz_screen.dart';
-
 class ContainerTentang extends StatelessWidget {
   const ContainerTentang({
     Key? key,
@@ -35,22 +33,22 @@ class ContainerTentang extends StatelessWidget {
               height: 15.h,
             ),
             SizedBox(height: 3.h),
-            RowBtn(
-              icons: Icons.verified,
-              textBtn: "Pusat Bantuan",
-              isNext: true,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const QuizScreen(),
-                  ),
-                );
-              },
-            ),
-            const Divider(
-              thickness: 2,
-            ),
+            // RowBtn(
+            //   icons: Icons.verified,
+            //   textBtn: "Pusat Bantuan",
+            //   isNext: true,
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const QuizScreen(),
+            //       ),
+            //     );
+            //   },
+            // ),
+            // const Divider(
+            //   thickness: 2,
+            // ),
             SizedBox(height: 3.h),
             RowBtn(
               icons: Icons.face,
@@ -97,9 +95,13 @@ class ContainerTentang extends StatelessWidget {
                                   // close the dialog
                                   Navigator.of(context, rootNavigator: true)
                                       .pop('dialog'),
-                              child: const Text(
+                              child: Text(
                                 'Cancel',
                                 textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: Colors.red,
+                                ),
                               ),
                             ),
                             // Ok button

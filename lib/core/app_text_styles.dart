@@ -101,7 +101,7 @@ class AppTextStyles {
   );
   static final TextStyle body13 = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 13.sp,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     letterSpacing: 1.5,
   );
@@ -129,7 +129,7 @@ class AppTextStyles {
   );
   static final TextStyle answerBody = GoogleFonts.poppins(
     color: AppColors.black,
-    fontSize: 15.sp,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w600,
   );
 }

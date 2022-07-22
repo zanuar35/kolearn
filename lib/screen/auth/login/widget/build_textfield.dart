@@ -24,6 +24,7 @@ class BuildTextField extends StatelessWidget {
       height: 65.h,
       width: 354.w,
       child: TextFormField(
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         autocorrect: false,
         style: TextStyle(fontSize: 16.sp),
         controller: controller,

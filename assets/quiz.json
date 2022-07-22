@@ -46,15 +46,7 @@
           {"title": "ㅣ", "isRight": true},
           {"title": "ㅑ"}
         ]
-      }  ,{
-       "title": "ieung", 
-        "answers": [
-          {"title": "ㅏ"},
-          {"title": "ㅑ"},
-          {"title": "ㅜ"},
-          {"title": "ㅇ", "isRight": true}
-        ]
-      }      
+      }     
     ]
   },
   {

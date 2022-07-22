@@ -109,6 +109,11 @@ class _CourseDetailState extends State<CourseDetail> {
               return Container();
             },
           ),
+          // Space container
+          SizedBox(
+            height: 60.h,
+          ),
+          // Bottom container
           Expanded(
             child: Container(
               padding: EdgeInsets.only(left: 27.w, right: 27.w),
@@ -128,8 +133,23 @@ class _CourseDetailState extends State<CourseDetail> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  SizedBox(
+                    height: 1,
+                    child: BlocConsumer<MateriCubit, MateriState>(
+                      listener: (context, state) {
+                        if (state is MateriLoaded) {
+                          setState(() {
+                            length = state.materi.length;
+                          });
+                        }
+                      },
+                      builder: (context, state) {
+                        return Row();
+                      },
+                    ),
+                  ),
                   BlocBuilder<CourseDetailCubit, CourseDetailState>(
                     builder: (context, state) {
                       if (state is CourseDetailLoading) {
@@ -138,22 +158,16 @@ class _CourseDetailState extends State<CourseDetail> {
                             highlightColor: AppColors.highlightColor,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  left: 2.w,
-                                  right: 2.w,
-                                  top: 4.h,
-                                  bottom: 10.h),
+                                left: 2.w,
+                                right: 2.w,
+                              ),
                               child: Container(
                                 width: double.infinity,
                                 height: 50.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(1.r),
                                   color: Colors.white,
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Color.fromRGBO(0, 0, 0, 0.3),
-                                        offset: Offset(0, 4),
-                                        blurRadius: 4)
-                                  ],
+                                  boxShadow: const [],
                                 ),
                               ),
                             ));
@@ -174,23 +188,6 @@ class _CourseDetailState extends State<CourseDetail> {
                       }
                       return Container();
                     },
-                  ),
-                  BlocConsumer<MateriCubit, MateriState>(
-                    listener: (context, state) {
-                      if (state is MateriLoaded) {
-                        setState(() {
-                          length = state.materi.length;
-                        });
-                      }
-                    },
-                    builder: (context, state) {
-                      return Row();
-                    },
-                  ),
-                  const Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                    style: TextStyle(
-                        color: Color(0xff9F98AD), fontWeight: FontWeight.w600),
                   ),
                   BlocBuilder<CourseDetailCubit, CourseDetailState>(
                     builder: (context, state) {
@@ -285,14 +282,16 @@ class _CourseDetailState extends State<CourseDetail> {
                             state.courseDetail.data.courseName,
                             state.courseDetail.data.status,
                             state.courseDetail.data.id.toString(),
-                            length.toString());
+                            length.toString(),
+                            widget.index + 1);
                       }
                       if (state is CourseDetailNew) {
                         return _submitBtn(
                             state.courseNew.data.courseName,
                             'started',
                             state.courseNew.data.id.toString(),
-                            length.toString());
+                            length.toString(),
+                            widget.index + 1);
                       }
                       return Container();
                     },
@@ -306,8 +305,8 @@ class _CourseDetailState extends State<CourseDetail> {
     );
   }
 
-  Widget _submitBtn(
-      String courseName, String status, String id, String jumlahMateri) {
+  Widget _submitBtn(String courseName, String status, String id,
+      String jumlahMateri, int index) {
     return Row(
       children: [
         Expanded(
@@ -329,7 +328,10 @@ class _CourseDetailState extends State<CourseDetail> {
                               // close the dialog
                               Navigator.of(context, rootNavigator: true)
                                   .pop('dialog'),
-                          child: const Text('Cancel'),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.red),
+                          ),
                         ),
                         // Ok button
                         TextButton(
@@ -341,7 +343,9 @@ class _CourseDetailState extends State<CourseDetail> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => QuizScreen(),
+                                builder: (context) => QuizScreen(
+                                  index: index,
+                                ),
                               ),
                             );
                           },

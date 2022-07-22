@@ -11,7 +11,9 @@ import 'package:kolearn/screen/course_detail/course_detail_screen.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({Key? key}) : super(key: key);
+  const QuizScreen({Key? key, required this.index}) : super(key: key);
+
+  final int index;
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -32,137 +34,145 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   int? nilai;
+  int length = 1;
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = 0;
-    int length = 1;
+    int _currentIndex = widget.index - 1;
+    print("index : $_currentIndex");
 
     return Scaffold(
       body: SafeArea(
         child: PageView.builder(
-            controller: _pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 4,
-            itemBuilder: (context, pageIndex) {
-              return Container(
-                  padding: const EdgeInsets.all(16),
-                  color: AppColors.backgroundColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 5,
+          itemBuilder: (context, pageIndex) {
+            return Container(
+              padding: const EdgeInsets.all(16),
+              color: AppColors.backgroundColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BlocListener<QuizCubit, QuizState>(
+                    listener: (context, state) {
+                      if (state is QuizLoaded) {
+                        length = state.list.length;
+                        print(
+                            "length list: ${state.list[_currentIndex]["questions"].length} ");
+                        setState(() {});
+                      }
+                    },
+                    child: Container(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      BlocListener<QuizCubit, QuizState>(
-                        listener: (context, state) {
-                          if (state is QuizLoaded) {
-                            setState(() {
-                              length = state.list.length;
-                            });
-                          }
-                        },
-                        child: Container(),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                showDialogBox(context);
-                              },
-                              icon: const Icon(Icons.close)),
-                          Expanded(child: Container()),
-                          Text(nilai == null ? '0' : nilai.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.sp)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          BlocBuilder<QuizCubit, QuizState>(
-                              builder: ((context, state) {
-                            if (state is QuizLoading) {
-                              return Expanded(
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 3,
-                                  color: Colors.transparent,
-                                  child: const Center(
-                                    child: Text("Loading...",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                              );
-                            }
-                            if (state is QuizLoaded) {
-                              return Expanded(
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 3,
-                                  color: Colors.transparent,
-                                  child: Center(
-                                    child: Text(
-                                        state.list[_currentIndex]['questions']
-                                            [pageIndex]['title'],
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 86.sp,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                              );
-                            }
-                            return Container();
-                          })),
-                        ],
-                      ),
-                      Expanded(
-                          child: Container(
-                        color: Colors.transparent,
-                      )),
-                      Container(
-                          width: double.infinity,
-                          color: Colors.white38,
-                          child: GridView.builder(
-                              itemCount: 4,
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1.5,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                              ),
-                              itemBuilder: (context, index1) {
-                                return BlocBuilder<QuizCubit, QuizState>(
-                                    builder: ((context, state) {
-                                  if (state is QuizLoading) {
-                                    return answerBox("loading", '', 4, 4, 5);
-                                  }
-                                  if (state is QuizLoaded) {
-                                    return answerBox(
-                                        state.list[_currentIndex]['questions']
-                                                [pageIndex]['answers'][index1]
-                                            ['title'],
-                                        state.list[pageIndex]['questions']
-                                                [pageIndex]['answers'][index1]
-                                            ['isRight'],
-                                        index1 + 1,
-                                        pageIndex,
-                                        length);
-                                  }
-                                  return Container();
-                                }));
-                              }))
+                      IconButton(
+                          onPressed: () {
+                            showDialogBox(context);
+                          },
+                          icon: const Icon(Icons.close)),
+                      Expanded(child: Container()),
+                      Text(nilai == null ? '0' : nilai.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18.sp)),
                     ],
-                  ));
-            }),
+                  ),
+                  Row(
+                    children: [
+                      BlocBuilder<QuizCubit, QuizState>(
+                          builder: ((context, state) {
+                        if (state is QuizLoading) {
+                          return Expanded(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height / 3,
+                              color: Colors.transparent,
+                              child: const Center(
+                                child: Text("Loading...",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          );
+                        }
+                        if (state is QuizLoaded) {
+                          return Expanded(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height / 3,
+                              color: Colors.transparent,
+                              child: Center(
+                                child: Text(
+                                    state.list[_currentIndex]['questions']
+                                        [pageIndex]['title'],
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 86.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          );
+                        }
+                        return Container();
+                      })),
+                    ],
+                  ),
+                  Expanded(
+                      child: Container(
+                    color: Colors.transparent,
+                  )),
+                  Container(
+                    width: double.infinity,
+                    color: Colors.white38,
+                    child: GridView.builder(
+                      itemCount: 4,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.5,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index1) {
+                        return BlocBuilder<QuizCubit, QuizState>(
+                            builder: ((context, state) {
+                          if (state is QuizLoading) {
+                            return answerBox(
+                                "loading", '', index1 + 1, pageIndex, length);
+                          }
+                          if (state is QuizLoaded) {
+                            return answerBox(
+                                // answer
+                                state.list[_currentIndex]['questions']
+                                    [pageIndex]['answers'][index1]['title'],
+                                // isRight
+                                state.list[pageIndex]['questions'][pageIndex]
+                                    ['answers'][index1]['isRight'],
+                                // index
+                                index1 + 1,
+                                // pageIndex
+                                pageIndex,
+                                // length
+                                state.list[_currentIndex]["questions"].length);
+                          }
+                          return Container();
+                        }));
+                      },
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget answerBox(String text, isRight, int index, int pageIndex, int length) {
+    print("Page index: $pageIndex, length : $length");
     return InkWell(
       onTap: () {
         selectedIndex = index;
@@ -171,7 +181,7 @@ class _QuizScreenState extends State<QuizScreen> {
           quizCubit.correctAnswer();
         }
         nilai = quizCubit.getNilai();
-        pageIndex != 3
+        pageIndex != length - 1
             ? Future.delayed(const Duration(seconds: 1), () {
                 _pageController.nextPage(
                     duration: const Duration(milliseconds: 900),
@@ -215,8 +225,9 @@ class _QuizScreenState extends State<QuizScreen> {
 }
 
 Future finishDialog(BuildContext context, int? nilai, int length) {
-  double percent = (nilai! * (100 / length)) / 100;
-  double percentValue = percent;
+  print("Length : $length");
+  String percent = (nilai! / (length) * 100).toStringAsFixed(2);
+  double percentValue = double.parse(percent) / 100;
   return AwesomeDialog(
     dismissOnTouchOutside: false,
     dismissOnBackKeyPress: false,
@@ -225,8 +236,8 @@ Future finishDialog(BuildContext context, int? nilai, int length) {
       child: CircularPercentIndicator(
         radius: 50.0,
         lineWidth: 8.0,
-        percent: 0.4,
-        center: Text(percentValue.toString() + "%"),
+        percent: percentValue,
+        center: Text("$percent %"),
         progressColor: Colors.green,
       ),
     ),
