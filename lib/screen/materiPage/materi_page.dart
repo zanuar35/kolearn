@@ -157,7 +157,8 @@ class _MateriPageState extends State<MateriPage> {
                     detailMateri(
                         state.materi[position].contohKata,
                         state.materi[position].descKata,
-                        state.materi[position].descGambar),
+                        state.materi[position].descGambar,
+                        state.materi[position].gambar),
                     position != length - 1
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -276,7 +277,7 @@ class _MateriPageState extends State<MateriPage> {
     );
   }
 
-  Widget detailMateri(String hangeul, descKata, descGambar) {
+  Widget detailMateri(String hangeul, descKata, descGambar, link) {
     return Container(
       width: double.infinity,
       height: 176.h,
@@ -303,9 +304,13 @@ class _MateriPageState extends State<MateriPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SvgPicture.asset(
-                "assets/eye.svg",
-                width: 40,
+              SizedBox(
+                height: 72.h,
+                width: 72.w,
+                child: SvgPicture.asset(
+                  'assets/svg/$link',
+                  width: 40,
+                ),
               ),
               Text(
                 descGambar,
